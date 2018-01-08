@@ -1,9 +1,11 @@
 using System.Runtime.Serialization;
 using HandHistories.Objects.Cards;
+using System.Diagnostics;
 
 namespace HandHistories.Objects.Actions
 {
     [DataContract]
+    [DebuggerDisplay("{ToString()}")]
     public class WinningsAction
     {
         [DataMember]
@@ -18,6 +20,8 @@ namespace HandHistories.Objects.Actions
         [DataMember]
         public int PotNumber { get; private set; }
 
+        public bool SidePot { get { return ActionType == WinningsActionType.TIES_SIDE_POT || ActionType == WinningsActionType.WINS_SIDE_POT; } }
+
         public WinningsAction(string playerName,
                               WinningsActionType actionType, 
                               decimal amount,
@@ -31,7 +35,13 @@ namespace HandHistories.Objects.Actions
 
         public override string ToString()
         {
-            return base.ToString() + "-Pot" + PotNumber;
+            string format = "{0} {1} for {2} in pot: {3}";
+
+            return string.Format(format,
+                PlayerName,
+                ActionType,
+                Amount.ToString("N2"),
+                PotNumber);
         }
 
         public override int GetHashCode()
