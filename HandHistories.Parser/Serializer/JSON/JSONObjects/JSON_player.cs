@@ -7,9 +7,10 @@ namespace HandHistories.Parser.Serializer.JSON.JSONObjects
 {
     class JSON_player
     {
-        public string name;
-        public decimal startingstack;
+        public string player;
+        public decimal startingStack;
         public int seat;
+        public string position;
         public bool sitout;
         public string cards;
     }

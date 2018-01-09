@@ -17,85 +17,89 @@ namespace HandHistories.Parser.Serializer.JSON
         {
             JSON_hand jhand = new JSON_hand();
             jhand.gameinfo = GetGameInfo(hand);
+            jhand.players = GetPlayers(hand);
+            jhand.actions = GetHandActions(hand);
+            jhand.winners = GetWinners(hand);
+            jhand.board = hand.ComumnityCards.ToString();
+            
+            return JsonConvert.SerializeObject(jhand);
+        }
 
-            //JObject JSON = new JObject();
-            //AddGameInfo(JSON, hand);
-            //AddPlayerList(JSON, hand);
-            //AddActions(JSON, hand);
-            //AddBoard(JSON, hand.ComumnityCards);
-            return JsonConvert.SerializeObject(jhand);// JSON.ToString(Formatting.Indented);
+        private List<JSON_winner> GetWinners(HandHistory hand)
+        {
+            var winners = new List<JSON_winner>();
+            foreach (var winner in hand.Winners)
+            {
+                winners.Add(new JSON_winner()
+                {
+                    actionType = winner.ActionType.ToString(),
+                    amount = winner.Amount,
+                    player = winner.PlayerName,
+                    potNumber = winner.PotNumber,
+                });
+            }
+
+            return winners;
+        }
+
+        private List<JSON_handaction> GetHandActions(HandHistory hand)
+        {
+            var actions = new List<JSON_handaction>();
+            foreach (var action in hand.HandActions)
+            {
+                actions.Add(new JSON_handaction()
+                {
+                    actionType = action.HandActionType.ToString(),
+                    allin = action.IsAllIn,
+                    amount = action.Amount,
+                    player = action.PlayerName,
+                    street = action.Street.ToString(),
+                });
+            }
+
+            return actions;
+        }
+
+        private List<JSON_player> GetPlayers(HandHistory hand)
+        {
+            var players = new List<JSON_player>();
+            foreach (var player in hand.Players)
+            {
+                players.Add(new JSON_player()
+                {
+                    player = player.PlayerName,
+                    cards = player.hasHoleCards ? player.HoleCards.ToString() : "",
+                    seat = player.SeatNumber,
+                    sitout = player.IsSittingOut,
+                    startingStack = player.StartingStack,
+                });
+            }
+
+            return players;
         }
 
         private JSON_gameinfo GetGameInfo(HandHistory hand)
         {
             return new JSON_gameinfo()
             {
+                format = hand.GameDescription.PokerFormat.ToString(),
+                site = hand.GameDescription.Site.ToString(),
+                tablename = hand.TableName,
+                gameId = hand.HandId,
+                cap = hand.GameDescription.GameType.Cap,
+                limit = hand.GameDescription.GameType.Limit.ToString(),
+                game = hand.GameDescription.GameType.Game.ToString(),
+                currency = hand.GameDescription.Limit.Currency.ToString(),
                 bigBlind = hand.GameDescription.Limit.BigBlind,
                 smallBlind = hand.GameDescription.Limit.SmallBlind,
+                ante = hand.GameDescription.Limit.Ante,
+                dealer = hand.DealerButtonPosition,
+                maxSeats = hand.GameDescription.SeatType.MaxPlayers,
+                date = GetUnixTime(hand.DateOfHandUtc),
+                totalPot = hand.TotalPot.Value,
+                rake = hand.Rake.Value,
+                hero = hand.Hero != null ? hand.Hero.PlayerName : "",
             };
-        }
-
-        private void AddBoard(JObject JSON, BoardCards communityCards)
-        {
-            JSON.Add("board", communityCards.ToString());
-        }
-
-        private void AddActions(JObject JSON, HandHistory hand)
-        {
-            var plist = hand.Players;
-            var jactions = new JObject();
-            foreach (var a in hand.HandActions)
-            {
-                var jaction = new JObject();
-                jaction.Add("seat", plist[a.PlayerName].SeatNumber);
-                jaction.Add("action", a.HandActionType.ToString());
-                jaction.Add("amount", a.Amount);
-                if (a.IsAllIn)
-                {
-                    jaction.Add("allin", a.IsAllIn);
-                }
-                jactions.Add(a.ActionNumber.ToString(), jaction);
-            }
-
-            JSON.Add("actions", jactions);
-        }
-
-        private void AddPlayerList(JObject JSON, HandHistory hand)
-        {
-            var plist = new JObject();
-            foreach (var p in hand.Players)
-            {
-                var pitem = new JObject();
-                pitem.Add("name", p.PlayerName);
-                pitem.Add("balance", p.StartingStack);
-                if (p.IsSittingOut)
-                {
-                    pitem.Add("sitout", p.IsSittingOut);
-                }
-                if (p.hasHoleCards)
-                {
-                    pitem.Add("cards", p.HoleCards.ToString());
-                }
-
-                plist.Add(p.SeatNumber.ToString(), pitem);
-            }
-            JSON.Add("players", plist);
-        }
-
-        private void AddGameInfo(JObject JSON, HandHistory hand)
-        {
-            var game = hand.GameDescription;
-            JSON.Add("site", game.Site.ToString());
-            JSON.Add("tablename", hand.TableName);
-            JSON.Add("gameId", hand.HandId);
-            JSON.Add("currency", GetJSONCurrency(game.Limit.Currency));
-            JSON.Add("game", game.GameType.Game.ToString());
-            JSON.Add("date", GetUnixTime(hand.DateOfHandUtc));
-            JSON.Add("dealer", hand.DealerButtonPosition);
-            JSON.Add("maxSeats", game.SeatType.MaxPlayers);
-            JSON.Add("bigBlind", game.Limit.BigBlind);
-            JSON.Add("smallBlind", game.Limit.SmallBlind);
-            JSON.Add("ante", game.Limit.Ante);
         }
 
         static long GetUnixTime(DateTime time)
@@ -103,25 +107,6 @@ namespace HandHistories.Parser.Serializer.JSON
             // Unix timestamp is seconds past epoch
             DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
             return (long)(time.ToUniversalTime() - dtDateTime).TotalSeconds;
-        }
-
-        private JToken GetJSONCurrency(Currency currency)
-        {
-            switch (currency)
-            {
-                case Currency.USD:
-                    return "USD";
-                case Currency.GBP:
-                    return "GBP";
-                case Currency.EURO:
-                    return "EUR";
-                case Currency.CHIPS:
-                    return "CHIPS";
-                case Currency.SEK:
-                    return "SEK";
-                default:
-                    throw new NotImplementedException("Writer Currency: " + currency);
-            }
         }
     }
 }

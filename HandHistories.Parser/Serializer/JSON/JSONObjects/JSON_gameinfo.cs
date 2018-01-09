@@ -7,16 +7,22 @@ namespace HandHistories.Parser.Serializer.JSON.JSONObjects
 {
     class JSON_gameinfo
     {
+        public string format;
         public string site;
         public string tablename;
         public long gameId;
         public string currency;
+        public bool cap;
         public string limit;
         public string game;
         public int dealer;
         public int maxSeats;
         public decimal smallBlind;
         public decimal bigBlind;
+        public decimal ante;
         public long date;
+        public decimal totalPot;
+        public decimal rake;
+        public string hero;
     }
 }
