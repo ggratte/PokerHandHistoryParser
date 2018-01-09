@@ -15,17 +15,27 @@ namespace HandHistories.Parser.Serializer.JSON
     {
         public string Serialize(HandHistory hand)
         {
+            return JsonConvert.SerializeObject(GetHand(hand));
+        }
+
+        public JObject GetJObject(HandHistory hand)
+        {
+            return JObject.FromObject(GetHand(hand));
+        }
+
+        static JSON_hand GetHand(HandHistory hand)
+        {
             JSON_hand jhand = new JSON_hand();
             jhand.gameinfo = GetGameInfo(hand);
             jhand.players = GetPlayers(hand);
             jhand.actions = GetHandActions(hand);
             jhand.winners = GetWinners(hand);
             jhand.board = hand.ComumnityCards.ToString();
-            
-            return JsonConvert.SerializeObject(jhand);
+
+            return jhand;
         }
 
-        private List<JSON_winner> GetWinners(HandHistory hand)
+        private static List<JSON_winner> GetWinners(HandHistory hand)
         {
             var winners = new List<JSON_winner>();
             foreach (var winner in hand.Winners)
@@ -42,7 +52,7 @@ namespace HandHistories.Parser.Serializer.JSON
             return winners;
         }
 
-        private List<JSON_handaction> GetHandActions(HandHistory hand)
+        private static List<JSON_handaction> GetHandActions(HandHistory hand)
         {
             var actions = new List<JSON_handaction>();
             foreach (var action in hand.HandActions)
@@ -60,7 +70,7 @@ namespace HandHistories.Parser.Serializer.JSON
             return actions;
         }
 
-        private List<JSON_player> GetPlayers(HandHistory hand)
+        private static List<JSON_player> GetPlayers(HandHistory hand)
         {
             var players = new List<JSON_player>();
             foreach (var player in hand.Players)
@@ -78,7 +88,7 @@ namespace HandHistories.Parser.Serializer.JSON
             return players;
         }
 
-        private JSON_gameinfo GetGameInfo(HandHistory hand)
+        private static JSON_gameinfo GetGameInfo(HandHistory hand)
         {
             return new JSON_gameinfo()
             {
