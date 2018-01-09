@@ -13,6 +13,8 @@ using HandHistories.Parser.Parsers.FastParser.Base;
 using HandHistories.Parser.Parsers.Exceptions;
 using HandHistories.Parser.Utils;
 using HandHistories.Parser.Parsers.Base;
+using System.IO;
+using HandHistories.Parser.Serializer.JSON;
 
 namespace HandHistories.Parser.WindowsTestApp
 {
@@ -53,6 +55,7 @@ namespace HandHistories.Parser.WindowsTestApp
             IHandHistoryParserFactory factory = new HandHistoryParserFactoryImpl();
             var handParser = factory.GetFullHandHistoryParser((SiteName) listBoxSite.SelectedItem);
             bool validate = checkBox_validateHands.Checked;
+            bool serialize = checkBox_serialize.Checked;
 
             try
             {
@@ -71,6 +74,11 @@ namespace HandHistories.Parser.WindowsTestApp
                     if (validate)
                     {
                         HandIntegrity.Assert(parsedHand);
+                    }
+                    if (serialize)
+                    {
+                        var json = new JSONHandSerializer().Serialize(parsedHand);
+                        File.AppendAllText("parsed hands.txt", json + Environment.NewLine);
                     }
                     parsedHands++;
                 }
