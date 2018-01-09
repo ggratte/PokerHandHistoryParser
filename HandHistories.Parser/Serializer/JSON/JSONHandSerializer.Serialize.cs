@@ -1,12 +1,13 @@
-﻿using HandHistories.Objects.Hand;
+﻿using HandHistories.Objects.Cards;
+using HandHistories.Objects.GameDescription;
+using HandHistories.Objects.Hand;
+using HandHistories.Parser.Serializer.JSON.JSONObjects;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using HandHistories.Objects.Cards;
-using HandHistories.Objects.GameDescription;
 
 namespace HandHistories.Parser.Serializer.JSON
 {
@@ -14,12 +15,24 @@ namespace HandHistories.Parser.Serializer.JSON
     {
         public string Serialize(HandHistory hand)
         {
-            JObject JSON = new JObject();
-            AddGameInfo(JSON, hand);
-            AddPlayerList(JSON, hand);
-            AddActions(JSON, hand);
-            AddBoard(JSON, hand.ComumnityCards);
-            return JSON.ToString(Formatting.Indented);
+            JSON_hand jhand = new JSON_hand();
+            jhand.gameinfo = GetGameInfo(hand);
+
+            //JObject JSON = new JObject();
+            //AddGameInfo(JSON, hand);
+            //AddPlayerList(JSON, hand);
+            //AddActions(JSON, hand);
+            //AddBoard(JSON, hand.ComumnityCards);
+            return JsonConvert.SerializeObject(jhand);// JSON.ToString(Formatting.Indented);
+        }
+
+        private JSON_gameinfo GetGameInfo(HandHistory hand)
+        {
+            return new JSON_gameinfo()
+            {
+                bigBlind = hand.GameDescription.Limit.BigBlind,
+                smallBlind = hand.GameDescription.Limit.SmallBlind,
+            };
         }
 
         private void AddBoard(JObject JSON, BoardCards communityCards)
@@ -76,7 +89,6 @@ namespace HandHistories.Parser.Serializer.JSON
             JSON.Add("tablename", hand.TableName);
             JSON.Add("gameId", hand.HandId);
             JSON.Add("currency", GetJSONCurrency(game.Limit.Currency));
-            JSON.Add("limit", game.GameType.Limit.ToString());
             JSON.Add("game", game.GameType.Game.ToString());
             JSON.Add("date", GetUnixTime(hand.DateOfHandUtc));
             JSON.Add("dealer", hand.DealerButtonPosition);
