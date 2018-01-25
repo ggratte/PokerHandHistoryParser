@@ -65,6 +65,7 @@ namespace HandHistories.Parser.Parsers.JSONParser.Base
             hand.TableName = ParseTableName(JSON);
             hand.Players = ParsePlayers(JSON);
             hand.HandActions = AdjustHandActions(ParseHandActions(JSON));
+            hand.Winners = ParseWinners(JSON);
             hand.GameDescription = ParseGameDescriptor(JSON);
             hand.ComumnityCards = ParseCommunityCards(JSON);
 
