@@ -1329,6 +1329,28 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
                 }
             }
 
+            //Look for mucks in summary
+            for (int i = summaryIndex; i < handLines.Length; i++)
+            {
+                string line = handLines[i];
+                if (line.EndsWithFast("]") && line.Contains(" mucked ["))
+                {
+                    int nameEndIndex = line.IndexOfFast(" mucked [");
+
+                    string playerName = line.Substring(8, nameEndIndex - 8)
+                        .Replace(" (small blind)", "")
+                        .Replace(" (big blind)", "")
+                        .Replace(" (button)", "");
+
+                    int cardsStartIndex = nameEndIndex + 9;
+                    int cardsEndIndex = line.IndexOf(']', cardsStartIndex);
+
+                    string cards = line.Substring(cardsStartIndex, cardsEndIndex - cardsStartIndex);
+
+                    playerList[playerName].HoleCards = HoleCards.FromCards(cards);
+                }
+            }
+
             return playerList;
         }
 

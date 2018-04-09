@@ -79,6 +79,27 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.Players
             TestParsePlayers("RunItTwice", expected);
         }
 
+        [Test]
+        public void ParsePlayers_MuckKnownHolecards()
+        {
+            var expected = new PlayerList(new List<Player>()
+            {
+                new Player("Player 1", 18.38m, 1),
+                new Player("MuckPlayer", 54.39m, 2)
+                {
+                    HoleCards = HoleCards.FromCards("7sKsKhQc")
+                },
+                new Player("Player 3", 23.02m, 3),
+                new Player("Player 4", 20.99m, 4),
+                new Player("HERO", 50m, 5)
+                {
+                    HoleCards = HoleCards.FromCards("8c7c9s6d")
+                },
+            });
+
+            TestParsePlayers("MucksHandKnownHolecards", expected);
+        }
+
         protected override PlayerList ExpectedNoHoleCardsPlayers
         {
             get

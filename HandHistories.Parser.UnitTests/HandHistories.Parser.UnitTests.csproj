@@ -1327,6 +1327,9 @@
     <Content Include="SampleHandHistories\PokerStars\CashGame\PlayerTests\FiveCardOmaha.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="SampleHandHistories\PokerStars\CashGame\PlayerTests\MucksHandKnownHolecards.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="SampleHandHistories\PokerStars\CashGame\PlayerTests\NoHoleCards.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
