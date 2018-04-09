@@ -1,4 +1,5 @@
 ﻿using HandHistories.Objects.Actions;
+using HandHistories.Objects.Cards;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -83,6 +84,45 @@ namespace HandHistories.Parser.Utils.RaiseAdjuster
                         }
                     }
                 }
+            }
+
+            return handActions;
+        }
+
+        /// <summary>
+        /// This is for handhistory that only print the total put in on the current street
+        /// Primarily used for IGT Parser
+        /// 
+        /// IGT require both adjustments for calls and raises
+        /// </summary>
+        /// <param name="handActions"></param>
+        /// <returns></returns>
+        public static List<HandAction> AdjustRaiseSizesAndCalls(List<HandAction> handActions)
+        {
+            Dictionary<string, decimal> putinpot = new Dictionary<string, decimal>(10);
+            Street currentStreet = Street.Null;
+
+            foreach (var action in handActions)
+            {
+                if (currentStreet != action.Street)
+                {
+                    putinpot.Clear();
+                    currentStreet = action.Street;
+                }
+
+                if (!putinpot.ContainsKey(action.PlayerName))
+                {
+                    putinpot.Add(action.PlayerName, 0);
+                }
+
+                var playerPutInPot = putinpot[action.PlayerName];
+                if (action.IsRaise || action.HandActionType == HandActionType.CALL)
+                {
+                    action.DecreaseAmount(playerPutInPot);
+                }
+                playerPutInPot += action.Absolute;
+
+                putinpot[action.PlayerName] = playerPutInPot;
             }
 
             return handActions;

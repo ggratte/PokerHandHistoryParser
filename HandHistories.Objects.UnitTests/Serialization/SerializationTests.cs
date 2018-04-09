@@ -59,7 +59,7 @@ namespace HandHistories.Objects.UnitTests.Serialization
             string serialized =
                 _serializationHandler.Serialize(_handHistory);
 
-            Assert.IsNotNullOrEmpty(serialized);
+            Assert.IsTrue(!string.IsNullOrEmpty(serialized));
         }
 
         [Test]

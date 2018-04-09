@@ -57,7 +57,7 @@ namespace HandHistories.Parser.Parsers.JSONParser.IGT
 
         protected override List<HandAction> AdjustHandActions(List<HandAction> actions)
         {
-            actions = RaiseAdjuster.AdjustRaiseSizes(actions);
+            actions = RaiseAdjuster.AdjustRaiseSizesAndCalls(actions);
             actions = UncalledBet.Fix(actions);
 
             return actions;
@@ -153,16 +153,13 @@ namespace HandHistories.Parser.Parsers.JSONParser.IGT
             return winners;
         }
 
+        //All in amount is adjusted after actions is parsed
         private HandAction ParseAllInAction(JToken action, List<HandAction> actions, Street currentStreet)
         {
             string name = action["player"].ToString();
             decimal amount = action["value"].Value<decimal>();
 
             HandActionType allInType = BossMediaAllInAdjuster.GetAllInActionType(name, amount, currentStreet, actions);
-            if (allInType == HandActionType.CALL)
-            {
-                amount = BossMediaAllInAdjuster.GetAdjustedCallAllInAmount(name, amount, currentStreet, actions);
-            }
 
             return new HandAction(name, allInType, amount, currentStreet, true);
         }

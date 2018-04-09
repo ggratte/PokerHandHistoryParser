@@ -2,6 +2,7 @@ using System.Text;
 using HandHistories.Objects.Cards;
 using HandHistories.Objects.GameDescription;
 using HandHistories.Parser.UnitTests.Utils.IO;
+using System;
 
 namespace HandHistories.Parser.UnitTests.Parsers.Base
 {
@@ -76,7 +77,8 @@ namespace HandHistories.Parser.UnitTests.Parsers.Base
 
         private string GetHandText(PokerFormat pokerFormat, SiteName siteName, string subFolderName, string textFileName)
         {
-            string subFolder = System.IO.Path.Combine(GetSampleHandHistoryFolder(pokerFormat, siteName), subFolderName);
+            string workPath = AppDomain.CurrentDomain.BaseDirectory;
+            string subFolder = System.IO.Path.Combine(workPath, GetSampleHandHistoryFolder(pokerFormat, siteName), subFolderName);
             string path = System.IO.Path.Combine(subFolder, textFileName) + ".txt";
 
             if (_fileReader.FileExists(path) == false)
