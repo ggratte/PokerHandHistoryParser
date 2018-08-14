@@ -284,6 +284,11 @@ namespace HandHistories.Parser.Parsers.FastParser.Base
                     throw new ExtraHandParsingAction(handLines[0]);
                 }
 
+                if (handHistory.Players.All(p => p.SeatNumber != handHistory.DealerButtonPosition))
+                {
+                    throw new InvalidHandException(string.Join("\r\n", handLines), "Dealer not found");
+                }
+
                 FinalizeHandHistory(handHistory);
 
                 SetActionNumbers(handHistory);

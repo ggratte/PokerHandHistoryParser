@@ -774,5 +774,19 @@ namespace HandHistories.Parser.Parsers.FastParser.OnGame
             }
             return null;
         }
+
+        protected override void FinalizeHandHistory(HandHistory Hand)
+        {
+            HashSet<string> sitInPlayers = new HashSet<string>();
+            foreach (var action in Hand.HandActions)
+            {
+                sitInPlayers.Add(action.PlayerName);
+            }
+
+            foreach (var sitout in Hand.Players.Where(p => !sitInPlayers.Contains(p.PlayerName)))
+            {
+                sitout.IsSittingOut = true;
+            }
+        }
     }
 }
