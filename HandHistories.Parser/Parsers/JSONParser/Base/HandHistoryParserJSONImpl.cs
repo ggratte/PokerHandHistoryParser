@@ -126,7 +126,7 @@ namespace HandHistories.Parser.Parsers.JSONParser.Base
 
         protected virtual List<HandAction> AdjustHandActions(List<HandAction> actions)
         {
-            return AdjustHandActions(actions);
+            return actions;
         }
 
         protected abstract PlayerList ParsePlayers(JObject JSON);

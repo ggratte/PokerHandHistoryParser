@@ -91,7 +91,7 @@ namespace HandHistories.Parser.Parsers.JSONParser.IGT
                         break;
 
                     case "ACTION_CALL":
-                        actions.Add(ParseCallAction(action, actions, currentStreet));
+                        actions.Add(ParseAmountAction(HandActionType.CALL, action, currentStreet));
                         break;
 
                     case "ACTION_BET":
@@ -154,7 +154,7 @@ namespace HandHistories.Parser.Parsers.JSONParser.IGT
         }
 
         //All in amount is adjusted after actions is parsed
-        private HandAction ParseAllInAction(JToken action, List<HandAction> actions, Street currentStreet)
+        static  HandAction ParseAllInAction(JToken action, List<HandAction> actions, Street currentStreet)
         {
             string name = action["player"].ToString();
             decimal amount = action["value"].Value<decimal>();
@@ -164,16 +164,13 @@ namespace HandHistories.Parser.Parsers.JSONParser.IGT
             return new HandAction(name, allInType, amount, currentStreet, true);
         }
 
-        static HandAction ParseCallAction(JToken action, List<HandAction> actions, Street currentStreet)
-        {
-            string name = action["player"].ToString();
-            decimal amount = action["value"].Value<decimal>();
-            decimal reduction = actions.Where(p => p.Street == currentStreet && p.PlayerName == name).Sum(p => p.Amount);
-
-            return new HandAction(name, HandActionType.CALL, amount - Math.Abs(reduction), currentStreet);
-        }
-
-
+        /// <summary>
+        /// Calls/Raises is adjusted after all actions are parsed
+        /// </summary>
+        /// <param name="handActionType"></param>
+        /// <param name="action"></param>
+        /// <param name="street"></param>
+        /// <returns></returns>
         static HandAction ParseAmountAction(HandActionType handActionType, JToken action, Street street)
         {
             string name = action["player"].ToString();
