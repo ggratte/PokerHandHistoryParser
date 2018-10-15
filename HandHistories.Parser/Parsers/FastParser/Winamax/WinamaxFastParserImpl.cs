@@ -41,6 +41,11 @@ namespace HandHistories.Parser.Parsers.FastParser.Winamax
             get { return true; }
         }
 
+        public override bool RequiresUncalledBetWinAdjustment
+        {
+            get { return true; }
+        }
+
         public override bool RequiresTotalPotAdjustment
         {
             get { return true; }

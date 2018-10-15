@@ -16,6 +16,8 @@ using System.Text.RegularExpressions;
 
 namespace HandHistories.Parser.Parsers.FastParser.Base
 {
+    //TODO: Implement AdjustHandActions like we have in the JSON parsers
+    //instead of all the bullshit with RequiresAdjustedRaiseSizes, etc.
     abstract public class HandHistoryParserFastImpl : IHandHistoryParser
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
@@ -54,6 +56,9 @@ namespace HandHistories.Parser.Parsers.FastParser.Base
             get { return false; }
         }
 
+        /// <summary>
+        /// Adjusts the WinActions to not include any uncalled bets
+        /// </summary>
         public virtual bool RequiresUncalledBetWinAdjustment
         {
             get { return false; }
@@ -68,7 +73,7 @@ namespace HandHistories.Parser.Parsers.FastParser.Base
         {
             get { return false; }
         }
-
+        
         public virtual IEnumerable<string> SplitUpMultipleHands(string rawHandHistories)
         {
             return HandSplitRegex.Split(rawHandHistories)
@@ -159,7 +164,7 @@ namespace HandHistories.Parser.Parsers.FastParser.Base
         protected virtual void FinalizeHandHistorySummary(HandHistorySummary Hand)
         {
         }
-
+        
         public HandHistory ParseFullHandHistory(string handText, bool rethrowExceptions = false)
         {
             string[] handLines;
@@ -583,6 +588,11 @@ namespace HandHistories.Parser.Parsers.FastParser.Base
                 if (RequiresAllInUpdates)
                 {
                     handActions = AllInActionHelper.UpdateAllInActions(handActions);
+                }
+
+                if (RequiresUncalledBetWinAdjustment)
+                {
+                    winners = UncalledBet.FixUncalledBetWins(handActions, winners);
                 }
 
                 return handActions;
