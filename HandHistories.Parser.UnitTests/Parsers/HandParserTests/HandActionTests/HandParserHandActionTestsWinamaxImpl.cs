@@ -150,24 +150,23 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.HandActionTests
              {
                 return new List<HandAction>()
                 {
-                     new HandAction("Witty Kitty", HandActionType.SMALL_BLIND, 10m, Street.Preflop),
-                        new HandAction("grega80", HandActionType.BIG_BLIND, 20m, Street.Preflop),
-                        new HandAction("IBANGMIDGETS", HandActionType.FOLD, 2.5m, Street.Preflop),
-                        new HandAction("Witty Kitty", HandActionType.CALL, 10, Street.Preflop),
-                        new HandAction("grega80", HandActionType.RAISE, 40m, Street.Preflop),
-                        new HandAction("Witty Kitty", HandActionType.CALL, 40m, Street.Preflop),
+                    new HandAction("Witty Kitty", HandActionType.SMALL_BLIND, 10m, Street.Preflop),
+                    new HandAction("grega80", HandActionType.BIG_BLIND, 20m, Street.Preflop),
+                    new HandAction("IBANGMIDGETS", HandActionType.FOLD, 0m, Street.Preflop),
+                    new HandAction("Witty Kitty", HandActionType.CALL, 10, Street.Preflop),
+                    new HandAction("grega80", HandActionType.RAISE, 40m, Street.Preflop),
+                    new HandAction("Witty Kitty", HandActionType.CALL, 40m, Street.Preflop),
 
-                        new HandAction("Witty Kitty", HandActionType.CHECK, 0, Street.Flop),
-                        new HandAction("grega80", HandActionType.BET, 30m, Street.Flop),
-                        new HandAction("Witty Kitty", HandActionType.FOLD, 0, Street.Flop),
-                        new HandAction("grega80", HandActionType.UNCALLED_BET, 30m, Street.Flop),
+                    new HandAction("Witty Kitty", HandActionType.CHECK, 0, Street.Flop),
+                    new HandAction("grega80", HandActionType.BET, 30m, Street.Flop),
+                    new HandAction("Witty Kitty", HandActionType.FOLD, 0, Street.Flop),
                 };
              }
          }
 
          protected override List<WinningsAction> ExpectedWinnersHandActionsUncalledBetHand
          {
-             get { throw new NotImplementedException(); }
+             get { return new List<WinningsAction>() { new WinningsAction("grega80", WinningsActionType.WINS, 147.0m, 0) }; }
          }
 
          protected override List<HandAction> ExpectedOmahaHiLoHand
