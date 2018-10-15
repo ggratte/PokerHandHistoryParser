@@ -12,5 +12,6 @@ namespace HandHistories.Parser.Serializer.JSON.JSONObjects
         public List<JSON_handaction> actions;
         public List<JSON_winner> winners;
         public string board;
+        public string raw;
     }
 }
