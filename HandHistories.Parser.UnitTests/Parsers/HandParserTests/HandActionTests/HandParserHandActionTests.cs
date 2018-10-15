@@ -92,6 +92,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.HandActionTests
             {
                 case SiteName.BossMedia:
                 case SiteName.PokerStars:
+                case SiteName.Winamax:
                     TestParseActions("UncalledBet", ExpectedHandActionsUncalledBetHand, ExpectedWinnersHandActionsUncalledBetHand);
                     return;
             }
