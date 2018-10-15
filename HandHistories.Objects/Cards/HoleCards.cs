@@ -69,20 +69,16 @@ namespace HandHistories.Objects.Cards
         }
 
         public static HoleCards FromCards(string playerName, Card[] cards)
-         {
-             switch (cards.Length)
-             {
-                 case 0:
-                     return NoHolecards(playerName);
-                 case 2:
-                     return ForHoldem(playerName, cards[0], cards[1]);
-                 case 4:
-                     return ForOmaha(playerName, cards[0], cards[1], cards[2], cards[3]);
-                 case 5:
-                     return ForOmaha5(playerName, cards[0], cards[1], cards[2], cards[3], cards[4]);
-                 default:
-                     throw new ArgumentException("Hole cards must contain atleast 0, 2, 4 or 5 cards.");
-             }
-         }        
+        {
+            if (cards.Length == 0)
+            {
+                return NoHolecards();
+            }
+            if (cards.Length > 5)
+            {
+                throw new ArgumentException("Hole cards cant contain more than 5 cards.");
+            }
+            return new HoleCards(playerName, cards);
+        }       
     }
 }

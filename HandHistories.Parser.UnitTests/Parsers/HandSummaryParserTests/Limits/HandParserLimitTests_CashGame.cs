@@ -7,21 +7,21 @@ using System.Text;
 
 namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.Limits
 {
-    [TestFixture("PartyPoker", "$0.05-$0.10", "$0.50-$1", "$5-$10")]
-    [TestFixture("OnGame", "$0.05-$0.10", "$0.50-$1", "$5-$10", "$0.25-$0.25", "$5-$5", "€5-€10")]
-    [TestFixture("OnGameIt")]
-    [TestFixture("PokerStars", "$0.05-$0.10", "$0.50-$1", "$5-$10", "$100-$200", "$200-$400", "$1-$2")]
-    [TestFixture("IPoker", "e0.05-e0.10", "£0.50-£1", "$5-$10")]
-    [TestFixture("Pacific", "$0.05-$0.10", "$0.50-$1", "$100-$200", "$5-$10", "$25-$50")]
-    [TestFixture("Merge", "$0.05-$0.10", "$0.50-$1", "$1-$2", "$5-$10", "$10-$20")]
+    [TestFixture("PartyPoker", new string[] { "$0.05-$0.10", "$0.50-$1", "$5-$10" })]
+    [TestFixture("OnGame", new string[] { "$0.05-$0.10", "$0.50-$1", "$5-$10", "$0.25-$0.25", "$5-$5", "€5-€10" })]
+    //[TestFixture("OnGameIt")]
+    [TestFixture("PokerStars", new string[] { "$0.05-$0.10", "$0.50-$1", "$5-$10", "$100-$200", "$200-$400", "$1-$2" })]
+    [TestFixture("IPoker", new string[] { "e0.05-e0.10", "£0.50-£1", "$5-$10" })]
+    [TestFixture("Pacific", new string[] { "$0.05-$0.10", "$0.50-$1", "$100-$200", "$5-$10", "$25-$50" })]
+    [TestFixture("Merge", new string[] { "$0.05-$0.10", "$0.50-$1", "$1-$2", "$5-$10", "$10-$20" })]
     // Note: Have to use e instead of € otherwise the test runner reports inconclusive. Have reported this bug.
-    [TestFixture("Entraction", "e0.02-e0.04", "e2-e4", "e25-e50", "e0.50-e1", "e15-e30")]
-    [TestFixture("FullTilt", "$0.05-$0.10", "$0.50-$1", "$5-$10", "$300-$600", "$2,000-$4,000")]
-    [TestFixture("MicroGaming", "e0.01-e0.02", "e0.50-e1", "e1-e2")]
-    [TestFixture("Winamax", "e0.05-e0.10", "e0.50-e1", "e5-e10")]
-    [TestFixture("WinningPoker", "$2-$4", "$2-$4", "$0.10-$0.25")]
-    [TestFixture("BossMedia", "$100-$200", "$5-$10", "$0.02-$0.04")]
-    [TestFixture("IGT", "SEK0.25-SEK0.50", "SEK10-SEK20")]
+    [TestFixture("Entraction", new string[] { "e0.02-e0.04", "e2-e4", "e25-e50", "e0.50-e1", "e15-e30" })]
+    [TestFixture("FullTilt", new string[] { "$0.05-$0.10", "$0.50-$1", "$5-$10", "$300-$600", "$2,000-$4,000" })]
+    [TestFixture("MicroGaming", new string[] { "e0.01-e0.02", "e0.50-e1", "e1-e2" })]
+    [TestFixture("Winamax", new string[] { "e0.05-e0.10", "e0.50-e1", "e5-e10" })]
+    [TestFixture("WinningPoker", new string[] { "$2-$4", "$2-$4", "$0.10-$0.25" })]
+    [TestFixture("BossMedia", new string[] { "$100-$200", "$5-$10", "$0.02-$0.04" })]
+    [TestFixture("IGT", new string[] { "SEK0.25-SEK0.50", "SEK10-SEK20" })]
     class HandParserLimitTests_CashGame : HandParserLimitTests
     {
         public HandParserLimitTests_CashGame(string site, params string[] expectedLimits) 

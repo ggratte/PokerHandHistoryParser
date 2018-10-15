@@ -67,9 +67,9 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.HandActionTests
                     new HandAction("HERO", HandActionType.FOLD, 0m, Street.Preflop),
                     new HandAction("PLAYER4", HandActionType.RAISE, 70m, Street.Preflop),
                     new HandAction("PLAYER5", HandActionType.RAISE, 240m, Street.Preflop),
-                    new HandAction("PLAYER1", HandActionType.CALL, 230m, Street.Preflop),
+                    new HandAction("PLAYER1", HandActionType.CALL, 220m, Street.Preflop),
                     new HandAction("PLAYER2", HandActionType.FOLD, 0, Street.Preflop),
-                    new HandAction("PLAYER4", HandActionType.CALL, 170m, Street.Preflop),
+                    new HandAction("PLAYER4", HandActionType.CALL, 100m, Street.Preflop),
 
                     new HandAction("PLAYER1", HandActionType.CHECK, 0m, Street.Flop),
                     new HandAction("PLAYER4", HandActionType.CHECK, 0m, Street.Flop),
@@ -107,8 +107,8 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.HandActionTests
                     new HandAction("PLAYER4", HandActionType.FOLD, 0m, Street.Preflop),
                     new HandAction("PLAYER5", HandActionType.RAISE, 7.25m, Street.Preflop),
                     new HandAction("PLAYER1", HandActionType.FOLD, 0, Street.Preflop),
-                    new HandAction("PLAYER2", HandActionType.CALL, 5.75m, Street.Preflop),
-                    new HandAction("HERO", HandActionType.CALL, 5.75m, Street.Preflop),
+                    new HandAction("PLAYER2", HandActionType.CALL, 4.00m, Street.Preflop),
+                    new HandAction("HERO", HandActionType.CALL, 4.00m, Street.Preflop),
 
                     new HandAction("PLAYER5", HandActionType.CHECK, 0m, Street.Flop),
                     new HandAction("PLAYER2", HandActionType.BET, 15.00m, Street.Flop),

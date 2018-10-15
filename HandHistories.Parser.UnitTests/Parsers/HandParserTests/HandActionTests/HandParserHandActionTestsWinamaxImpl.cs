@@ -148,8 +148,20 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.HandActionTests
          {
              get
              {
-                 Assert.Ignore();
-                 throw new NotImplementedException();
+                return new List<HandAction>()
+                {
+                     new HandAction("Witty Kitty", HandActionType.SMALL_BLIND, 10m, Street.Preflop),
+                        new HandAction("grega80", HandActionType.BIG_BLIND, 20m, Street.Preflop),
+                        new HandAction("IBANGMIDGETS", HandActionType.FOLD, 2.5m, Street.Preflop),
+                        new HandAction("Witty Kitty", HandActionType.CALL, 10, Street.Preflop),
+                        new HandAction("grega80", HandActionType.RAISE, 40m, Street.Preflop),
+                        new HandAction("Witty Kitty", HandActionType.CALL, 40m, Street.Preflop),
+
+                        new HandAction("Witty Kitty", HandActionType.CHECK, 0, Street.Flop),
+                        new HandAction("grega80", HandActionType.BET, 30m, Street.Flop),
+                        new HandAction("Witty Kitty", HandActionType.FOLD, 0, Street.Flop),
+                        new HandAction("grega80", HandActionType.UNCALLED_BET, 30m, Street.Flop),
+                };
              }
          }
 

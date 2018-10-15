@@ -7,7 +7,7 @@ using System.Text;
 
 namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.TournamentBuyinTests
 {
-    [TestFixture("PokerStars", "S0-S0")]
+    [TestFixture("PokerStars", new string[] { "S0-S0" })]
     class TournamentBuyinTests_MTT : TournamentBuyinTests
     {
         public TournamentBuyinTests_MTT(string site, params string[] expectedLimits)

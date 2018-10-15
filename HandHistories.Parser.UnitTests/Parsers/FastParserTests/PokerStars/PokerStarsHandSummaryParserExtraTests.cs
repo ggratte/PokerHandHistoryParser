@@ -193,7 +193,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.PokerStars
 
             HandHistory actualHand = TestFullHandHistory(expectedHand, "ShowsDownSingleCard");
 
-            Assert.IsFalse(actualHand.Players["Zaza5573"].hasHoleCards);
+            Assert.IsTrue(actualHand.Players["Zaza5573"].hasHoleCards);
         }
 
         [Test]

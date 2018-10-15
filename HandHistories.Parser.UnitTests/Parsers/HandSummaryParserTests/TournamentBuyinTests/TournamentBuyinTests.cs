@@ -10,7 +10,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.Tourname
         private readonly string[] _expectedBuyins;
         readonly PokerFormat format;
 
-        public TournamentBuyinTests(PokerFormat format, string site, params string[] expectedBuyins)
+        public TournamentBuyinTests(PokerFormat format, string site, string[] expectedBuyins)
             : base(site)
         {
             _expectedBuyins = expectedBuyins;

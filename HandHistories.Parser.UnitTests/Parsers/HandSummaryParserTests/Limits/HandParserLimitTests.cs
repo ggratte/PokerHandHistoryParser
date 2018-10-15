@@ -5,7 +5,6 @@ using System.Globalization;
 
 namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.Limits
 {
-    
     abstract class HandParserLimitTests : HandHistoryParserBaseTests
     {
         private readonly string[] _expectedLimits;

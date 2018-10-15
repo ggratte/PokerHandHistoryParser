@@ -31,11 +31,13 @@ namespace HandHistories.Parser.Parsers.Base
 
         Limit ParseLimit(string handText);
 
-        int ParseNumPlayers(string handText);        
+        int ParseNumPlayers(string handText);
 
         /// <summary>
         /// An intial bit of verification to check if the hand text
         /// is valid. For instance Party hands must contain ' wins '.
+        /// The same hand may be valid for multiple sites, 
+        /// if you need identifaction of the hand use FileIdentifier.IdentifyHand() instead
         /// </summary>
         /// <param name="handText">The entire hand text.</param>
         /// <returns>True if the hand is valid. False if not.</returns>

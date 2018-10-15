@@ -122,27 +122,5 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.IsValidH
                 factory.GetFullHandHistoryParser(SiteName.WinningPoker),
             };
         }
-
-        [Test]
-        public void IsValidHand_Unique()
-        {
-            string handText = SampleHandHistoryRepository.GetValidHandHandHistoryText(PokerFormat.CashGame, Site, true, testNumber);
-
-            var handParser = GetParser();
-            Assert.AreEqual(true, handParser.IsValidHand(handText), "IHandHistoryParser: IsValidHand");
-
-            foreach (var otherParser in GetAllParsers()
-                .Where(p => p.SiteName != handParser.SiteName))
-            {
-                try
-                {
-                    Assert.IsFalse(otherParser.IsValidHand(handText), "IHandHistoryParser: Should be invalid hand");
-                }
-                catch
-                {
-                    continue;//When the parser throws that indicates that it is an invalid hand
-                }
-            }
-        }
     }
 }
