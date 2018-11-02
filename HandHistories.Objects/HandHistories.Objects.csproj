@@ -107,6 +107,7 @@
     <Compile Include="Cards\Street.cs" />
     <Compile Include="GameDescription\TableType.cs" />
     <Compile Include="Utils\HandAction.Extensions.cs" />
+    <Compile Include="Hand\HandID.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="HandHistories.Objects.Key.snk" />

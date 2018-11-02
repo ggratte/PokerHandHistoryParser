@@ -6,11 +6,11 @@ using NUnit.Framework;
 
 namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.GeneralHandTests
 {
-    [TestFixture("Winamax", 619672044606324737, "01/07/2016 19:00:58", 1, 6, 0.0, 600.00, "GeneralHand")]
+    [TestFixture("Winamax", "619672044606324737.7.1452193258", "01/07/2016 19:00:58", 1, 6, 0.0, 600.00, "GeneralHand")]
     class HandParserGeneralHandTests_SNG : HandParserGeneralHandTests 
     {
         public HandParserGeneralHandTests_SNG(string site, 
-                                          long expectedHandId,
+                                          string expectedHandId,
                                           string expectedDateOfHand,
                                           int expectedDealerButtonPosition,
                                           int expectedNumberOfPlayers,

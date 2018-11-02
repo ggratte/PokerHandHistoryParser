@@ -1,4 +1,5 @@
-﻿using HandHistories.Objects.Actions;
+﻿using HandHistories.Objects;
+using HandHistories.Objects.Actions;
 using HandHistories.Objects.Cards;
 using HandHistories.Objects.GameDescription;
 using HandHistories.Objects.Hand;
@@ -114,7 +115,7 @@ namespace HandHistories.Parser.Parsers.FastParser.FullTiltPoker
             return PokerFormat.CashGame;
         }
 
-        protected override long ParseHandId(string[] handLines)
+        protected override long[] ParseHandId(string[] handLines)
         {
             // Full Tilt Poker Game #26862468195: Table Adornment (6 max, shallow) - $0.50/$1 - No Limit Hold'em - 16:09:19 ET - 2010/12/31
             string line = handLines[0];
@@ -123,7 +124,7 @@ namespace HandHistories.Parser.Parsers.FastParser.FullTiltPoker
             int colonIndex = line.IndexOf(':', hashIndex);
 
             string handNumber = line.Substring(hashIndex + 1, colonIndex - hashIndex - 1);
-            return long.Parse(handNumber);
+            return HandID.Parse(handNumber);
         }
 
         protected override long ParseTournamentId(string[] handLines)

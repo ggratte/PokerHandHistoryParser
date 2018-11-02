@@ -73,12 +73,12 @@ namespace HandHistories.Parser.Parsers.FastParser.Winning
             return PokerFormat.CashGame;
         }
 
-        protected override long ParseHandId(string[] handLines)
+        protected override long[] ParseHandId(string[] handLines)
         {
             //Game ID: 261402571 2/4 Braunite (Omaha)
             int endIndex = handLines[1].IndexOf(' ', GameIDStartIndex);
-            long handId = long.Parse(handLines[1].Substring(GameIDStartIndex, endIndex - GameIDStartIndex));
-            return handId;
+            var handId = handLines[1].Substring(GameIDStartIndex, endIndex - GameIDStartIndex);
+            return HandID.Parse(handId);
         }
 
         protected override long ParseTournamentId(string[] handLines)

@@ -11,7 +11,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.GeneralH
     abstract class HandParserGeneralHandTests : HandHistoryParserBaseTests 
     {
         private readonly PokerFormat _format;
-        private readonly long _expectedHandId;
+        private readonly string _expectedHandId;
         private readonly int _expectedDealerButtonPosition;
         private readonly int _expectedNumberOfPlayers;
         private readonly string _handFile;
@@ -22,7 +22,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.GeneralH
 
         protected HandParserGeneralHandTests(PokerFormat format,
                                           string site, 
-                                          long expectedHandId,
+                                          string expectedHandId,
                                           string expectedDateOfHand,
                                           int expectedDealerButtonPosition,
                                           int expectedNumberOfPlayers,
@@ -54,8 +54,8 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.GeneralH
         [Test]
         public void ParseHandId_Works()
         {            
-            Assert.AreEqual(_expectedHandId, GetSummmaryParser().ParseHandId(_handText), "IHandHistorySummaryParser: ParseHandId");
-            Assert.AreEqual(_expectedHandId, GetParser().ParseHandId(_handText), "IHandHistoryParser: ParseHandId");
+            Assert.AreEqual(_expectedHandId, HandID.GetString(GetSummmaryParser().ParseHandId(_handText)), "IHandHistorySummaryParser: ParseHandId");
+            Assert.AreEqual(_expectedHandId, HandID.GetString(GetParser().ParseHandId(_handText)), "IHandHistoryParser: ParseHandId");
         }
 
         [Test]

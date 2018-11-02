@@ -128,7 +128,7 @@ namespace HandHistories.Parser.Parsers.FastParser.Winamax
             return PokerFormat.CashGame;
         }
 
-        protected override long ParseHandId(string[] handLines)
+        protected override long[] ParseHandId(string[] handLines)
         {
             // Line 1 is:
             // Winamax Poker - CashGame - HandId: #5276724-697-1382607755 - Holdem no limit (10€/20€) - 2013/10/24 09:42:35 UTC
@@ -137,11 +137,11 @@ namespace HandHistories.Parser.Parsers.FastParser.Winamax
             // with regards to our standards for other sites we use Table-Hand as HandID
 
             int indexOfHandIdStart = handLines[0].IndexOf('#') + 1;
-            int indexOfHandIdEnd = handLines[0].IndexOf('-', indexOfHandIdStart+9); // this makes sure to skip the first appearance of '-'
+            int indexOfHandIdEnd = handLines[0].IndexOf(" - ", indexOfHandIdStart+9); // this makes sure to skip the first appearance of '-'
 
             string handNumber = handLines[0].Substring(indexOfHandIdStart, indexOfHandIdEnd - indexOfHandIdStart);
 
-            return long.Parse(handNumber.Replace("-", ""));
+            return HandID.Parse(handNumber,'-');
         }
 
         protected override long ParseTournamentId(string[] handLines)

@@ -393,16 +393,13 @@ namespace HandHistories.Parser.Parsers.JSONParser.IGT
             return time;
         }
 
-        protected override long ParseHandId(JObject JSON)
+        protected override long[] ParseHandId(JObject JSON)
         {
             var hand = JSON["history"][0];
             var handIDString = hand["handId"].ToString();
 
             var items = handIDString.Split(new string[] { ".hand." }, StringSplitOptions.None);
-            var tableID = long.Parse(items[0]) * 100000;
-            var handID = long.Parse(items[1]);
-
-            return tableID + handID;
+            return HandID.Parse(items);
         }
 
         protected override string ParseTableName(JObject JSON)

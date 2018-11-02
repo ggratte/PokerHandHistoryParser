@@ -16,6 +16,7 @@ using HandHistories.Parser.Utils.AllInAction;
 using HandHistories.Parser.Utils.FastParsing;
 using HandHistories.Parser.Utils.Extensions;
 using System.Net;
+using HandHistories.Objects.Hand;
 
 namespace HandHistories.Parser.Parsers.FastParser.BossMedia
 {
@@ -132,11 +133,11 @@ namespace HandHistories.Parser.Parsers.FastParser.BossMedia
 
         }
 
-        protected override long ParseHandId(string[] handLines)
+        protected override long[] ParseHandId(string[] handLines)
         {
             string ID = GetXMLAttributeValue(handLines[0], "ID");
 
-            return long.Parse(ID);
+            return HandID.Parse(ID);
         }
 
         protected override long ParseTournamentId(string[] handLines)

@@ -1,4 +1,5 @@
-﻿using HandHistories.Objects.Actions;
+﻿using HandHistories.Objects;
+using HandHistories.Objects.Actions;
 using HandHistories.Objects.Cards;
 using HandHistories.Objects.GameDescription;
 using HandHistories.Objects.Hand;
@@ -225,14 +226,14 @@ namespace HandHistories.Parser.Parsers.FastParser.IPoker
 
         // For now (4/17/2012) only need Game # in Miner and using Regexes. Will convert to faster mechanism soon.
         private static readonly Regex HandIdRegex = new Regex("(?<=gamecode=\")\\d+", RegexOptions.Compiled);
-        protected override long ParseHandId(string[] handLines)
+        protected override long[] ParseHandId(string[] handLines)
         {
             foreach (var handLine in handLines)
             {
                 var match = HandIdRegex.Match(handLine);
                 if (match.Success)
                 {
-                    return long.Parse(match.Value.Replace("-", ""));
+                    return HandID.Parse(match.Value.Replace("-", ""));
                 }
             }
 

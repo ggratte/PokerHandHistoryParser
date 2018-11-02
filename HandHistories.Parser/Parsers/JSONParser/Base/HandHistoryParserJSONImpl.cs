@@ -157,9 +157,9 @@ namespace HandHistories.Parser.Parsers.JSONParser.Base
             return ParseDateUtc(GetJSONObject(handText));
         }
 
-        protected abstract long ParseHandId(JObject JSON);
+        protected abstract long[] ParseHandId(JObject JSON);
 
-        public long ParseHandId(string handText)
+        public long[] ParseHandId(string handText)
         {
             return ParseHandId(GetJSONObject(handText));
         }

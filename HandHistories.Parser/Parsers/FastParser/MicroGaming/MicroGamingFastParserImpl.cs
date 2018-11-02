@@ -131,13 +131,11 @@ namespace HandHistories.Parser.Parsers.FastParser.MicroGaming
             }
         }
 
-        protected override long ParseHandId(string[] handLines)
+        protected override long[] ParseHandId(string[] handLines)
         {
             string handIdLine = handLines[0];
-
-            long handId = long.Parse(GetAttribute(handIdLine, " id=\""));
-
-            return handId;
+            
+            return HandID.Parse(GetAttribute(handIdLine, " id=\""));
         }
 
         protected override long ParseTournamentId(string[] handLines)

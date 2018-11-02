@@ -212,7 +212,7 @@ namespace HandHistories.Parser.Parsers.FastParser.PartyPoker
             return PokerFormat.CashGame;
         }
 
-        protected override long ParseHandId(string[] handLines)
+        protected override long[] ParseHandId(string[] handLines)
         {
             // Expect the first line to look like this: 
             // "***** Hand History for Game 13550493674 *****"
@@ -222,7 +222,7 @@ namespace HandHistories.Parser.Parsers.FastParser.PartyPoker
             int lastDigitIndex = line.IndexOf(' ', firstDigitIndex);
 
             string handId = handLines[0].Substring(firstDigitIndex, lastDigitIndex - firstDigitIndex);
-            return long.Parse(handId);
+            return HandID.Parse(handId);
         }
 
         protected override string ParseTableName(string[] handLines)

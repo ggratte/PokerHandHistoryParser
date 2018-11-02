@@ -42,7 +42,7 @@ namespace HandHistories.Objects.UnitTests.Serialization
                                                      {
                                                          new HandAction("Player1", HandActionType.POSTS, 0.25m, Street.Preflop)
                                                      },
-                                   HandId = 141234124,
+                                   HandId = HandID.From(141234124),
                                    NumPlayersSeated = 2,
                                    Players = new PlayerList()
                                                  {

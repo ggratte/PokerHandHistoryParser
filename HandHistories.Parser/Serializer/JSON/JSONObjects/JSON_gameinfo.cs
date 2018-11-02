@@ -10,7 +10,7 @@ namespace HandHistories.Parser.Serializer.JSON.JSONObjects
         public string format;
         public string site;
         public string tablename;
-        public long gameId;
+        public string gameId;
         public string currency;
         public bool cap;
         public string limit;

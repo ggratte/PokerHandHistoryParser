@@ -11,6 +11,7 @@ using HandHistories.Parser.Parsers.Exceptions;
 using HandHistories.Parser.Parsers.FastParser.Base;
 using HandHistories.Parser.Utils.Time;
 using HandHistories.Parser.Utils.Extensions;
+using HandHistories.Objects.Hand;
 
 namespace HandHistories.Parser.Parsers.FastParser.Entraction
 {
@@ -78,9 +79,9 @@ namespace HandHistories.Parser.Parsers.FastParser.Entraction
         }
 
         private static readonly Regex HandIdRegex = new Regex(@"(?<=Game # )\d+", RegexOptions.Compiled);
-        protected override long ParseHandId(string[] handLines)
+        protected override long[] ParseHandId(string[] handLines)
         {
-            return long.Parse(HandIdRegex.Match(handLines[0]).Value);
+            return HandID.Parse(HandIdRegex.Match(handLines[0]).Value);
         }
 
         protected override long ParseTournamentId(string[] handLines)

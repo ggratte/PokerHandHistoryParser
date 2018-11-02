@@ -13,6 +13,7 @@ using HandHistories.Objects.Players;
 using HandHistories.Parser.Parsers.Exceptions;
 using HandHistories.Parser.Parsers.FastParser.Base;
 using HandHistories.Parser.Utils.Extensions;
+using HandHistories.Objects.Hand;
 
 namespace HandHistories.Parser.Parsers.FastParser.Merge
 {
@@ -143,14 +144,14 @@ namespace HandHistories.Parser.Parsers.FastParser.Merge
 
         // For now (4/17/2012) only need Game # in Miner and using Regexes. Will convert to faster mechanism soon.
         private static Regex HandIdRegex = new Regex("(?<=game id=\")[0-9]+[-][0-9]+", RegexOptions.Compiled);
-        protected override long ParseHandId(string[] handLines)
+        protected override long[] ParseHandId(string[] handLines)
         {
             foreach (var handLine in handLines)
             {
                 var match = HandIdRegex.Match(handLine);
                 if (match.Success)
                 {
-                    return long.Parse(match.Value.Replace("-", ""));
+                    return HandID.Parse(match.Value,'-');
                 }
             }
 

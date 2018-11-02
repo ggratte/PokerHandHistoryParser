@@ -96,7 +96,7 @@ namespace HandHistories.Parser.Serializer.JSON
                 format = hand.GameDescription.PokerFormat.ToString(),
                 site = hand.GameDescription.Site.ToString(),
                 tablename = hand.TableName,
-                gameId = hand.HandId,
+                gameId = hand.HandIdString,
                 cap = hand.GameDescription.GameType.Cap,
                 limit = hand.GameDescription.GameType.Limit.ToString(),
                 game = hand.GameDescription.GameType.Game.ToString(),

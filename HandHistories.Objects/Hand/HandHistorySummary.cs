@@ -16,7 +16,15 @@ namespace HandHistories.Objects.Hand
 
         public DateTime DateOfHandUtc { get; set; }
 
-        public long HandId { get; set; }
+        /// <summary>
+        /// Does not necessarily use the same separator as the site does
+        /// </summary>
+        public string HandIdString { get { return HandID.GetString(HandId); } }
+
+        /// <summary>
+        /// Hand id is represented as a long array because sites such as ongame, merge etc. have seperated ids for tableid and handid.
+        /// </summary>
+        public long[] HandId { get; set; }
 
         /// <summary>
         /// Dealers seat.

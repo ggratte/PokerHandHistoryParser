@@ -17,7 +17,7 @@ namespace HandHistories.Parser.Parsers.Base
         
         DateTime ParseDateUtc(string handText);
 
-        long ParseHandId(string handText);
+        long[] ParseHandId(string handText);
 
         string ParseTableName(string handText);
 

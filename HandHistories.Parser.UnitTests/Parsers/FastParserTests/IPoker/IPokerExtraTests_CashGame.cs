@@ -32,7 +32,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.IPoker
                 },
                 DateOfHandUtc = new DateTime(2014, 1, 1, 22, 50, 13),
                 DealerButtonPosition = 1,
-                HandId = 987654,
+                HandId = HandID.From(987654),
                 NumPlayersSeated = 5,
                 TableName = "Andreapol__No_DP_"
             };

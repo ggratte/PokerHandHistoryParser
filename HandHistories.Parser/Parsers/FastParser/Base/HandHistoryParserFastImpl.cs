@@ -366,7 +366,7 @@ namespace HandHistories.Parser.Parsers.FastParser.Base
 
         protected abstract DateTime ParseDateUtc(string[] handLines);
 
-        public long ParseHandId(string handText)
+        public long[] ParseHandId(string handText)
         {
             try
             {
@@ -378,7 +378,7 @@ namespace HandHistories.Parser.Parsers.FastParser.Base
             }
         }
 
-        protected abstract long ParseHandId(string[] handLines);
+        protected abstract long[] ParseHandId(string[] handLines);
 
         public long ParseTournamentId(string handText)
         {

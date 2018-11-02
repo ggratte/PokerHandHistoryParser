@@ -1,4 +1,5 @@
 ﻿using HandHistories.Objects.GameDescription;
+using HandHistories.Objects.Hand;
 using HandHistories.Parser.UnitTests.Parsers.Base;
 using NUnit.Framework;
 using System;
@@ -11,13 +12,13 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.PokerFor
     abstract class HandParserPokerFormatTests : HandHistoryParserBaseTests 
     {
         private readonly PokerFormat _format;
-        private readonly long _expectedHandId;
+        private readonly string _expectedHandId;
         private readonly string _handFile;
         private readonly string _handText;
 
         public HandParserPokerFormatTests(PokerFormat format,
-                                          string site, 
-                                          long expectedHandId,
+                                          string site,
+                                          string expectedHandId,
                                           string handFile)
             : base(site)
         {
@@ -38,8 +39,8 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.PokerFor
         [Test]
         public void ParseHandId_Works()
         {
-            Assert.AreEqual(_expectedHandId, GetSummmaryParser().ParseHandId(_handText), "IHandHistorySummaryParser: ParseHandId");
-            Assert.AreEqual(_expectedHandId, GetParser().ParseHandId(_handText), "IHandHistoryParser: ParseHandId");
+            Assert.AreEqual(_expectedHandId, HandID.GetString(GetSummmaryParser().ParseHandId(_handText)), "IHandHistorySummaryParser: ParseHandId");
+            Assert.AreEqual(_expectedHandId, HandID.GetString(GetParser().ParseHandId(_handText)), "IHandHistoryParser: ParseHandId");
         }
 
         [Test]

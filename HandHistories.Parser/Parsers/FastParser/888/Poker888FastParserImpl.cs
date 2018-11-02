@@ -13,6 +13,7 @@ using HandHistories.Parser.Utils.Time;
 using HandHistories.Parser.Utils.Extensions;
 using HandHistories.Parser.Utils.Uncalled;
 using HandHistories.Parser.Utils.FastParsing;
+using HandHistories.Objects.Hand;
 
 namespace HandHistories.Parser.Parsers.FastParser._888
 {
@@ -85,15 +86,16 @@ namespace HandHistories.Parser.Parsers.FastParser._888
             return PokerFormat.CashGame;
         }
 
-        protected override long ParseHandId(string[] handLines)
+        protected override long[] ParseHandId(string[] handLines)
         {
+            //***** 888poker Hand History for Game 349736402 *****
             int start = GetHandStartIndex(handLines);
             string line = handLines[start];
             int endIndex = line.LastIndexOf(' ');
             int startIndex = line.LastIndexOf(' ', endIndex - 1);
 
             string idString = line.Substring(startIndex, endIndex - startIndex);
-            return long.Parse(idString);
+            return HandID.Parse(idString);
         }
 
         protected override long ParseTournamentId(string[] handLines)

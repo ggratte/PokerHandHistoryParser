@@ -206,7 +206,7 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
             return PokerFormat.CashGame;
         }
 
-        protected override long ParseHandId(string[] handLines)
+        protected override long[] ParseHandId(string[] handLines)
         {
             // Expect the first line to look like this: 
             //   PokerStars Hand #78453197174:  Hold'em No Limit ($0.08/$0.16 USD) - 2012/04/06 20:56:40 ET
@@ -247,7 +247,7 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
             int lastDigitIndex = line.IndexOf(':');
 
             string handId = line.Substring(firstDigitIndex, lastDigitIndex - firstDigitIndex);
-            return long.Parse(handId);
+            return HandID.Parse(handId);
         }
 
         protected override long ParseTournamentId(string[] handLines)

@@ -76,7 +76,7 @@ namespace HandHistories.Parser.Serializer.JSON
             hand.TableName = info.tablename;
             hand.DateOfHandUtc = GetFromUnixTime(info.date);
             hand.DealerButtonPosition = info.dealer;
-            hand.HandId = info.gameId;
+            hand.HandId = HandID.Parse(info.gameId, '.');
             hand.TotalPot = info.totalPot;
             hand.Rake = info.rake;
         }

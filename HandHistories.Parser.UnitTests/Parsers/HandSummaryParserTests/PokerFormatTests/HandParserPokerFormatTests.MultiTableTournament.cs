@@ -18,14 +18,14 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.PokerFor
     //[TestFixture("Pacific", 349736402, "GeneralHand")]
     //[TestFixture("Entraction", 2645975604, "GeneralHand")]
     //[TestFixture("FullTilt", 33728803548, "GeneralHand")]
-    [TestFixture("MicroGaming", 5835000000, "GeneralHand")]
+    [TestFixture("MicroGaming", "5835000000", "GeneralHand")]
     //[TestFixture("Winamax", 5281577471, "GeneralHand")]
     //[TestFixture("WinningPoker", 261641541, "GeneralHand")]
-    [TestFixture("BossMedia", 12341234123L, "GeneralHand")]
+    [TestFixture("BossMedia", "12341234123", "GeneralHand")]
     class HandParserPokerFormatTests_MTT : HandParserPokerFormatTests
     {
         public HandParserPokerFormatTests_MTT(string site, 
-                                          long expectedHandId,
+                                          string expectedHandId,
                                           string handFile)
             : base(PokerFormat.MultiTableTournament, site, expectedHandId, handFile)
         {

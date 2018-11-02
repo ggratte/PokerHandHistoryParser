@@ -181,7 +181,7 @@ namespace HandHistories.Parser.Parsers.FastParser.OnGame
             }
         }
 
-        protected override long ParseHandId(string[] handLines)
+        protected override long[] ParseHandId(string[] handLines)
         {
             string line = handLines[0];
             // 1st line is:
@@ -193,7 +193,7 @@ namespace HandHistories.Parser.Parsers.FastParser.OnGame
 
             string handNumber = line.Substring(startIndex, endIndex - startIndex);
 
-            return long.Parse(handNumber.Replace("-", ""));
+            return HandID.Parse(handNumber, '-');
         }
 
         protected override long ParseTournamentId(string[] handLines)
