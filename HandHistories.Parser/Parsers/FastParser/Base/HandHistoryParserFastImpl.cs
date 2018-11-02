@@ -201,6 +201,7 @@ namespace HandHistories.Parser.Parsers.FastParser.Base
                 HandHistory handHistory = new HandHistory();
 
                 handHistory.FullHandHistoryLines = handLines;
+                handHistory.FullHandHistoryText = string.Join("\r\n", handLines);
                 handHistory.DateOfHandUtc = ParseDateUtc(handLines);
                 handHistory.GameDescription = ParseGameDescriptor(handLines);
                 handHistory.HandId = ParseHandId(handLines);

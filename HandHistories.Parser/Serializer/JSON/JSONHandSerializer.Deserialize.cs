@@ -29,6 +29,7 @@ namespace HandHistories.Parser.Serializer.JSON
 
         private void ReadWinner(HandHistory hand, List<JSON_winner> winners)
         {
+            hand.Winners = new List<WinningsAction>();
             foreach (var winner in winners)
             {
                 var actionType = ParseEnum<WinningsActionType>(winner.actionType);
@@ -38,6 +39,7 @@ namespace HandHistories.Parser.Serializer.JSON
 
         private void ReadActions(HandHistory hand, List<JSON_handaction> actions)
         {
+            hand.HandActions = new List<HandAction>();
             foreach (var action in actions)
             {
                 var actionType = ParseEnum<HandActionType>(action.actionType);
@@ -48,6 +50,7 @@ namespace HandHistories.Parser.Serializer.JSON
 
         private void ReadPlayers(HandHistory hand, List<JSON_player> players)
         {
+            hand.Players = new PlayerList();
             foreach (var player in players)
             {
                 hand.Players.Add(new Player(player.player, player.startingStack, player.seat)
@@ -61,7 +64,7 @@ namespace HandHistories.Parser.Serializer.JSON
         private void ReadGameInfo(HandHistory hand, JSON_gameinfo info)
         {
             var game = ParseEnum<GameEnum>(info.game);
-            var limit = ParseEnum<GameLimitEnum>(info.game);
+            var limit = ParseEnum<GameLimitEnum>(info.limit);
             hand.GameDescription.GameType = new GameType(limit, game, info.cap);
 
             var currency = ParseEnum<Currency>(info.currency);
