@@ -163,7 +163,7 @@ namespace HandHistories.Parser.Parsers.FastParser.PartyPoker
 
         static DateTime ConvertHandDateToUtc(DateTime handDate, TimeZoneInfo timezone)
         {
-            DateTime converted = TimeZoneInfo.ConvertTimeToUtc(handDate, timezone); // TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"));
+            DateTime converted = TimeZoneInfo.ConvertTimeToUtc(handDate, timezone);
 
             return DateTime.SpecifyKind(converted, DateTimeKind.Utc);
         }
