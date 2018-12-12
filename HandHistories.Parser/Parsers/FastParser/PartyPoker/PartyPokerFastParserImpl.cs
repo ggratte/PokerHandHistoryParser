@@ -26,7 +26,15 @@ namespace HandHistories.Parser.Parsers.FastParser.PartyPoker
                 CurrencyDecimalSeparator = ".",
                 CurrencyGroupSeparator = ",",
             };
+
         private readonly Currency _currency;
+
+        static readonly Dictionary<string, TimeZoneInfo> PPTimezones = new Dictionary<string, TimeZoneInfo>()
+        {
+            { "CET", TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time")},
+            { "EST", TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time") },
+            { "EDT", TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time") },
+        };
 
         public override SiteName SiteName
         {
@@ -141,21 +149,21 @@ namespace HandHistories.Parser.Parsers.FastParser.PartyPoker
             int timeEndIndex = line.IndexOf(' ', timeStartIndex);
             string timeStr = line.Substring(timeStartIndex, timeEndIndex - timeStartIndex);
             
-
             int yearIndex = line.LastIndexOf(' ');
             string Year = line.Substring(yearIndex);
             int year = int.Parse(Year);
 
-            
+            string timezone = line.Substring(timeEndIndex + 1, 3);
+
             TimeSpan time = TimeSpan.Parse(timeStr, CultureInfo.InvariantCulture);
 
             DateTime result = new DateTime(year, GetMonthNumber(month), day, time.Hours, time.Minutes, time.Seconds);
-            return ConvertHandDateToUtc(result);
+            return ConvertHandDateToUtc(result, PPTimezones[timezone]);
         }
 
-        static DateTime ConvertHandDateToUtc(DateTime handDate)
+        static DateTime ConvertHandDateToUtc(DateTime handDate, TimeZoneInfo timezone)
         {
-            DateTime converted = TimeZoneInfo.ConvertTimeToUtc(handDate, TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"));
+            DateTime converted = TimeZoneInfo.ConvertTimeToUtc(handDate, timezone); // TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time"));
 
             return DateTime.SpecifyKind(converted, DateTimeKind.Utc);
         }
