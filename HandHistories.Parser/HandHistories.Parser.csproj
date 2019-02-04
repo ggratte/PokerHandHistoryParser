@@ -111,6 +111,8 @@
     <Compile Include="Parsers\FastParser\Winamax\WinamaxFastParserImpl.cs" />
     <Compile Include="Parsers\FastParser\Winning\WinningPokerNetworkFastParserImpl.cs" />
     <Compile Include="Parsers\JSONParser\Base\HandHistoryParserJSONImpl.cs" />
+    <Compile Include="Parsers\JSONParser\IGT\IGT2018.cs" />
+    <Compile Include="Parsers\JSONParser\IGT\IGT2019.cs" />
     <Compile Include="Parsers\JSONParser\IGT\IGTJSONParserImpl.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serializer\JSON\JSONHandSerializer.Deserialize.cs" />
@@ -124,6 +126,7 @@
     <Compile Include="Utils\Extensions\LazyStringSplitExtension.cs" />
     <Compile Include="Utils\FastParsing\FastInt.cs" />
     <Compile Include="Utils\RaiseAdjuster\RaiseAdjuster.cs" />
+    <Compile Include="Utils\Time\UnixTimestamp.cs" />
     <Compile Include="Utils\ValidityCheck\HandIntegrityException.cs" />
     <Compile Include="Utils\ValidityCheck\HandValidator.cs" />
     <Compile Include="Utils\Pot\PotCalculator.cs" />

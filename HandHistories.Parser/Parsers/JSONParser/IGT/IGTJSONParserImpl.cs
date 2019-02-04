@@ -28,28 +28,13 @@ namespace HandHistories.Parser.Parsers.JSONParser.IGT
             get { return SiteName.IGT; }
         }
 
-        protected override void FinalizeHandHistory(HandHistory hand)
-        {
-            
-            //hand.TotalPot
-            //hand.TotalPot = PotCalculator.CalculateTotalPot(hand);
-            //hand.Rake = PotCalculator.CalculateRake(hand);
-            //hand.HandActions = UncalledBet.FixUncalledBetWins(hand.HandActions);
-        }
-
         protected override void ParseExtraHandInformation(JObject JSON, HandHistorySummary summary)
         {
             var handJSON = JSON["history"][0];
             var showdownJSON = handJSON["showDown"];
 
             var totalpot = showdownJSON["pot"].Value<decimal>();
-            var rakeJSON = showdownJSON["rake"];
-
-            var rake = 0m;
-            if (rakeJSON != null)
-            {
-                rake = showdownJSON["rake"].Value<decimal>();
-            }
+            var rake = showdownJSON["rake"]?.Value<decimal>() ?? 0m;
 
             summary.TotalPot = totalpot + rake;
             summary.Rake = rake;
@@ -196,14 +181,9 @@ namespace HandHistories.Parser.Parsers.JSONParser.IGT
         {
             switch (blindType)
             {
-                case "HAND_SB":
-                    return HandActionType.SMALL_BLIND;
-
-                case "HAND_BB":
-                    return HandActionType.BIG_BLIND;
-
-                case "HAND_DSB":
-                    return HandActionType.POSTS_DEAD;
+                case "HAND_SB": return HandActionType.SMALL_BLIND;
+                case "HAND_BB": return HandActionType.BIG_BLIND;
+                case "HAND_DSB": return HandActionType.POSTS_DEAD;
 
                 default:
                     throw new ArgumentException("Unhandled Blind Type");
@@ -386,11 +366,7 @@ namespace HandHistories.Parser.Parsers.JSONParser.IGT
             //POSIX Time:
             //http://en.wikipedia.org/wiki/Unix_time
             long ticks = hand["date"].Value<long>();
-
-            DateTime POSIX_EPOCH = new DateTime(1970, 01, 01, 0, 0, 0, DateTimeKind.Utc);
-            DateTime time = POSIX_EPOCH + TimeSpan.FromSeconds(ticks / 1000);
-
-            return time;
+            return Utils.Time.UnixTimestamp.FromUnixtimestamp(ticks / 1000);
         }
 
         protected override long[] ParseHandId(JObject JSON)
@@ -428,14 +404,9 @@ namespace HandHistories.Parser.Parsers.JSONParser.IGT
             string game = JSON.ToString();
             switch (game)
             {
-                case "OMAHAHILO":
-                    return GameEnum.OmahaHiLo;
-
-                case "OMAHA":
-                    return GameEnum.Omaha;
-
-                case "TEXASHOLDEM":
-                    return GameEnum.Holdem;
+                case "OMAHAHILO": return GameEnum.OmahaHiLo;
+                case "OMAHA": return GameEnum.Omaha;
+                case "TEXASHOLDEM": return GameEnum.Holdem;
 
                 default:
                     throw new ArgumentException("Unhandled Game: " + game);
@@ -447,14 +418,9 @@ namespace HandHistories.Parser.Parsers.JSONParser.IGT
             string limit = JSON.ToString();
             switch (limit)
             {
-                case "Fixed Limit":
-                    return GameLimitEnum.FixedLimit;
-
-                case "Pot Limit":
-                    return GameLimitEnum.PotLimit;
-
-                case "No Limit":
-                    return GameLimitEnum.NoLimit;
+                case "Fixed Limit": return GameLimitEnum.FixedLimit;
+                case "Pot Limit": return GameLimitEnum.PotLimit;
+                case "No Limit": return GameLimitEnum.NoLimit;
 
                 default:
                     throw new ArgumentException("Unhandled Limit: " + limit);
@@ -469,33 +435,16 @@ namespace HandHistories.Parser.Parsers.JSONParser.IGT
         protected override Limit ParseLimit(JObject JSON)
         {
             var hand = JSON["history"][0];
-            var limit = hand["stake"].ToString();
-
-            var items = limit.Split('/');
-            var SB = items[0].ParseAmount();
-            var BB = items[1].ParseAmount();
-            return Limit.FromSmallBlindBigBlind(SB, BB, ParserCurrency(hand));
-        }
-
-        static Currency ParserCurrency(JToken hand)
-        {
-            string currency = hand["tableCurrency"].ToString();
-            switch (currency)
+            if (hand["stake"] != null)
             {
-                case "SEK":
-                    return Currency.SEK;
-
-                case "USD":
-                    return Currency.USD;
-
-                case "EUR":
-                    return Currency.EURO;
-
-                default:
-                    throw new ArgumentException("Unhandled Currrency: " + currency);
+                return IGT2018.ParseLimit(hand);
+            }
+            else
+            {
+                return IGT2019.ParseLimit(hand);
             }
         }
-
+        
         protected override int ParseNumPlayers(JObject JSON)
         {
             return ParsePlayers(JSON).Count;
@@ -508,11 +457,8 @@ namespace HandHistories.Parser.Parsers.JSONParser.IGT
 
             switch (format)
             {
-                case "GAMEKIND_CASH":
-                    return PokerFormat.CashGame;
-
-                case "GAMEKIND_TOURNAMENT":
-                    return PokerFormat.MultiTableTournament;
+                case "GAMEKIND_CASH": return PokerFormat.CashGame;
+                case "GAMEKIND_TOURNAMENT": return PokerFormat.MultiTableTournament;
 
                 default:
                     throw new NotImplementedException("PokerFormat: " + format);

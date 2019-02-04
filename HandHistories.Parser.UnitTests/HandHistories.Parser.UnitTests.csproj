@@ -154,6 +154,7 @@
     <Compile Include="Parsers\HandSummaryParserTests\TournamentBuyinTests\TournamentBuyinTests.cs" />
     <Compile Include="Parsers\HandSummaryParserTests\TournamentBuyinTests\TournamentBuyinTests_MTT.cs" />
     <Compile Include="Parsers\HandSummaryParserTests\TournamentBuyinTests\TournamentBuyinTests_SnG.cs" />
+    <Compile Include="Parsers\JSONParserTests\IGT\IGTJSONParserExtraTests.cs" />
     <Compile Include="Parsers\PerformanceTests\HandParserPerformanceTests.cs" />
     <Compile Include="Parsers\ThreeStateParserTests\ThreeStateParserTests.cs" />
     <Compile Include="Parsers\ThreeStateParserTests\ThreeStateParserTestsFullTilt.cs" />
@@ -404,6 +405,9 @@
     </Content>
     <Content Include="SampleHandHistories\FullTilt\CashGame\ValidHandTests\ValidHand_1.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SampleHandHistories\IGT\CashGame\ExtraHands\IGT2019Hand.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SampleHandHistories\IGT\CashGame\GameTypeTests\FixedLimitHoldem.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
