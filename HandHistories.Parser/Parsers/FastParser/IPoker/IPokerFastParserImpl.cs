@@ -273,7 +273,7 @@ namespace HandHistories.Parser.Parsers.FastParser.IPoker
             return SeatType.FromMaxPlayers(10);   
         }
 
-        protected string GetGameTypeLineFromHandLines(string[] handLines)
+        string GetGameTypeLineFromHandLines(string[] handLines)
         {
             //With the new format the gametype isnt neccesaryily on the same line
             //The old format is on line with index 3
@@ -290,7 +290,7 @@ namespace HandHistories.Parser.Parsers.FastParser.IPoker
             throw new ArgumentOutOfRangeException("GameType line not found");
         }
 
-        protected string GetTableNameLineFromHandLines(string[] handLines)
+        string GetTableNameLineFromHandLines(string[] handLines)
         {
             //With the new format the TableName isnt neccesaryily on the same line
             //The old format is on line with index 4
@@ -307,7 +307,7 @@ namespace HandHistories.Parser.Parsers.FastParser.IPoker
             throw new ArgumentOutOfRangeException("TableName line not found");
         }
 
-        protected string GetStartDateFromHandLines(string[] handLines)
+        string GetStartDateFromHandLines(string[] handLines)
         {
             // in order to find the exact date of the hand we search the startdate of the hand ( and not the table )
             
@@ -366,7 +366,7 @@ namespace HandHistories.Parser.Parsers.FastParser.IPoker
             throw new IndexOutOfRangeException("Did not find first player");
         }
 
-        protected List<string> GetCardLinesFromHandLines(string[] handLines)
+        List<string> GetCardLinesFromHandLines(string[] handLines)
         {
             List<string> cardLines = new List<string>();
             for (int i = 0; i < handLines.Length; i++)

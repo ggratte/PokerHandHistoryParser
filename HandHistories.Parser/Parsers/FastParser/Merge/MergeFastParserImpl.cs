@@ -37,7 +37,7 @@ namespace HandHistories.Parser.Parsers.FastParser.Merge
             }
         }
 
-        protected XDocument GetXDocumentFromLines(string[] handLines)
+        XDocument GetXDocumentFromLines(string[] handLines)
         {
             string handString = string.Join("", handLines);
 
@@ -62,13 +62,13 @@ namespace HandHistories.Parser.Parsers.FastParser.Merge
             return doc;
         }
 
-        protected XElement GetGameElementFromXDocument(XDocument document)
+        XElement GetGameElementFromXDocument(XDocument document)
         {
             XElement gameElement = document.Element("root").Element("game");
             return gameElement;
         }
 
-        protected XElement GetPlayersElementFromXDocument(XDocument document)
+        XElement GetPlayersElementFromXDocument(XDocument document)
         {
             XElement playersElement = document.Element("root").Element("game").Element("players");
             return playersElement;
@@ -289,7 +289,7 @@ namespace HandHistories.Parser.Parsers.FastParser.Merge
             return IsValidHand(handLines);
         }
 
-        protected Street GetStreetFromRoundElement(XElement roundElement)
+        Street GetStreetFromRoundElement(XElement roundElement)
         {
             string roundId = roundElement.Attribute("id").Value;
 
