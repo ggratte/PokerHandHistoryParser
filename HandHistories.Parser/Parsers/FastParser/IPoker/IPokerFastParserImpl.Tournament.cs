@@ -23,7 +23,7 @@ namespace HandHistories.Parser.Parsers.FastParser.IPoker
             throw new ArgumentException("No Buyin Error");
         }
 
-        public static Buyin ParseBuyin(string line)
+        public new static Buyin ParseBuyin(string line)
         {
             const int buyInStart = 12;
             int buyInEnd = line.Length - 13;
@@ -48,7 +48,7 @@ namespace HandHistories.Parser.Parsers.FastParser.IPoker
             throw new ArgumentException("Tablename not found");
         }
 
-        public static long ParseTournamentId(string line)
+        public new static long ParseTournamentId(string line)
         {
             const int buyInStart = 12;
             int buyInEnd = line.Length - 13;

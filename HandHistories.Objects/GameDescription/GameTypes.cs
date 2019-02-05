@@ -61,6 +61,21 @@ namespace HandHistories.Objects.GameDescription
         }
         #endregion
 
+        public override bool Equals(object obj)
+        {
+            if (obj is GameType)
+            {
+                var other = (GameType)obj;
+                return Cap == other.Cap && Game == other.Game && Limit == other.Limit;
+            }
+            return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return Game.GetHashCode();
+        }
+
         public override string ToString()
         {
             return (Cap ? "Cap " : "") + Limit.ToString() + Game.ToString();
