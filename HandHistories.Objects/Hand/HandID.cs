@@ -37,5 +37,22 @@ namespace HandHistories.Objects.Hand
         {
             return string.Join(seperator, handID);
         }
+
+        public static bool Equals(long[] a, long[] b)
+        {
+            if (a.Length != b.Length)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < a.Length; i++)
+            {
+                if (a[i] != b[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }
