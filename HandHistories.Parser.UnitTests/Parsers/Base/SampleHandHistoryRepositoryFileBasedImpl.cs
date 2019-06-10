@@ -9,10 +9,16 @@ namespace HandHistories.Parser.UnitTests.Parsers.Base
     internal class SampleHandHistoryRepositoryFileBasedImpl : ISampleHandHistoryRepository
     {
         private readonly IFileReader _fileReader;
+        private readonly string _version;
 
         public SampleHandHistoryRepositoryFileBasedImpl(IFileReader fileReader)
         {
             _fileReader = fileReader;
+        }
+
+        public SampleHandHistoryRepositoryFileBasedImpl(IFileReader fileReader, string version) : this(fileReader)
+        {
+            _version = version;
         }
 
         public string GetCancelledHandHandHistoryText(PokerFormat pokerFormat, SiteName siteName)

@@ -15,6 +15,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.GameType
     [TestFixture("MicroGaming", "MGN_Hero")]
     [TestFixture("Winamax", "WM_Hero")]
     [TestFixture("WinningPoker", "WP_Hero")]
+    [TestFixture("WinningPokerV2", "WP_Hero")]
     [TestFixture("BossMedia", "BO_Hero")]
     class HandParserHeroNameTests : HandHistoryParserBaseTests
     {

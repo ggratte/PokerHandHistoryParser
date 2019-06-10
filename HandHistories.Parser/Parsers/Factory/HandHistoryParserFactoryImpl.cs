@@ -15,6 +15,7 @@ using HandHistories.Parser.Parsers.FastParser.Winning;
 using HandHistories.Parser.Parsers.FastParser.BossMedia;
 using HandHistories.Parser.Parsers.FastParser.PartyPoker;
 using HandHistories.Parser.Parsers.JSONParser.IGT;
+using HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2;
 
 namespace HandHistories.Parser.Parsers.Factory
 {
@@ -63,7 +64,12 @@ namespace HandHistories.Parser.Parsers.Factory
                 case SiteName.Winamax:
                     return new WinamaxFastParserImpl();
                 case SiteName.WinningPoker:
-                    return new WinningPokerNetworkFastParserImpl();
+                    var wpnMulti = new MultiVersionParser();
+                    wpnMulti.Add(new WinningPokerNetworkFastParserImpl(), p => p.StartsWith("Game started at: "));
+                    wpnMulti.Add(new WinningPokerNetworkV2LineCatParserImpl(), p => p.StartsWith("Hand #"));
+                    return wpnMulti;
+                case SiteName.WinningPokerV2:
+                    return new WinningPokerNetworkV2LineCatParserImpl();
                 case SiteName.BossMedia:
                     return new BossMediaFastParserImpl();
                 case SiteName.IGT:
@@ -111,7 +117,12 @@ namespace HandHistories.Parser.Parsers.Factory
                 case SiteName.Winamax:
                     return new WinamaxFastParserImpl();
                 case SiteName.WinningPoker:
-                    return new WinningPokerNetworkFastParserImpl();
+                    var wpnMulti = new MultiVersionParser();
+                    wpnMulti.Add(new WinningPokerNetworkFastParserImpl(), p => p.StartsWith("Game started at: "));
+                    wpnMulti.Add(new WinningPokerNetworkV2LineCatParserImpl(), p => p.StartsWith("Hand #"));
+                    return wpnMulti;
+                case SiteName.WinningPokerV2:
+                    return new WinningPokerNetworkV2LineCatParserImpl();
                 case SiteName.BossMedia:
                     return new BossMediaFastParserImpl();
                 case SiteName.IGT:

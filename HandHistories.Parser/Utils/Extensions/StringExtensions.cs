@@ -22,6 +22,16 @@ namespace HandHistories.Parser.Utils.Extensions
             return -1;
         }
 
+        public static char Last(this string str)
+        {
+            return str[str.Length - 1];
+        }
+
+        public static bool EndsWith(this string str, char end)
+        {
+            return str[str.Length - 1] == end;
+        }
+
         public static bool EndsWithFast(this string str, string end)
         {
             return str.EndsWith(end, StringComparison.Ordinal);
@@ -47,9 +57,19 @@ namespace HandHistories.Parser.Utils.Extensions
             return str.LastIndexOf(value, startindex, StringComparison.Ordinal);
         }
 
+        public static bool StartsWith(this string str, char start)
+        {
+            return str[0] == start;
+        }
+
         public static bool StartsWithFast(this string str, string value)
         {
             return str.StartsWith(value, StringComparison.Ordinal);
+        }
+
+        public static string SubstringBetween(this string str, int startIndex, int endIndex)
+        {
+            return str.Substring(startIndex, endIndex - startIndex);
         }
 
         /// <summary>

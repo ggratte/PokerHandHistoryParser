@@ -7,8 +7,6 @@ using HandHistories.Parser.Parsers.Exceptions;
 using HandHistories.Parser.Parsers.FastParser.Base;
 using HandHistories.Parser.Utils.Extensions;
 using HandHistories.Parser.Utils.FastParsing;
-using HandHistories.Parser.Utils.Pot;
-using HandHistories.Parser.Utils.Uncalled;
 using System;
 using System.Collections.Generic;
 using System.Globalization;

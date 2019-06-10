@@ -114,6 +114,11 @@
     <Compile Include="Parsers\JSONParser\IGT\IGT2018.cs" />
     <Compile Include="Parsers\JSONParser\IGT\IGT2019.cs" />
     <Compile Include="Parsers\JSONParser\IGT\IGTJSONParserImpl.cs" />
+    <Compile Include="Parsers\LineCategoryParser\Base\Categories.cs" />
+    <Compile Include="Parsers\LineCategoryParser\Base\HandHistoryParserLineCatImpl.cs" />
+    <Compile Include="Parsers\LineCategoryParser\Base\LineCategory.cs" />
+    <Compile Include="Parsers\LineCategoryParser\WinningPokerV2\WinningPokerNetworkLineCatParserImpl.cs" />
+    <Compile Include="Parsers\MultiVersionParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Serializer\JSON\JSONHandSerializer.Deserialize.cs" />
     <Compile Include="Serializer\JSON\JSONHandSerializer.Serialize.cs" />

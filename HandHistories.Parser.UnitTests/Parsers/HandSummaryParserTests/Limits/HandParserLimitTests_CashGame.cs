@@ -20,6 +20,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.Limits
     [TestFixture("MicroGaming", new string[] { "e0.01-e0.02", "e0.50-e1", "e1-e2" })]
     [TestFixture("Winamax", new string[] { "e0.05-e0.10", "e0.50-e1", "e5-e10" })]
     [TestFixture("WinningPoker", new string[] { "$2-$4", "$2-$4", "$0.10-$0.25" })]
+    [TestFixture("WinningPokerV2", new string[] { "$0.50-$1" })]
     [TestFixture("BossMedia", new string[] { "$100-$200", "$5-$10", "$0.02-$0.04" })]
     [TestFixture("IGT", new string[] { "SEK0.25-SEK0.50", "SEK10-SEK20" })]
     class HandParserLimitTests_CashGame : HandParserLimitTests
@@ -44,6 +45,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.Limits
                 case SiteName.Entraction:
                 case SiteName.Winamax:
                 case SiteName.WinningPoker:
+                case SiteName.WinningPokerV2:
                 case SiteName.BossMedia:
                 case SiteName.OnGameIt:
                 case SiteName.IGT:
@@ -70,6 +72,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.Limits
                 case SiteName.FullTilt:
                 case SiteName.Winamax:
                 case SiteName.WinningPoker:
+                case SiteName.WinningPokerV2:
                 case SiteName.BossMedia:
                 case SiteName.OnGame:
                 case SiteName.IGT:
@@ -99,6 +102,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.Limits
                 case SiteName.Winamax:
                 case SiteName.PokerStars:
                 case SiteName.WinningPoker:
+                case SiteName.WinningPokerV2:
                 case SiteName.BossMedia:
                 case SiteName.OnGameIt:
                 case SiteName.IGT:

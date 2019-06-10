@@ -15,6 +15,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.GameType
     [TestFixture("MicroGaming")]
     [TestFixture("Winamax")]
     [TestFixture("WinningPoker")]
+    [TestFixture("WinningPokerV2")]
     [TestFixture("BossMedia")]
     [TestFixture("IGT")]
     class HandParserGameTypeTests_CashGame : HandParserGameTypeTests
@@ -27,6 +28,12 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.GameType
         [Test]
         public void ParseGameType_ParsesNoLimitHoldem()
         {
+            switch (Site)
+            {
+                case SiteName.WinningPokerV2:
+                    Assert.Ignore(Site + " currently doesn't have NL example.");
+                    return;
+            }
             TestGameType(GameType.NoLimitHoldem);
         }
 
@@ -36,6 +43,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.GameType
             switch (Site)
             {
                 case SiteName.Winamax:
+                case SiteName.WinningPokerV2:
                     Assert.Ignore(Site + " currently doesn't have FL example.");
                     return;
                 case SiteName.WinningPoker:
@@ -85,6 +93,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.GameType
                 case SiteName.PartyPoker:
                 case SiteName.BossMedia:
                 case SiteName.IGT:
+                case SiteName.WinningPokerV2:
                     Assert.Ignore(Site + " currently doesn't have pot limit holdem.");
                     break;
                 case SiteName.WinningPoker:
@@ -114,6 +123,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.GameType
                 case SiteName.Pacific:
                 case SiteName.BossMedia:
                 case SiteName.IGT:
+                case SiteName.WinningPokerV2:
                     Assert.Ignore(Site + " currently doesn't have No Limit Omaha example.");
                     break;
                 case SiteName.WinningPoker:
@@ -142,6 +152,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.GameType
                 case SiteName.Winamax:
                 case SiteName.BossMedia:
                 case SiteName.IGT:
+                case SiteName.WinningPokerV2:
                     Assert.Ignore(Site + " currently doesn't have No Limit Omaha HiLo example.");
                     break;
                 case SiteName.WinningPoker:
@@ -162,6 +173,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.GameType
                 case SiteName.FullTilt:
                 case SiteName.Entraction:
                 case SiteName.Winamax:
+                case SiteName.WinningPokerV2:
                     Assert.Ignore(Site + " currently doesn't have Pot Limit Omaha HiLo example.");
                     break;
                 case SiteName.WinningPoker:
