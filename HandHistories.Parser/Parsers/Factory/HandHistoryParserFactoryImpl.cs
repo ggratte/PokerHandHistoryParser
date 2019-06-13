@@ -16,6 +16,7 @@ using HandHistories.Parser.Parsers.FastParser.BossMedia;
 using HandHistories.Parser.Parsers.FastParser.PartyPoker;
 using HandHistories.Parser.Parsers.JSONParser.IGT;
 using HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2;
+using HandHistories.Parser.Parsers.LineCategoryParser.PartyPoker;
 
 namespace HandHistories.Parser.Parsers.Factory
 {
@@ -35,7 +36,7 @@ namespace HandHistories.Parser.Parsers.Factory
                 case SiteName.PartyPokerNJ:
                 case SiteName.PartyPokerIt:
                 case SiteName.PartyPoker:
-                    return new PartyPokerFastParserImpl(siteName);
+                    return new PartyPokerLineCatParserImpl();
                 case SiteName.PokerStars:
                 case SiteName.PokerStarsFr:
                 case SiteName.PokerStarsIt:
@@ -88,7 +89,7 @@ namespace HandHistories.Parser.Parsers.Factory
                 case SiteName.PartyPokerNJ:
                 case SiteName.PartyPokerIt:
                 case SiteName.PartyPoker:
-                    return new PartyPokerFastParserImpl(siteName);
+                    return new PartyPokerLineCatParserImpl();
                 case SiteName.PokerStars:
                 case SiteName.PokerStarsFr:
                 case SiteName.PokerStarsIt:

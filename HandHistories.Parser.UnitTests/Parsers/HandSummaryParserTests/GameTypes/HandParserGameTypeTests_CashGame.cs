@@ -28,12 +28,6 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.GameType
         [Test]
         public void ParseGameType_ParsesNoLimitHoldem()
         {
-            switch (Site)
-            {
-                case SiteName.WinningPokerV2:
-                    Assert.Ignore(Site + " currently doesn't have NL example.");
-                    return;
-            }
             TestGameType(GameType.NoLimitHoldem);
         }
 

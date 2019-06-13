@@ -91,7 +91,9 @@
     <Compile Include="Parsers\FastParserTests\Winning\WinningFastParserActionTests.cs" />
     <Compile Include="Parsers\HandParserTests\HandActionTests\HandParserHandActionTestsIGT.cs" />
     <Compile Include="Parsers\HandParserTests\HandActionTests\HandParserHandActionTestsMicroGamingImpl.MTT.cs" />
+    <Compile Include="Parsers\HandParserTests\HandActionTests\HandParserHandActionTestsWinningPokerV2.cs" />
     <Compile Include="Parsers\HandParserTests\Players\HandParserPlayersTestsIGT.cs" />
+    <Compile Include="Parsers\HandParserTests\Players\HandParserPlayersTestsWinningPokerV2.cs" />
     <Compile Include="Parsers\HandParserTests\RunItTwiceTests\HandParserRunItTwiceTestsFullTilt.cs" />
     <Compile Include="Parsers\HandParserTests\RunItTwiceTests\HandParserRunItTwiceTestsPokerStars.cs" />
     <Compile Include="Parsers\HandParserTests\CommunityCardTests\HandParserCommunityCardTests.cs" />
@@ -1634,7 +1636,20 @@
     <Content Include="SampleHandHistories\WinningPokerV2\CashGame\GeneralHands\GeneralHand.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="SampleHandHistories\WinningPokerV2\CashGame\HandActionTests\AllInHandWithShowdown.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SampleHandHistories\WinningPokerV2\CashGame\HandActionTests\FoldedPreflop.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SampleHandHistories\WinningPokerV2\CashGame\HandActionTests\UncalledBetHand.txt" />
     <Content Include="SampleHandHistories\WinningPokerV2\CashGame\Limits\Limit1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SampleHandHistories\WinningPokerV2\CashGame\PlayerTests\OmahaShowdown.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SampleHandHistories\WinningPokerV2\CashGame\PlayerTests\WithSittingOut.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="SampleHandHistories\WinningPoker\CashGame\GameTypeTests\CapNoLimitHoldem.txt">
@@ -1821,8 +1836,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="SampleHandHistories\BossMedia\MultiTableTournament\GameTypeTests\" />
-    <Folder Include="SampleHandHistories\WinningPokerV2\CashGame\HandActionTests\" />
-    <Folder Include="SampleHandHistories\WinningPokerV2\CashGame\PlayerTests\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{82A7F48D-3B50-4B1E-B82E-3ADA8210C358}" />

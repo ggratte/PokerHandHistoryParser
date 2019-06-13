@@ -117,6 +117,8 @@
     <Compile Include="Parsers\LineCategoryParser\Base\Categories.cs" />
     <Compile Include="Parsers\LineCategoryParser\Base\HandHistoryParserLineCatImpl.cs" />
     <Compile Include="Parsers\LineCategoryParser\Base\LineCategory.cs" />
+    <Compile Include="Parsers\LineCategoryParser\PartyPoker\PartyPokerLineCatParserImpl.cs" />
+    <Compile Include="Parsers\LineCategoryParser\PartyPoker\PartyPokerLineCatParserImpl.Tournament.cs" />
     <Compile Include="Parsers\LineCategoryParser\WinningPokerV2\WinningPokerNetworkLineCatParserImpl.cs" />
     <Compile Include="Parsers\MultiVersionParser.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

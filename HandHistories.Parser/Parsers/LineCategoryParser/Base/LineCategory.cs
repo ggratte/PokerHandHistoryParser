@@ -7,11 +7,12 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.Base
 {
     enum LineCategory
     {
-        Invalid,
+        Ignore,
         Other,
         Header,
         Seat,
         Action,
         Summary,
+        Showdown,
     }
 }

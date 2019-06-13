@@ -9,6 +9,10 @@ using HandHistories.Objects.GameDescription;
 using HandHistories.Objects.Hand;
 using HandHistories.Objects.Players;
 using HandHistories.Parser.Parsers.Exceptions;
+using HandHistories.Parser.Utils.AllInAction;
+using HandHistories.Parser.Utils.RaiseAdjuster;
+using HandHistories.Parser.Utils.Uncalled;
+using HandHistories.Parser.Utils.Pot;
 
 namespace HandHistories.Parser.Parsers.LineCategoryParser.Base
 {
@@ -27,6 +31,49 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.Base
             return Lines;
         }
 
+        public virtual bool RequiresAdjustedRaiseSizes
+        {
+            get { return false; }
+        }
+
+        public virtual bool RequiresActionSorting
+        {
+            get { return false; }
+        }
+
+        public virtual bool RequiresAllInDetection
+        {
+            get { return false; }
+        }
+
+        public virtual bool RequiresAllInUpdates
+        {
+            get { return false; }
+        }
+
+        public virtual bool RequiresTotalPotCalculation
+        {
+            get { return false; }
+        }
+
+        public virtual bool RequiresUncalledBetFix
+        {
+            get { return false; }
+        }
+
+        /// <summary>
+        /// Adjusts the WinActions to not include any uncalled bets
+        /// </summary>
+        public virtual bool RequiresUncalledBetWinAdjustment
+        {
+            get { return false; }
+        }
+
+        public virtual bool RequiresTotalPotAdjustment
+        {
+            get { return false; }
+        }
+        
         public abstract void Categorize(Categories cat, string[] lines);
 
         public abstract SiteName SiteName { get; }
@@ -106,7 +153,7 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.Base
                 handHistory.Players = ParsePlayers(Lines.Seat);
                 handHistory.NumPlayersSeated = handHistory.Players.Count;
 
-                string heroName = ParseHeroName(Lines.Action);
+                string heroName = ParseHeroName(Lines.Other);
                 handHistory.Hero = handHistory.Players.FirstOrDefault(p => p.PlayerName == heroName);
 
                 if (handHistory.Cancelled)
@@ -128,61 +175,44 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.Base
                 handHistory.HandActions = ParseHandActions(Lines.Action, out winners);
                 handHistory.Winners = winners;
 
-                //    if (RequiresActionSorting)
-                //    {
-                //        handHistory.HandActions = OrderHandActions(handHistory.HandActions);
-                //    }
-                //    if (RequiresAdjustedRaiseSizes)
-                //    {
-                //        handHistory.HandActions = RaiseAdjuster.AdjustRaiseSizes(handHistory.HandActions);
-                //    }
-                //    if (RequiresAllInDetection)
-                //    {
-                //        handHistory.HandActions = AllInActionHelper.IdentifyAllInActions(handHistory.Players, handHistory.HandActions);
-                //    }
+                if (RequiresAdjustedRaiseSizes)
+                {
+                    handHistory.HandActions = RaiseAdjuster.AdjustRaiseSizes(handHistory.HandActions);
+                }
+                if (RequiresAllInDetection)
+                {
+                    var playerList = ParsePlayers(Lines.Seat);
+                    handHistory.HandActions = AllInActionHelper.IdentifyAllInActions(playerList, handHistory.HandActions);
+                }
 
-                //    if (RequiresAllInUpdates)
-                //    {
-                //        handHistory.HandActions = AllInActionHelper.UpdateAllInActions(handHistory.HandActions);
-                //    }
+                if (RequiresAllInUpdates)
+                {
+                    handHistory.HandActions = AllInActionHelper.UpdateAllInActions(handHistory.HandActions);
+                }
 
-                //    if (RequiresUncalledBetFix)
-                //    {
-                //        handHistory.HandActions = UncalledBet.Fix(handHistory.HandActions);
-                //    }
+                if (RequiresUncalledBetFix)
+                {
+                    handHistory.HandActions = UncalledBet.Fix(handHistory.HandActions);
+                }
 
-                //    if (RequiresUncalledBetWinAdjustment)
-                //    {
-                //        handHistory.Winners = UncalledBet.FixUncalledBetWins(handHistory.HandActions, handHistory.Winners);
-                //    }
+                if (RequiresUncalledBetWinAdjustment)
+                {
+                    winners = UncalledBet.FixUncalledBetWins(handHistory.HandActions, winners);
+                }
 
-                //    //Pot calculation mus be done after uncalledBetFix
-                //    if (RequiresTotalPotCalculation)
-                //    {
-                //        handHistory.TotalPot = PotCalculator.CalculateTotalPot(handHistory);
-                //        handHistory.Rake = PotCalculator.CalculateRake(handHistory);
-                //    }
+                //Pot calculation mus be done after uncalledBetFix
+                if (RequiresTotalPotCalculation)
+                {
+                    handHistory.TotalPot = PotCalculator.CalculateTotalPot(handHistory);
+                    handHistory.Rake = PotCalculator.CalculateRake(handHistory);
+                }
 
-                //    HandAction anteAction = handHistory.HandActions.FirstOrDefault(a => a.HandActionType == HandActionType.ANTE);
-                //    if (anteAction != null && handHistory.GameDescription.PokerFormat.Equals(PokerFormat.CashGame))
-                //    {
-                //        handHistory.GameDescription.Limit.IsAnteTable = true;
-                //        handHistory.GameDescription.Limit.Ante = Math.Abs(anteAction.Amount);
-                //    }
-
-                //    try
-                //    {
-                //        ParseExtraHandInformation(handLines, handHistory);
-
-                //        if (RequiresTotalPotAdjustment)
-                //        {
-                //            AdjustTotalPot(handHistory);
-                //        }
-                //    }
-                //    catch (Exception)
-                //    {
-                //        throw new ExtraHandParsingAction(handLines[0]);
-                //    }
+                HandAction anteAction = handHistory.HandActions.FirstOrDefault(a => a.HandActionType == HandActionType.ANTE);
+                if (anteAction != null && handHistory.GameDescription.PokerFormat.Equals(PokerFormat.CashGame))
+                {
+                    handHistory.GameDescription.Limit.IsAnteTable = true;
+                    handHistory.GameDescription.Limit.Ante = Math.Abs(anteAction.Amount);
+                }
 
                 ParseExtraHandInformation(Lines, handHistory);
 
@@ -212,7 +242,51 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.Base
 
         public HandHistorySummary ParseFullHandSummary(string handText, bool rethrowExceptions = false)
         {
-            return ParseFullHandHistory(handText, rethrowExceptions);
+            Lines.Clear();
+
+            var textlines = SplitHandsLines(handText);
+            Categorize(Lines, textlines);
+
+            try
+            {
+                bool isCancelled;
+                if (IsValidOrCancelledHand(Lines, out isCancelled) == false)
+                {
+                    throw new InvalidHandException(string.Join("\r\n", textlines));
+                }
+
+                HandHistorySummary handHistorySummary = new HandHistorySummary();
+
+                handHistorySummary.Cancelled = isCancelled;
+                handHistorySummary.DateOfHandUtc = ParseDateUtc(Lines.Header);
+                handHistorySummary.GameDescription = ParseGameDescriptor(Lines.Header);
+                handHistorySummary.HandId = ParseHandId(Lines.Header);
+                handHistorySummary.TableName = ParseTableName(Lines.Header);
+                handHistorySummary.DealerButtonPosition = ParseDealerPosition(Lines.Header);
+                handHistorySummary.NumPlayersSeated = ParsePlayers(Lines.Seat).Count;
+                handHistorySummary.FullHandHistoryText = handText;
+
+                try
+                {
+                    ParseExtraHandInformation(Lines, handHistorySummary);
+                }
+                catch
+                {
+                    throw new ExtraHandParsingAction(handText);
+                }
+
+                return handHistorySummary;
+            }
+            catch (Exception ex)
+            {
+                if (rethrowExceptions)
+                {
+                    throw;
+                }
+
+                logger.Warn("Couldn't parse hand {0} with error {1} and trace {2}", string.Join("\r\n", textlines), ex.Message, ex.StackTrace);
+                return null;
+            }
         }
 
         public GameDescriptor ParseGameDescriptor(string handText)
@@ -240,7 +314,35 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.Base
 
         public List<HandAction> ParseHandActions(string handText, out List<WinningsAction> winners)
         {
-            return ParseHandActions(GetCategories(handText).Action, out winners);
+            try
+            {
+                var handactions = ParseHandActions(GetCategories(handText).Action, out winners);
+
+                if (RequiresAdjustedRaiseSizes)
+                {
+                    handactions = RaiseAdjuster.AdjustRaiseSizes(handactions);
+                }
+                if (RequiresAllInDetection)
+                {
+                    var playerList = ParsePlayers(Lines.Seat);
+                    handactions = AllInActionHelper.IdentifyAllInActions(playerList, handactions);
+                }
+                if (RequiresAllInUpdates)
+                {
+                    handactions = AllInActionHelper.UpdateAllInActions(handactions);
+                }
+                if (RequiresUncalledBetWinAdjustment)
+                {
+                    winners = UncalledBet.FixUncalledBetWins(handactions, winners);
+                }
+
+                return handactions;
+            }
+            catch (Exception ex)
+            {
+                throw new HandActionException(handText, "ParseHandActions: Error:" + ex.Message + " Stack:" + ex.StackTrace);
+            }
+           
         }
 
         protected abstract List<HandAction> ParseHandActions(List<string> actions, out List<WinningsAction> winners);
@@ -254,7 +356,7 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.Base
 
         public string ParseHeroName(string handText)
         {
-            return ParseHeroName(GetCategories(handText).Action);
+            return ParseHeroName(GetCategories(handText).Other);
         }
 
         protected abstract string ParseHeroName(List<string> action);
@@ -273,7 +375,14 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.Base
 
         public PlayerList ParsePlayers(string handText)
         {
-            return ParsePlayers(GetCategories(handText).Seat);
+            try
+            {
+                return ParsePlayers(GetCategories(handText).Seat);
+            }
+            catch (Exception ex)
+            {
+                throw new PlayersException(handText, "ParsePlayers: Error:" + ex.Message + " Stack:" + ex.StackTrace);
+            }
         }
 
         protected abstract PlayerList ParsePlayers(List<string> seats);
@@ -283,7 +392,7 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.Base
             return ParsePokerFormat(GetCategories(handText).Header);
         }
 
-        protected abstract PokerFormat ParsePokerFormat(List<string> seats);
+        protected abstract PokerFormat ParsePokerFormat(List<string> header);
 
         public SeatType ParseSeatType(string handText)
         {

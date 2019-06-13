@@ -19,6 +19,8 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
     {
         public override SiteName SiteName => SiteName.WinningPokerV2;
 
+        public override bool RequiresAdjustedRaiseSizes => true;
+
         public override void Categorize(Categories cat, string[] lines)
         {
             cat.Clear();
@@ -98,12 +100,32 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
         {
             var line = header[0];
             var items = line.Split(new string[] { " - " }, StringSplitOptions.None);
-            switch (items[1])
+            var gameTypeStr = items[1];
+            var splitIndex = gameTypeStr.IndexOf('(');
+            var gameStr = gameTypeStr.Remove(splitIndex);
+            var limitStr = gameTypeStr.SubstringBetween(splitIndex + 1, gameTypeStr.Length - 1);
+            return new GameType(ParseLimitEnum(limitStr), ParseGameEnum(gameStr));
+        }
+
+        static GameEnum ParseGameEnum(string game)
+        {
+            switch (game)
             {
-                case "Omaha(Pot Limit)":
-                    return GameType.PotLimitOmaha;
+                case "Omaha": return GameEnum.Omaha;
+                case "Holdem": return GameEnum.Holdem;
                 default:
-                    throw new ArgumentException("Unknown gametype: " + items[1]);
+                    throw new ArgumentException("Unknown gametype: " + game);
+            }
+        }
+
+        static GameLimitEnum ParseLimitEnum(string game)
+        {
+            switch (game)
+            {
+                case "Pot Limit": return GameLimitEnum.PotLimit;
+                case "No Limit": return GameLimitEnum.NoLimit;
+                default:
+                    throw new ArgumentException("Unknown gametype: " + game);
             }
         }
 
@@ -122,6 +144,10 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
                 {
                     i++;
                     break;
+                }
+                if (line.EndsWith('d'))//Player6 waits for big blind
+                {
+                    continue;
                 }
 
                 handactions.Add(ParseBlindAction(line));
@@ -191,8 +217,7 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
             for (; i < actions.Count; i++)
             {
                 var line = actions[i];
-                var lastchar = line[line.Length - 1];
-                switch (lastchar)
+                switch (line.Last())
                 {
                     case ')'://<playername> shows [Kd Qd 5s Js] (a pair of Jacks [Js Jc Kd 9h 8c])
                         {
@@ -202,13 +227,14 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
                         }
                         break;
                     case 't'://<playername> collected $1.67 from main pot
-                        {
-                            var amountEndIndex = line.Length - 14;
-                            var amountStartIndex = line.LastIndexOf(' ', amountEndIndex - 1) + 1;
-                            var amount = line.SubstringBetween(amountStartIndex, amountEndIndex);
-                            var name = line.Remove(amountStartIndex - 11);
-                            winners.Add(new WinningsAction(name, WinningsActionType.WINS, amount.ParseAmount(), 0));
-                        }
+                        //IGNORED - We parse this info from summary
+                        //{
+                        //    var amountEndIndex = line.Length - 14;
+                        //    var amountStartIndex = line.LastIndexOf(' ', amountEndIndex - 1) + 1;
+                        //    var amount = line.SubstringBetween(amountStartIndex, amountEndIndex);
+                        //    var name = line.Remove(amountStartIndex - 11);
+                        //    winners.Add(new WinningsAction(name, WinningsActionType.WINS, amount.ParseAmount(), 0));
+                        //}
                         break;
                     case 'd'://<playername> mucks hand
                         {
@@ -222,6 +248,56 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
             }
 
             SUMMARY:
+            foreach (var line in Lines.Summary)
+            {
+                if (!line.StartsWith('S')) continue;
+                
+                switch (line.Last())
+                {
+                    //Seat 1: Player1 did not show and won $4.75
+                    case '0':
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                    case '5':
+                    case '6':
+                    case '7':
+                    case '8':
+                    case '9':
+                        {
+                            var amountStartIndex = line.LastIndexOf(' ') + 1;
+                            var amount = line.Substring(amountStartIndex);
+                            var nameStartIndex = line.IndexOf(':') + 2;
+                            var nameEndIndex = amountStartIndex - 22;//" did not show and won ".Length
+                            var name = line.SubstringBetween(nameStartIndex, nameEndIndex);
+                            winners.Add(new WinningsAction(name, WinningsActionType.WINS, amount.ParseAmount(), 0));
+                        }
+                        break;
+
+                    //Seat 2: Player 2 (button) showed [Ah Jh 3d Td] and won $79.50 with a straight, Jack high [Jh Td 9h 8c 7h]
+                    case ']':
+                        {
+                            if (!line.Contains("] and won "))
+                            {
+                                continue;
+                            }
+
+                            var amountStartIndex = line.LastIndexOfFast(" won ") + 5;
+                            var amountEndIndex = line.IndexOf(' ', amountStartIndex);
+                            var amount = line.SubstringBetween(amountStartIndex, amountEndIndex);
+                            var nameStartIndex = line.IndexOf(':') + 2;
+                            var nameEndIndex = line.LastIndexOfFast(" showed", amountEndIndex);//" did not show and won ".Length
+                            if (line[nameEndIndex - 1] == ')')
+                            {
+                                nameEndIndex = line.LastIndexOf(' ', nameEndIndex - 1);
+                            }
+                            var name = line.SubstringBetween(nameStartIndex, nameEndIndex);
+                            winners.Add(new WinningsAction(name, WinningsActionType.WINS, amount.ParseAmount(), 0));
+                        }
+                        break;
+                }
+            }
             return handactions;
         }
 
@@ -309,9 +385,9 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
             return HandID.Parse(idStr);
         }
 
-        protected override string ParseHeroName(List<string> action)
+        protected override string ParseHeroName(List<string> other)
         {
-            var hero = Lines.Other.FirstOrDefault(isDealtToLine);
+            var hero = other.FirstOrDefault(isDealtToLine);
             if (hero == null)
             {
                 return null;
@@ -399,7 +475,7 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
             return playerList;
         }
 
-        protected override PokerFormat ParsePokerFormat(List<string> seats)
+        protected override PokerFormat ParsePokerFormat(List<string> header)
         {
             return PokerFormat.CashGame;
         }
@@ -467,11 +543,6 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
                         throw new ArgumentException("Unhandled Summary item");
                 }
             }
-        }
-
-        public override void FinalizeHand(HandHistory hand)
-        {
-            hand.HandActions = RaiseAdjuster.AdjustRaiseSizes(hand.HandActions);
         }
 
         static Street GetStreet(string line)
