@@ -633,11 +633,6 @@ namespace HandHistories.Parser.Parsers.FastParser.PartyPoker
 
         static HandAction ParseActionWithSize(string line, Street currentStreet)
         {
-            const int raiseLength = 8;//" raises ".Length
-            const int callsLength = 7;//" calls ".Length
-            const int betsLength = 6;//" bets ".Length
-            const int allInLength = 12;//" is all-In  ".Length
-
             int amountStartIndex = line.LastIndexOf('[');
             decimal amount = ParseDecimal(line, amountStartIndex + 1);
 
@@ -647,19 +642,19 @@ namespace HandHistories.Parser.Parsers.FastParser.PartyPoker
             {
                 //Player bets [$23.75 USD]
                 case 't':
-                    playerName = line.Remove(amountStartIndex - betsLength);
+                    playerName = line.Remove(amountStartIndex - 6);//" bets ".Length
                     return new HandAction(playerName, HandActionType.BET, amount, currentStreet);
                 //Player calls [$25 USD]
                 case 'l':
-                    playerName = line.Remove(amountStartIndex - callsLength);
+                    playerName = line.Remove(amountStartIndex - 7);//" calls ".Length
                     return new HandAction(playerName, HandActionType.CALL, amount, currentStreet);
                 //Player raises [$30 USD]
                 case 'e':
-                    playerName = line.Remove(amountStartIndex - raiseLength);
+                    playerName = line.Remove(amountStartIndex - 8);//" raises ".Length
                     return new HandAction(playerName, HandActionType.RAISE, amount, currentStreet);
                 //"dr. spaz is all-In  [$4.90 USD]"
                 case 'n':
-                    playerName = line.Remove(amountStartIndex - allInLength);
+                    playerName = line.Remove(amountStartIndex - 12);//" is all-In  ".Length
                     return new HandAction(playerName, HandActionType.ALL_IN, amount, currentStreet);
                 default:
                     throw new ArgumentException("Unknown actionID: " + line);
@@ -685,10 +680,6 @@ namespace HandHistories.Parser.Parsers.FastParser.PartyPoker
 
         static void ParseDotAction(string line, Street street, List<HandAction> actions, List<WinningsAction> winners)
         {
-            //const int smallBlindWidth = 19;//" posts small blind ".Length
-            //const int bigBlindWidth = 17;//" posts big blind ".Length
-            //const int deadBigBlindWidth = 24;//" posts big blind + dead ".Length
-
             string playerName;
             int playerNameIndex = 0;
 
@@ -696,30 +687,6 @@ namespace HandHistories.Parser.Parsers.FastParser.PartyPoker
             if (lastChar == ']')
             {
                 throw new ArgumentException("Blinds must be parsed with ParseBlindAction(string)");
-                //int amountStartIndex = line.LastIndexOf('[');
-                //decimal amount = ParseDecimal(line, amountStartIndex + 2);
-
-                //char blindIdentifier = line[amountStartIndex - 8];
-
-                //switch (blindIdentifier)
-                //{
-                //    //"Player posts big blind [$10 USD]."
-                //    case 'g':
-                //        playerName = line.Remove(amountStartIndex - bigBlindWidth);
-                //        return new HandAction(playerName, HandActionType.BIG_BLIND, amount, street);
-
-                //    //"Player posts small blind [$5 USD]."
-                //    case 'l':
-                //        playerName = line.Remove(amountStartIndex - smallBlindWidth);
-                //        return new HandAction(playerName, HandActionType.SMALL_BLIND, amount, street);
-
-                //    //"Player posts big blind + dead [$0.15].
-                //    case ' ':
-                //        playerName = line.Remove(amountStartIndex - deadBigBlindWidth);
-                //        return new HandAction(playerName, HandActionType.POSTS, amount, street);
-                //    default:
-                //        throw new ArgumentException("Unkown posting Action: " + line);
-                //}
             }
             else if (line.Contains(" shows"))
             {
@@ -818,26 +785,19 @@ namespace HandHistories.Parser.Parsers.FastParser.PartyPoker
 
         static HandAction ParseActionWithoutSize(string line, Street street)
         {
-            //Expected formats:
-            //"Player checks"
-            //"Player folds"
             char identifier = line[line.Length - 2];
             switch (identifier)
             {
-                case 'd':
-                    return new HandAction(ParseActionPlayerName(line, 6), HandActionType.FOLD, 0m, street);
-                case 'k':
-                    return new HandAction(ParseActionPlayerName(line, 7), HandActionType.CHECK, 0m, street);
+                //Expected formats:
+                case 'd'://"<playername> folds"
+                    return new HandAction(line.Remove(line.Length - 6), HandActionType.FOLD, 0m, street);
+                case 'k'://"<playername> checks"
+                    return new HandAction(line.Remove(line.Length - 7), HandActionType.CHECK, 0m, street);
                 default:
                     throw new ArgumentException("Unknown Action: \"" + line + "\"");
             }
         }
-
-        static string ParseActionPlayerName(string line, int rightOffset)
-        {
-            return line.Remove(line.Length - rightOffset);
-        }
-
+        
         static int GetFirstActionIndex(string[] handLines)
         {
             const int FirstSeatIndex = 5;
