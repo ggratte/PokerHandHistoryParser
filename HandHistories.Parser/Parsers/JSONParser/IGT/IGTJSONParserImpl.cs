@@ -23,10 +23,7 @@ namespace HandHistories.Parser.Parsers.JSONParser.IGT
 {
     public class IGTJSONParserImpl : HandHistoryParserJSONImpl
     {
-        public override SiteName SiteName
-        {
-            get { return SiteName.IGT; }
-        }
+        public override SiteName SiteName => SiteName.IGT;
 
         protected override void ParseExtraHandInformation(JObject JSON, HandHistorySummary summary)
         {

@@ -18,23 +18,11 @@ namespace HandHistories.Parser.Parsers.FastParser.OnGame
     {
         private readonly SiteName _siteName;
 
-        public override SiteName SiteName
-        {
-            get { return _siteName; }
-        }
+        public override SiteName SiteName => _siteName;
 
-        public override bool RequiresUncalledBetFix
-        {
-            get { return true; }
-        }
+        public override bool RequiresUncalledBetFix => true;
 
-        public override bool RequiresAdjustedRaiseSizes
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool RequiresAdjustedRaiseSizes => true;
 
         static readonly char[] CurrencyChars = new char[] { '€', '$' };
 

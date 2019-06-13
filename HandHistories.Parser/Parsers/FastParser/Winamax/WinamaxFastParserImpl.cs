@@ -26,30 +26,15 @@ namespace HandHistories.Parser.Parsers.FastParser.Winamax
                                  .Select(s => "Winamax Poker - " + s.Trim('\r', 'n'));
         }
 
-        public override SiteName SiteName
-        {
-            get { return SiteName.Winamax; }
-        }
+        public override SiteName SiteName => SiteName.Winamax;
 
-        public override bool RequiresAdjustedRaiseSizes
-        {
-            get { return true; }
-        }
+        public override bool RequiresAdjustedRaiseSizes => true;
 
-        public override bool RequiresUncalledBetFix
-        {
-            get { return true; }
-        }
+        public override bool RequiresUncalledBetFix => true;
 
-        public override bool RequiresUncalledBetWinAdjustment
-        {
-            get { return true; }
-        }
+        public override bool RequiresUncalledBetWinAdjustment => true;
 
-        public override bool RequiresTotalPotAdjustment
-        {
-            get { return true; }
-        }
+        public override bool RequiresTotalPotAdjustment => true;
         
         private readonly NumberFormatInfo _numberFormatInfo = new NumberFormatInfo
             {

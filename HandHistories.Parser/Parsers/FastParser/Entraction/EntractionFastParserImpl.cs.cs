@@ -22,13 +22,7 @@ namespace HandHistories.Parser.Parsers.FastParser.Entraction
             get { return SiteName.Entraction; }
         }
 
-        public override bool RequiresTotalPotCalculation
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool RequiresTotalPotCalculation => true;
 
         public override IEnumerable<string> SplitUpMultipleHands(string rawHandHistories)
         {

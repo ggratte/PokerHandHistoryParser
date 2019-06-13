@@ -26,53 +26,26 @@ namespace HandHistories.Parser.Parsers.FastParser.Base
 
         public abstract SiteName SiteName { get; }
 
-        public virtual bool RequiresAdjustedRaiseSizes
-        {
-            get { return false; }
-        }
+        public virtual bool RequiresAdjustedRaiseSizes => false;
 
-        public virtual bool RequiresActionSorting
-        {
-            get { return false; }
-        }
+        public virtual bool RequiresActionSorting => false;
 
-        public virtual bool RequiresAllInDetection
-        {
-            get { return false; }
-        }
+        public virtual bool RequiresAllInDetection => false;
 
-        public virtual bool RequiresAllInUpdates
-        {
-            get { return false; }
-        }
+        public virtual bool RequiresAllInUpdates => false;
 
-        public virtual bool RequiresTotalPotCalculation
-        {
-            get { return false; }
-        }
+        public virtual bool RequiresTotalPotCalculation => false;
 
-        public virtual bool RequiresUncalledBetFix
-        {
-            get { return false; }
-        }
+        public virtual bool RequiresUncalledBetFix => false;
 
         /// <summary>
         /// Adjusts the WinActions to not include any uncalled bets
         /// </summary>
-        public virtual bool RequiresUncalledBetWinAdjustment
-        {
-            get { return false; }
-        }
+        public virtual bool RequiresUncalledBetWinAdjustment => false;
 
-        public virtual bool RequiresTotalPotAdjustment
-        {
-            get { return false; }
-        }
+        public virtual bool RequiresTotalPotAdjustment => false;
 
-        public virtual bool SupportRunItTwice
-        {
-            get { return false; }
-        }
+        public virtual bool SupportRunItTwice => false;
         
         public virtual IEnumerable<string> SplitUpMultipleHands(string rawHandHistories)
         {

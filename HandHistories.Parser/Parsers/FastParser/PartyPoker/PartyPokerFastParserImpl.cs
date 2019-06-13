@@ -34,30 +34,15 @@ namespace HandHistories.Parser.Parsers.FastParser.PartyPoker
             { "EDT", TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time") },
         };
 
-        public override SiteName SiteName
-        {
-            get { return _siteName; }
-        }
+        public override SiteName SiteName => _siteName;
 
-        public override bool RequiresUncalledBetFix
-        {
-            get { return true; }
-        }
+        public override bool RequiresUncalledBetFix => true;
 
-        public override bool RequiresUncalledBetWinAdjustment
-        {
-            get { return true; }
-        }
+        public override bool RequiresUncalledBetWinAdjustment => true;
 
-        public override bool RequiresTotalPotCalculation
-        {
-            get { return true; }
-        }
+        public override bool RequiresTotalPotCalculation => true;
 
-        public override bool RequiresAllInUpdates
-        {
-            get { return true; }
-        }
+        public override bool RequiresAllInUpdates => true;
 
         // So the same parser can be used for It and Fr variations
         public PartyPokerFastParserImpl(SiteName siteName = SiteName.PartyPoker)

@@ -20,32 +20,14 @@ namespace HandHistories.Parser.Parsers.FastParser.FullTiltPoker
 {
     public sealed class FullTiltPokerFastParserImpl : HandHistoryParserFastImpl, IThreeStateParser
     {
-        public override SiteName SiteName
-        {
-            get { return SiteName.FullTilt; }
-        }
+        public override SiteName SiteName => SiteName.FullTilt;
 
         // we adjust the raise sizes on our own during FixUncalledBets
-        public override bool RequiresAdjustedRaiseSizes
-        {
-            get { return true; }
-        }
+        public override bool RequiresAdjustedRaiseSizes => true;
 
-        public override bool SupportRunItTwice
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool SupportRunItTwice => true;
 
-        public override bool RequiresUncalledBetFix
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool RequiresUncalledBetFix => true;
 
         private static readonly NumberFormatInfo NumberFormatInfo = new NumberFormatInfo
             {

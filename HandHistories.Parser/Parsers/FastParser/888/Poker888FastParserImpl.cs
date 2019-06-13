@@ -24,25 +24,13 @@ namespace HandHistories.Parser.Parsers.FastParser._888
             NumberDecimalSeparator = ",",
         };
 
-        public override SiteName SiteName
-        {
-            get { return SiteName.Pacific; }
-        }
+        public override SiteName SiteName => SiteName.Pacific;
 
-        public override bool RequiresAllInDetection
-        {
-            get { return true; }
-        }
+        public override bool RequiresAllInDetection => true;
 
-        public override bool RequiresTotalPotCalculation
-        {
-            get { return true; }
-        }
+        public override bool RequiresTotalPotCalculation => true;
 
-        public override bool RequiresUncalledBetFix
-        {
-            get { return true; }
-        }
+        public override bool RequiresUncalledBetFix => true;
 
         public override IEnumerable<string> SplitUpMultipleHands(string rawHandHistories)
         {

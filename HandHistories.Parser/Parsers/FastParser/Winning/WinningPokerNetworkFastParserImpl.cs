@@ -26,15 +26,9 @@ namespace HandHistories.Parser.Parsers.FastParser.Winning
 
         private SiteName _siteName;
 
-        public override SiteName SiteName
-        {
-            get { return _siteName; }
-        }
+        public override SiteName SiteName => _siteName;
 
-        public override bool RequiresTotalPotCalculation
-        {
-            get { return true; }
-        }
+        public override bool RequiresTotalPotCalculation => true;
 
         public WinningPokerNetworkFastParserImpl()
         {

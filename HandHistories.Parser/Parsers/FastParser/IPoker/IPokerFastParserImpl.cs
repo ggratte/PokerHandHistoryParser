@@ -36,43 +36,19 @@ namespace HandHistories.Parser.Parsers.FastParser.IPoker
             get { return (_isIpoker2) ? SiteName.IPoker2 : SiteName.IPoker; }
         }
 
-        public override bool  RequiresAdjustedRaiseSizes
-        {
-	        get 
-	        { 
-		         return true;
-	        }
-        }
+        public override bool RequiresAdjustedRaiseSizes => true;
 
-        public override bool RequiresActionSorting
-        {
-            get { return true; }
-        }
+        public override bool RequiresActionSorting => true;
 
-        public override bool RequiresAllInDetection
-        {
-            get { return true; }
-        }
+        public override bool RequiresAllInDetection => true;
 
-        public override bool RequiresAllInUpdates
-        {
-            get { return true; }
-        }
+        public override bool RequiresAllInUpdates => true;
 
-        public override bool RequiresTotalPotCalculation
-        {
-            get { return true; }
-        }
+        public override bool RequiresTotalPotCalculation => true;
 
-        public override bool RequiresUncalledBetFix
-        {
-            get { return true; }
-        }
+        public override bool RequiresUncalledBetFix => true;
 
-        public override bool RequiresUncalledBetWinAdjustment
-        {
-            get { return true; }
-        }
+        public override bool RequiresUncalledBetWinAdjustment => true;
 
         protected override string[] SplitHandsLines(string handText)
         {

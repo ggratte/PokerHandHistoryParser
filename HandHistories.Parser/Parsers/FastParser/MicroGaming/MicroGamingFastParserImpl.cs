@@ -33,10 +33,7 @@ namespace HandHistories.Parser.Parsers.FastParser.MicroGaming
                                  .Select(s => "<Game hhversion" + s.Trim('\r', 'n'));
         }
 
-        public override SiteName SiteName
-        {
-            get { return SiteName.MicroGaming; }
-        }
+        public override SiteName SiteName => SiteName.MicroGaming;
 
         public override bool RequiresAdjustedRaiseSizes
         {
@@ -48,10 +45,7 @@ namespace HandHistories.Parser.Parsers.FastParser.MicroGaming
             get { return false; }
         }
 
-        public override bool RequiresTotalPotCalculation
-        {
-            get { return true; }
-        }
+        public override bool RequiresTotalPotCalculation => true;
 
         protected override void FinalizeHandHistory(HandHistory Hand)
         {

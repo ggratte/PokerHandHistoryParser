@@ -24,18 +24,9 @@ namespace HandHistories.Parser.Parsers.FastParser.Merge
             get { return SiteName.Merge; }
         }
 
-        public override bool RequiresAdjustedRaiseSizes
-        {
-            get { return true; }
-        }
+        public override bool RequiresAdjustedRaiseSizes => true;
 
-        public override bool RequiresTotalPotCalculation
-        {
-            get
-            {
-                return true;
-            }
-        }
+        public override bool RequiresTotalPotCalculation => true;
 
         XDocument GetXDocumentFromLines(string[] handLines)
         {

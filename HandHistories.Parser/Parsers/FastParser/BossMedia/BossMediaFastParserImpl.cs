@@ -24,20 +24,11 @@ namespace HandHistories.Parser.Parsers.FastParser.BossMedia
     {
         static readonly CultureInfo provider = CultureInfo.InvariantCulture;
 
-        public override SiteName SiteName
-        {
-            get { return SiteName.BossMedia; }
-        }
+        public override SiteName SiteName => SiteName.BossMedia;
 
-        public override bool RequiresAdjustedRaiseSizes
-        {
-            get { return true; }
-        }
+        public override bool RequiresAdjustedRaiseSizes => true;
 
-        public override bool RequiresUncalledBetFix
-        {
-            get { return true; }
-        }
+        public override bool RequiresUncalledBetFix => true;
 
         public override IEnumerable<string> SplitUpMultipleHands(string rawHandHistories)
         {

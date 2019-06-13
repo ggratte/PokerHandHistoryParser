@@ -19,27 +19,18 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
     public partial class PokerStarsFastParserImpl : HandHistoryParserFastImpl, IThreeStateParser
     {
         static readonly TimeZoneInfo PokerStarsTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
+        
+        public override bool RequiresAdjustedRaiseSizes => true;
 
-        private const int GameIdStartIndex = 17;
-
-        public override bool RequiresAdjustedRaiseSizes
-        {
-            get { return true; }
-        }
-
-        public override bool SupportRunItTwice
-        {
-            get { return true; }
-        }
+        public override bool SupportRunItTwice => true;
 
         private readonly SiteName _siteName;
 
-        public override SiteName SiteName
-        {
-            get { return _siteName; }
-        }
+        public override SiteName SiteName => _siteName;
 
         private readonly NumberFormatInfo _numberFormatInfo;
+
+        const int GameIdStartIndex = 17;
 
         // So the same parser can be used for It and Fr variations
         public PokerStarsFastParserImpl(SiteName siteName = SiteName.PokerStars)
