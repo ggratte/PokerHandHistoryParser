@@ -307,8 +307,7 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
             var name = line.Remove(nameEndIndex);
             var amountStartIndex = line.LastIndexOf(' ') + 1;
             var amount = line.Substring(amountStartIndex);
-
-            var typeid = line[nameEndIndex + 11];
+            
             HandActionType action;
             switch (amountStartIndex - nameEndIndex)
             {
