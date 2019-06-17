@@ -1,11 +1,13 @@
 ﻿Hand #54760000 - Omaha(Pot Limit) - $0.10/$0.25 - 2019/04/25 14:10:24 UTC
 Morrison 6-max Seat #1 is the button
 Seat 1: pandabear44 ($12.63)
+Seat 2: GreatShannon ($20.00)
 Seat 3: Swedish Fish ($8.63)
 Seat 4: sever4523 ($0.00) is sitting out
 Seat 6: EMUDGE ($25.60)
 Swedish Fish posts the small blind $0.10
 EMUDGE posts the big blind $0.25
+GreatShannon waits for big blind
 *** HOLE CARDS ***
 pandabear44 calls $0.25
 Swedish Fish folds

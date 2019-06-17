@@ -1642,6 +1642,12 @@
     <Content Include="SampleHandHistories\WinningPokerV2\CashGame\HandActionTests\FoldedPreflop.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="SampleHandHistories\WinningPokerV2\CashGame\HandActionTests\PostingDead.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="SampleHandHistories\WinningPokerV2\CashGame\HandActionTests\SplitPot.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="SampleHandHistories\WinningPokerV2\CashGame\HandActionTests\UncalledBetHand.txt" />
     <Content Include="SampleHandHistories\WinningPokerV2\CashGame\Limits\Limit1.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

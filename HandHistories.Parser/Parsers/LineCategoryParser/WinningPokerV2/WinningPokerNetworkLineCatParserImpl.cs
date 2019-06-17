@@ -41,26 +41,41 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
                 cat.Add(LineCategory.Seat, line);
             }
 
+            //Pregame actions
+            for (; i < lines.Length; i++)
+            {
+                var line = lines[i];
+                if (line.EndsWith('*')) break;
+                if (line.EndsWith('d'))//<playername> waits for big blind
+                {
+                    cat.Add(LineCategory.Seat, line);
+                }
+                else
+                {
+                    cat.Add(LineCategory.Action, line);
+                }
+            }
             //Actions
             for (; i < lines.Length; i++)
             {
                 var line = lines[i];
-                if (line.StartsWithFast("Main pot ") && line.Contains('|'))
-                {
-                    continue;
-                }
+                if (line.StartsWithFast("Main pot ") && line.Contains('|')) continue;
+                if (line.StartsWithFast("Side pot(") && line.Contains('|')) continue;
+
                 if (isDealtToLine(line))
                 {
                     cat.Add(LineCategory.Other, line);
-                    continue;
                 }
-                if (line == "*** SUMMARY ***")
+                else if (line == "*** SUMMARY ***")
                 {
                     cat.Add(LineCategory.Other, line);
                     i++;
                     break;
                 }
-                cat.Add(LineCategory.Action, line);
+                else
+                {
+                    cat.Add(LineCategory.Action, line);
+                }
             }
 
             //Summary
@@ -236,6 +251,12 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
                         //    winners.Add(new WinningsAction(name, WinningsActionType.WINS, amount.ParseAmount(), 0));
                         //}
                         break;
+                    case '1'://<playername> collected $75.62 from side pot-1
+                    case '2':
+                    case '3':
+                    case '4':
+                    case '5':
+                        break;
                     case 'd'://<playername> mucks hand
                         {
                             var name = line.Remove(line.Length - 11);
@@ -298,6 +319,31 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
                         break;
                 }
             }
+            return FixPostsDead(handactions);
+        }
+
+        List<HandAction> FixPostsDead(List<HandAction> handactions)
+        {
+            decimal BB = 0;
+            for (int i = 0; i < handactions.Count; i++)
+            {
+                var action = handactions[i];
+                if (action.Street != Street.Preflop) break;
+
+                if (action.HandActionType == HandActionType.BIG_BLIND)
+                {
+                    BB = action.Absolute;
+                }
+                if (action.HandActionType == HandActionType.POSTS_DEAD && action.Absolute > BB)
+                {
+                    var postAmount = BB;
+                    var deadAmount = action.Amount - BB;
+
+                    action.DecreaseAmount(postAmount);
+                    handactions.Insert(i, new HandAction(action.PlayerName, HandActionType.POSTS, postAmount, Street.Preflop, i + 1));
+                    i++;
+                }
+            }
             return handactions;
         }
 
@@ -316,6 +362,9 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
                     break;
                 case 21://<playername> posts the big blind $0.10
                     action = HandActionType.BIG_BLIND;
+                    break;
+                case 12://<playername> posts dead $0.15
+                    action = HandActionType.POSTS_DEAD;
                     break;
                 case 7://<playername> posts $0.25
                     action = HandActionType.POSTS;
@@ -423,6 +472,11 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
                         IsSittingOut = true,
                     });
                 }
+                else if (line.EndsWith('d'))//<playername> waits for big blind
+                {
+                    var name = line.Remove(line.Length - 20);//" waits for big blind".Length
+                    playerList[name].IsSittingOut = true;
+                }
                 else
                 {
                     bool sitOut = line.EndsWith('t');
@@ -439,6 +493,7 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
                 }
             }
 
+            //Parse Shows
             for (int i = Lines.Action.Count - 1; i > 0; i--)
             {
                 var line = Lines.Action[i];
@@ -455,6 +510,7 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
                 playerList[name].HoleCards = HoleCards.FromCards(cards);
             }
 
+            //Parse Dealt to
             foreach (var line in Lines.Other.Where(isDealtToLine))//Dealt to <playername> [Ad Ad Kh Kd]
             {
                 var cardStartIndex = line.LastIndexOf('[');
@@ -464,6 +520,7 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
                 playerList[name].HoleCards = HoleCards.FromCards(cards);
             }
 
+            //Parse Mucks
             foreach (var line in Lines.Summary.Where(line => line[0] == 'S' && line.EndsWith(']') && line.Contains(" mucked [")))
             {
                 var muck = SummaryMuckRegex.Match(line);

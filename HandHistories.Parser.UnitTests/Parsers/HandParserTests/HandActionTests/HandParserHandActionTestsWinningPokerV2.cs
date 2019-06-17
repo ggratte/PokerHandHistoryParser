@@ -150,5 +150,71 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.HandActionTests
                 throw new NotImplementedException();
             }
         }
+
+        protected override List<HandAction> ExpectedHandActionsSplitPot
+        {
+            get
+            {
+                return new List<HandAction>()
+                {
+                    new HandAction("Player4", HandActionType.SMALL_BLIND, 50m, Street.Preflop),
+                    new HandAction("Player6", HandActionType.BIG_BLIND, 100m, Street.Preflop),
+
+                    new HandAction("Player9", HandActionType.RAISE, 350m, Street.Preflop),
+                    new HandAction("Player1", HandActionType.CALL, 350m, Street.Preflop),
+                    new HandAction("Player3", HandActionType.FOLD, 0m, Street.Preflop),
+                    new HandAction("Player4", HandActionType.CALL, 20.38m, Street.Preflop, AllInAction: true),
+                    new HandAction("Player6", HandActionType.CALL, 250m, Street.Preflop),
+
+                    new HandAction("Player6", HandActionType.CHECK, 0m, Street.Flop),
+                    new HandAction("Player9", HandActionType.CHECK, 0m, Street.Flop),
+                    new HandAction("Player1", HandActionType.BET, 344m, Street.Flop),
+                    new HandAction("Player6", HandActionType.FOLD, 0m, Street.Flop),
+                    new HandAction("Player9", HandActionType.FOLD, 0m, Street.Flop),
+                    new HandAction("Player1", HandActionType.UNCALLED_BET, 344m, Street.Flop),
+
+                    new HandAction("Player1", HandActionType.SHOW, Street.Showdown),
+                    new HandAction("Player4", HandActionType.SHOW, Street.Showdown),
+                };
+            }
+        }
+
+        protected override List<WinningsAction> ExpectedWinnersSplitPot
+        {
+            get
+            {
+                return new List<WinningsAction>()
+                {
+                    new WinningsAction("Player1", WinningsActionType.WINS, 1117.38m, 0),
+                };
+            }
+        }
+
+        [Test]
+        public void PostingDead_Works()
+        {
+            List<HandAction> expectedActions = new List<HandAction>()
+            {
+                new HandAction("Player4", HandActionType.SMALL_BLIND, 0.01m, Street.Preflop),
+                new HandAction("Player5", HandActionType.BIG_BLIND, 0.02m, Street.Preflop),
+                new HandAction("Player2", HandActionType.POSTS, 0.02m, Street.Preflop),
+                new HandAction("Player2", HandActionType.POSTS_DEAD, 0.01m, Street.Preflop),
+
+                new HandAction("Player1", HandActionType.FOLD, 0m, Street.Preflop),
+                new HandAction("Player2", HandActionType.CHECK, 0m, Street.Preflop),
+                new HandAction("Player3", HandActionType.RAISE, 0.08m, Street.Preflop),
+                new HandAction("Player4", HandActionType.RAISE, 0.25m, Street.Preflop),
+                new HandAction("Player5", HandActionType.FOLD, 0m, Street.Preflop),
+                new HandAction("Player2", HandActionType.FOLD, 0m, Street.Preflop),
+                new HandAction("Player3", HandActionType.FOLD, 0m, Street.Preflop),
+                new HandAction("Player4", HandActionType.UNCALLED_BET, 0.18m, Street.Preflop),
+            };
+
+            var expectedWinners = new List<WinningsAction>(){
+                new WinningsAction("Player4", WinningsActionType.WINS, 0.20m, 0)
+            };
+
+            TestParseActions("PostingDead", expectedActions, expectedWinners);
+        }
     }
 }

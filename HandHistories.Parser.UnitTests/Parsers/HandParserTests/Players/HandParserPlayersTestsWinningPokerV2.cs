@@ -18,12 +18,17 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.Players
             get
             {
                 //Seat 1: pandabear44($12.63)
+                //Seat 2: GreatShannon ($20.00)
                 //Seat 3: Swedish Fish($8.63)
                 //Seat 4: sever4523($0.00) is sitting out
                 //Seat 6: EMUDGE($25.60)
                 return new PlayerList()
                 {
                     new Player("pandabear44", 12.63m, 1),
+                    new Player("GreatShannon", 20.00m, 2)
+                    {
+                        IsSittingOut = true
+                    },
                     new Player("Swedish Fish", 8.63m, 3),
                     new Player("sever4523", 0m, 4)
                     {

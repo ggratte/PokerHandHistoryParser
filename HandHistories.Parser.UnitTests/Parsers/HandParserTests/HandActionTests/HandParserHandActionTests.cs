@@ -5,6 +5,7 @@ using HandHistories.Objects.Players;
 using HandHistories.Parser.Parsers.FastParser.PokerStars;
 using HandHistories.Parser.UnitTests.Parsers.Base;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -53,6 +54,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.HandActionTests
         protected abstract List<HandAction> ExpectedHandActionsAllInHand { get; }
         protected abstract List<HandAction> ExpectedHandActionsUncalledBetHand { get; }
         protected abstract List<HandAction> ExpectedOmahaHiLoHand { get; }
+        protected virtual List<HandAction> ExpectedHandActionsSplitPot { get { Assert.Ignore(); throw new NotImplementedException(); } }
 
         protected abstract List<WinningsAction> ExpectedWinnersHandActionsBasicHand { get; }
         protected abstract List<WinningsAction> ExpectedWinnersHandActionsFoldedPreflop { get; }
@@ -60,6 +62,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.HandActionTests
         protected abstract List<WinningsAction> ExpectedWinnersHandActionsAllInHand { get; }
         protected abstract List<WinningsAction> ExpectedWinnersHandActionsUncalledBetHand { get; }
         protected abstract List<WinningsAction> ExpectedWinnersOmahaHiLoHand { get; }
+        protected virtual List<WinningsAction> ExpectedWinnersSplitPot { get { Assert.Ignore(); throw new NotImplementedException(); } }
 
         [Test]
         public void ParseHandActions_BasicHand()
@@ -112,6 +115,12 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.HandActionTests
             }
 
             TestParseActions("OmahaHiLo", ExpectedOmahaHiLoHand, ExpectedWinnersOmahaHiLoHand);
-        }  
+        }
+
+        [Test]
+        public void ParseHandActions_SplitPot()
+        {
+            TestParseActions("SplitPot", ExpectedHandActionsSplitPot, ExpectedWinnersSplitPot);
+        }
     }
 }
