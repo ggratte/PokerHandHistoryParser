@@ -7,11 +7,11 @@ using HandHistories.Parser.Utils.Extensions;
 
 namespace HandHistories.Parser.FileIdentifiers.WinningPoker
 {
-    class WinningPokerFileIdentifier : IFileIdentifier
+    class WinningPokerV1FileIdentifier : IFileIdentifier
     {
         public SiteName Site
         {
-            get { return SiteName.WinningPoker; }
+            get { return SiteName.WinningPokerV1; }
         }
 
         public bool Match(string filetext)

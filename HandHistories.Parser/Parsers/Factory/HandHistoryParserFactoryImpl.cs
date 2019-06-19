@@ -69,6 +69,8 @@ namespace HandHistories.Parser.Parsers.Factory
                     wpnMulti.Add(new WinningPokerNetworkFastParserImpl(), p => p.StartsWith("Game started at: "));
                     wpnMulti.Add(new WinningPokerNetworkV2LineCatParserImpl(), p => p.StartsWith("Hand #"));
                     return wpnMulti;
+                case SiteName.WinningPokerV1:
+                    return new WinningPokerNetworkFastParserImpl();
                 case SiteName.WinningPokerV2:
                     return new WinningPokerNetworkV2LineCatParserImpl();
                 case SiteName.BossMedia:
@@ -122,6 +124,8 @@ namespace HandHistories.Parser.Parsers.Factory
                     wpnMulti.Add(new WinningPokerNetworkFastParserImpl(), p => p.StartsWith("Game started at: "));
                     wpnMulti.Add(new WinningPokerNetworkV2LineCatParserImpl(), p => p.StartsWith("Hand #"));
                     return wpnMulti;
+                case SiteName.WinningPokerV1:
+                    return new WinningPokerNetworkFastParserImpl();
                 case SiteName.WinningPokerV2:
                     return new WinningPokerNetworkV2LineCatParserImpl();
                 case SiteName.BossMedia:
