@@ -85,7 +85,8 @@
     <Compile Include="FileIdentifiers\PartyPoker\PartyPokerFileIdentifier.cs" />
     <Compile Include="FileIdentifiers\PokerStars\PokerStarsFileIdentifier.cs" />
     <Compile Include="FileIdentifiers\Winamax\WinamaxFileIdentifier.cs" />
-    <Compile Include="FileIdentifiers\WinningPoker\WinningPokerFileIdentifier.cs" />
+    <Compile Include="FileIdentifiers\WinningPoker\WinningPokerV2FileIdentifier.cs" />
+    <Compile Include="FileIdentifiers\WinningPoker\WinningPokerV1FileIdentifier.cs" />
     <Compile Include="Parsers\Base\IThreeStateParser.cs" />
     <Compile Include="Parsers\FastParser\888\Poker888FastParserImpl.cs" />
     <Compile Include="Parsers\FastParser\BossMedia\BossMediaAllInAdjuster.cs" />

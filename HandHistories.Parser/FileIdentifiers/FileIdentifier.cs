@@ -24,7 +24,7 @@ namespace HandHistories.Parser.FileIdentifiers
             ids.Add(new PartyPoker.PartyPokerFileIdentifier());
             ids.Add(new PokerStars.PokerStarsFileIdentifier());
             ids.Add(new Winamax.WinamaxFileIdentifier());
-            ids.Add(new WinningPoker.WinningPokerFileIdentifier());
+            ids.Add(new WinningPoker.WinningPokerV1FileIdentifier());
             ids.Add(new IGT.IGTFileIdentifier());
 
             return ids;
