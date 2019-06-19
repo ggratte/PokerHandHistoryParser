@@ -455,7 +455,7 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
         }
 
 
-        static readonly Regex SummaryMuckRegex = new Regex(@"Seat \d{1,2}: (.+?) (\(button\) |\(bigblind\) |\(small blind\) )?mucked \[(.+)\]", RegexOptions.Compiled);
+        static readonly Regex SummaryMuckRegex = new Regex(@"Seat \d{1,2}: (.+?) (\(button\) |\(big blind\) |\(small blind\) )?mucked \[(.+)\]", RegexOptions.Compiled);
         protected override PlayerList ParsePlayers(List<string> seats)
         {
             PlayerList playerList = new PlayerList();
