@@ -44,10 +44,12 @@ namespace HandHistories.Parser.Utils.RaiseAdjuster
 
                     for (int j = i - 1; j >= 0; j--)
                     {
-                        if (actions[j].PlayerName.Equals(currentAction.PlayerName))
+                        var action_j = actions[j];
+                        if (action_j.PlayerName.Equals(currentAction.PlayerName))
                         {
                             // Ante's don't get counted in the raise action lines
-                            if (actions[j].HandActionType == HandActionType.ANTE)
+                            // POSTS_DEAD don't get counted in the raise action lines
+                            if (action_j.HandActionType == HandActionType.ANTE || action_j.HandActionType == HandActionType.POSTS_DEAD)
                             {
                                 continue;
                             }
@@ -55,10 +57,10 @@ namespace HandHistories.Parser.Utils.RaiseAdjuster
                             // a POSTS SB is always dead money
                             // a POSTS BB needs to be deducted completely
                             // a POSTS SB+BB only the BB needs to be deducted
-                            if (actions[j].HandActionType == HandActionType.POSTS)
+                            if (action_j.HandActionType == HandActionType.POSTS)
                             {
                                 // we use <= due to the negative numbers
-                                if (actions[j].Amount <= actions.First(a => a.HandActionType == HandActionType.BIG_BLIND).Amount)
+                                if (action_j.Amount <= actions.First(a => a.HandActionType == HandActionType.BIG_BLIND).Amount)
                                 {
                                     currentAction.DecreaseAmount(actions.First(a => a.HandActionType == HandActionType.BIG_BLIND).Amount);
                                 }
@@ -66,20 +68,20 @@ namespace HandHistories.Parser.Utils.RaiseAdjuster
                             }
 
                             // If the player previously called any future raise will be the entire amount
-                            if (actions[j].HandActionType == HandActionType.CALL)
+                            if (action_j.HandActionType == HandActionType.CALL)
                             {
-                                currentAction.DecreaseAmount(actions[j].Amount);
+                                currentAction.DecreaseAmount(action_j.Amount);
                                 continue;
                             }
 
 
                             // Player who posted SB/BB/SB+BB can check on their first action
-                            if (actions[j].HandActionType == HandActionType.CHECK)
+                            if (action_j.HandActionType == HandActionType.CHECK)
                             {
                                 continue;
                             }
 
-                            currentAction.DecreaseAmount(actions[j].Amount);
+                            currentAction.DecreaseAmount(action_j.Amount);
                             break;
                         }
                     }

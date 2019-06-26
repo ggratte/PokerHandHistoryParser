@@ -68,5 +68,35 @@ namespace HandHistories.Parser.UnitTests.Utils
 
             TestRaiseAdjuster(expected, actions);
         }
+
+        [Test]
+        public void RaiseAdjuster_PostsDead()
+        {
+            List<HandAction> actions = new List<HandAction>()
+            {
+                new HandAction("Player1", HandActionType.SMALL_BLIND, 0.5m, PF),
+                new HandAction("Player2", HandActionType.BIG_BLIND, 1m, PF),
+                new HandAction("Player3", HandActionType.POSTS, 1m, PF),
+                new HandAction("Player3", HandActionType.POSTS_DEAD, 0.5m, PF),
+                new HandAction("Player3", HandActionType.RAISE, 4.5m, PF),
+                new HandAction("Player1", HandActionType.FOLD, 0m, PF),
+                new HandAction("Player2", HandActionType.FOLD, 0m, PF),
+                new HandAction("Player3", HandActionType.UNCALLED_BET, 3.5m, PF),
+            };
+
+            List<HandAction> expected = new List<HandAction>()
+            {
+                new HandAction("Player1", HandActionType.SMALL_BLIND, 0.5m, PF),
+                new HandAction("Player2", HandActionType.BIG_BLIND, 1m, PF),
+                new HandAction("Player3", HandActionType.POSTS, 1m, PF),
+                new HandAction("Player3", HandActionType.POSTS_DEAD, 0.5m, PF),
+                new HandAction("Player3", HandActionType.RAISE, 3.5m, PF),
+                new HandAction("Player1", HandActionType.FOLD, 0m, PF),
+                new HandAction("Player2", HandActionType.FOLD, 0m, PF),
+                new HandAction("Player3", HandActionType.UNCALLED_BET, 3.5m, PF),
+            };
+
+            TestRaiseAdjuster(expected, actions);
+        }
     }
 }
