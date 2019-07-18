@@ -23,6 +23,14 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.Base
         [ThreadStatic]
         protected static readonly Categories Lines = new Categories();
 
+        static HandHistoryParserLineCatImpl()
+        {
+            if (Lines == null)
+            {
+                Lines = new Categories();
+            }
+        }
+
         private Categories GetCategories(string hand)
         {
             Lines.Clear();
