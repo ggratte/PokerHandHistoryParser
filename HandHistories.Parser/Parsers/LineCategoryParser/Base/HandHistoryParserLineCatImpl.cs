@@ -19,17 +19,8 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.Base
     abstract class HandHistoryParserLineCatImpl : IHandHistoryParser
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-
-        [ThreadStatic]
-        protected static readonly Categories Lines = new Categories();
-
-        static HandHistoryParserLineCatImpl()
-        {
-            if (Lines == null)
-            {
-                Lines = new Categories();
-            }
-        }
+        
+        protected readonly Categories Lines = new Categories();
 
         private Categories GetCategories(string hand)
         {
