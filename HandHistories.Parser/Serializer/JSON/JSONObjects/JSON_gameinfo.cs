@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HandHistories.Parser.Serializer.JSON.JSONObjects
 {
-    class JSON_gameinfo
+    public class JSON_gameinfo
     {
         public string format;
         public string site;

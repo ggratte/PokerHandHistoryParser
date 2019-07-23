@@ -23,7 +23,7 @@ namespace HandHistories.Parser.Serializer.JSON
             return JObject.FromObject(GetHand(hand));
         }
 
-        static JSON_hand GetHand(HandHistory hand)
+        public JSON_hand GetHand(HandHistory hand)
         {
             JSON_hand jhand = new JSON_hand();
             jhand.gameinfo = GetGameInfo(hand);

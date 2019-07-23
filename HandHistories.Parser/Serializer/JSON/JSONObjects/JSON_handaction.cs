@@ -5,7 +5,7 @@ using System.Text;
 
 namespace HandHistories.Parser.Serializer.JSON.JSONObjects
 {
-    class JSON_handaction
+    public class JSON_handaction
     {
         public string player;
         public decimal amount;
