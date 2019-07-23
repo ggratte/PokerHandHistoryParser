@@ -59,7 +59,6 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.Players
                 case SiteName.OnGame:
                 case SiteName.Pacific:
                 case SiteName.Entraction:
-                case SiteName.PartyPoker:
                 case SiteName.PokerStars:
                     Assert.Ignore("No sitting out examples for " + Site);
                     break;

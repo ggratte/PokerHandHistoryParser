@@ -758,7 +758,7 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.PartyPoker
                 }
                 else if (line.EndsWithFast(" is sitting out"))
                 {
-                    string playerName = line.Remove(line.Length - 16); //" is sitting out".Length
+                    string playerName = line.Remove(line.Length - 15); //" is sitting out".Length
                     playerList[playerName].IsSittingOut = true;
                 }
             }

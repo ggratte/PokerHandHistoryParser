@@ -56,7 +56,20 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.Players
 
         protected override PlayerList ExpectedWithSittingOutPlayers
         {
-            get { throw new NotImplementedException(); }
+            get
+            {
+                return new PlayerList()
+                {
+                    new Player("zani", 1352.91m, 3),
+                    new Player("FOA", 313.73m, 5),
+                    new Player("p2", 449.61m, 2),
+                    new Player("p6", 533.05m, 6),
+                    new Player("p1", 500m, 1),
+                    new Player("Mirrion", 500m, 4){
+                        IsSittingOut = true
+                    },
+                };
+            }
         }
 
         protected override PlayerList ExpectedOmahaShowdownPlayers
