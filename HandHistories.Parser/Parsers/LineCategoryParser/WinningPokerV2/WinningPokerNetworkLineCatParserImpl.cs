@@ -578,6 +578,8 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
         {
             var line = lines.Summary[0];
             var items = line.Split(new string[] { " | " }, StringSplitOptions.None);
+            handHistorySummary.Rake = 0;
+
             foreach (var item in items)
             {
                 switch (item[0])
