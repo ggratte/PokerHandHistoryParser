@@ -21,7 +21,9 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.Players
                 //Seat 2: GreatShannon ($20.00)
                 //Seat 3: Swedish Fish($8.63)
                 //Seat 4: sever4523($0.00) is sitting out
+                //Seat 5: !? ($3945.11)
                 //Seat 6: EMUDGE($25.60)
+                //!? sits out
                 return new PlayerList()
                 {
                     new Player("pandabear44", 12.63m, 1),
@@ -31,6 +33,10 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.Players
                     },
                     new Player("Swedish Fish", 8.63m, 3),
                     new Player("sever4523", 0m, 4)
+                    {
+                        IsSittingOut = true
+                    },
+                    new Player("!?", 3945.11m, 5)
                     {
                         IsSittingOut = true
                     },

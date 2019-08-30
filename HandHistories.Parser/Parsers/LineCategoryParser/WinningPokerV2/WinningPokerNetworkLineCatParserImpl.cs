@@ -45,8 +45,11 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
             for (; i < lines.Length; i++)
             {
                 var line = lines[i];
-                if (line.EndsWith('*')) break;
-                if (line.EndsWith('d'))//<playername> waits for big blind
+                var lastchar = line.Last();
+                if (lastchar == '*') break;
+                //<playername> waits for big blind
+                //<playername> sits out
+                if (lastchar == 'd' || lastchar == 't')
                 {
                     cat.Add(LineCategory.Seat, line);
                 }
@@ -480,16 +483,16 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
                 else
                 {
                     bool sitOut = line.EndsWith('t');
-
-                    int seat = FastInt.Parse(line, 5);
-                    int nameEndIndex = line.LastIndexOfFast(" (");
-                    var name = line.SubstringBetween(line.IndexOf(':') + 2, nameEndIndex);
-                    var stackEndIndex = sitOut ? line.Length - 16 : line.Length - 1;
-                    var stack = line.SubstringBetween(nameEndIndex + 2, stackEndIndex);
-                    playerList.Add(new Player(name, stack.ParseAmount(), seat)
+                    if (sitOut && !line.StartsWithFast("Seat"))
                     {
-                        IsSittingOut = sitOut,
-                    });
+                        var name = line.Remove(line.Length - 9);
+                        playerList[name].IsSittingOut = true;
+                    }
+                    else
+                    {
+                        var stackEndIndex = sitOut ? line.Length - 16 : line.Length - 1;
+                        playerList.Add(ParseSeatLine(line, stackEndIndex, sitOut));
+                    }
                 }
             }
 
@@ -529,6 +532,20 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
             }
 
             return playerList;
+        }
+
+        static Player ParseSeatLine(string line, int stackEndIndex, bool sitout)
+        {
+            bool sitOut = line.EndsWith('t');
+
+            int seat = FastInt.Parse(line, 5);
+            int nameEndIndex = line.LastIndexOfFast(" (", stackEndIndex);
+            var name = line.SubstringBetween(line.IndexOf(':') + 2, nameEndIndex);
+            var stack = line.SubstringBetween(nameEndIndex + 2, stackEndIndex);
+            return new Player(name, stack.ParseAmount(), seat)
+            {
+                IsSittingOut = sitOut,
+            };
         }
 
         protected override PokerFormat ParsePokerFormat(List<string> header)
