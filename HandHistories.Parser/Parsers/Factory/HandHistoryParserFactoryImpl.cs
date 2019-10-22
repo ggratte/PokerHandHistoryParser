@@ -76,6 +76,9 @@ namespace HandHistories.Parser.Parsers.Factory
                     return new BossMediaFastParserImpl();
                 case SiteName.IGT:
                     return new IGTJSONParserImpl();
+                case SiteName.AsianPokerClubs:
+                    var splitRegex = new Regex("PokerMaster Hand #", RegexOptions.Compiled);
+                    return new PokerStarsFastParserImpl(SiteName.AsianPokerClubs, splitRegex);
                 default:
                     throw new NotImplementedException("GetHandHistorySummaryParser: No full regex parser for " + siteName);
             }
