@@ -24,6 +24,7 @@ namespace HandHistories.Parser.WindowsTestApp
         {
             InitializeComponent();
 
+            listBoxSite.Items.Add(SiteName.AsianPokerClubs);
             listBoxSite.Items.Add(SiteName.BossMedia);
             listBoxSite.Items.Add(SiteName.PokerStars);
             listBoxSite.Items.Add(SiteName.PokerStarsFr);

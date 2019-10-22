@@ -16,7 +16,7 @@ using System.Text.RegularExpressions;
 
 namespace HandHistories.Parser.Parsers.FastParser.PokerStars
 {
-    public partial class PokerStarsFastParserImpl : HandHistoryParserFastImpl, IThreeStateParser
+    public partial class AsiaPokerClubsParserImpl : HandHistoryParserFastImpl, IThreeStateParser
     {
         static readonly TimeZoneInfo PokerStarsTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
         
@@ -35,7 +35,7 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
         const int GameIdStartIndex = 17;
 
         // So the same parser can be used for It and Fr variations
-        public PokerStarsFastParserImpl(SiteName siteName = SiteName.PokerStars)
+        public AsiaPokerClubsParserImpl(SiteName siteName = SiteName.PokerStars)
         {
             _siteName = siteName;
             _numberFormatInfo = new NumberFormatInfo
@@ -154,26 +154,24 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
                 //  *** SUMMARY ***
                 if (line[0] == '*' && line[4] == 'S')
                 {
-                    break;
-                }
-                if (line.StartsWithFast("Total pot"))
-                {
                     // Line after summary line is:
                     //  Total pot $13.12 | Rake $0.59 
                     // or
                     //  Total pot $62.63 Main pot $54.75. Side pot $5.38. | Rake $2.50 
-                    string totalLine = handLines[i];
+                    string totalLine = handLines[i + 1];
 
                     int lastSpaceIndex = totalLine.LastIndexOf(' ');
                     int spaceAfterFirstNumber = totalLine.IndexOf(' ', 11);
 
                     string rake = totalLine.Substring(lastSpaceIndex + 1, totalLine.Length - lastSpaceIndex - 1);
 
-                    handHistorySummary.Rake = rake.ParseAmountWS();
+                    handHistorySummary.Rake = rake.ParseAmount();
 
                     string totalPot = totalLine.Substring(10, spaceAfterFirstNumber - 10);
 
-                    handHistorySummary.TotalPot = totalPot.ParseAmountWS();
+                    handHistorySummary.TotalPot = totalPot.ParseAmount();
+
+                    break;
                 }
             }
         }
