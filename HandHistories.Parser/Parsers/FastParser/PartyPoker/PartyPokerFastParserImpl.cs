@@ -19,21 +19,13 @@ namespace HandHistories.Parser.Parsers.FastParser.PartyPoker
         private readonly SiteName _siteName;
 
         private static readonly NumberFormatInfo NumberFormatInfo = new NumberFormatInfo
-            {
-                NegativeSign = "-",
-                CurrencyDecimalSeparator = ".",
-                CurrencyGroupSeparator = ",",
-            };
+        {
+            NegativeSign = "-",
+            CurrencyDecimalSeparator = ".",
+            CurrencyGroupSeparator = ",",
+        };
 
         private readonly Currency _currency;
-
-        static readonly Dictionary<string, TimeZoneInfo> PPTimezones = new Dictionary<string, TimeZoneInfo>()
-        {
-            { "CET", TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time")},
-            { "EST", TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time") },
-            { "EDT", TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time") },
-            { "PST", TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time") },
-        };
 
         public override SiteName SiteName => _siteName;
 
@@ -142,7 +134,7 @@ namespace HandHistories.Parser.Parsers.FastParser.PartyPoker
             TimeSpan time = TimeSpan.Parse(timeStr, CultureInfo.InvariantCulture);
 
             DateTime result = new DateTime(year, GetMonthNumber(month), day, time.Hours, time.Minutes, time.Seconds);
-            return ConvertHandDateToUtc(result, PPTimezones[timezone]);
+            return ConvertHandDateToUtc(result, Utils.Time.TimeZoneUtil.GetTimeZoneFromAbbreviation(timezone));
         }
 
         static DateTime ConvertHandDateToUtc(DateTime handDate, TimeZoneInfo timezone)
