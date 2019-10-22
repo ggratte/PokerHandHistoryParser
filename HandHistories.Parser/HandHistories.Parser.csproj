@@ -74,6 +74,7 @@
     <Compile Include="Compression\HandHistoryTinyFormatCompressorImpl.cs" />
     <Compile Include="Compression\IHandHistoryCompressor.cs" />
     <Compile Include="FileIdentifiers\888\888FileIdentifier.cs" />
+    <Compile Include="FileIdentifiers\AsianPokerClubs\AsianPokerClubsFileIdentifier.cs" />
     <Compile Include="FileIdentifiers\BossMedia\BossMediaFileIdentifier.cs" />
     <Compile Include="FileIdentifiers\FileIdentifier.cs" />
     <Compile Include="FileIdentifiers\FullTiltPoker\FullTiltPokerFileIdentifier.cs" />
