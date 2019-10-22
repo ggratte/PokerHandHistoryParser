@@ -24,6 +24,7 @@ namespace HandHistories.Parser.Utils.Time
             { "EST", "Eastern Standard Time" },
             { "EDT", "Eastern Standard Time" },
             { "PST", "Pacific Standard Time" },
+            { "GMT", "Greenwich Mean Time"},
         };
 
         public static DateTime ConvertDateTimeToUtc(DateTime dateTime, TimeZoneType timeZone)
