@@ -32,6 +32,7 @@ namespace HandHistories.Parser.Parsers.FastParser.PartyPoker
             { "CET", TimeZoneInfo.FindSystemTimeZoneById("Central Europe Standard Time")},
             { "EST", TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time") },
             { "EDT", TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time") },
+            { "PST", TimeZoneInfo.FindSystemTimeZoneById("Pacific Standard Time") },
         };
 
         public override SiteName SiteName => _siteName;
