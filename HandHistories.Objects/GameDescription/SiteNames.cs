@@ -36,6 +36,7 @@ namespace HandHistories.Objects.GameDescription
         IGT = 31,
         WinningPokerV1 = 32,
         WinningPokerV2 = 33,
+        AsianPokerClubs = 34,
         All = 63 // note: can't go higher than 63 due to bit value optimizations
     }
 }

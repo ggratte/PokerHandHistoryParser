@@ -133,6 +133,7 @@
     <Compile Include="Utils\AllInAction\AllInActionHelper.cs" />
     <Compile Include="Utils\Extensions\LazyStringSplitExtension.cs" />
     <Compile Include="Utils\FastParsing\FastInt.cs" />
+    <Compile Include="Utils\HandSplitter\RegexHandSplitter.cs" />
     <Compile Include="Utils\RaiseAdjuster\RaiseAdjuster.cs" />
     <Compile Include="Utils\Time\UnixTimestamp.cs" />
     <Compile Include="Utils\ValidityCheck\HandIntegrityException.cs" />

@@ -23,12 +23,14 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
         public override bool RequiresAdjustedRaiseSizes => true;
 
         public override bool SupportRunItTwice => true;
+        
+        public override SiteName SiteName => _siteName;
 
         private readonly SiteName _siteName;
 
-        public override SiteName SiteName => _siteName;
-
         private readonly NumberFormatInfo _numberFormatInfo;
+
+        private readonly Regex _handSplitRegex;
 
         const int GameIdStartIndex = 17;
 
@@ -43,17 +45,25 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
                 CurrencyGroupSeparator = ",",
                 CurrencySymbol = "$"
             };
+            _handSplitRegex = new Regex("(PokerStars Game #)|(PokerStars Hand #)|(PokerStars Zoom Hand #)", RegexOptions.Compiled);
         }
 
-        private static readonly Regex HandSplitRegex = new Regex("(PokerStars Game #)|(PokerStars Hand #)|(PokerStars Zoom Hand #)", RegexOptions.Compiled);
-
+        // So the same parser can be used for It and Fr variations
+        public PokerStarsFastParserImpl(SiteName siteName, Regex handSplitRegex)
+            : this(siteName)
+        {
+            _handSplitRegex = handSplitRegex;
+        }
+        
         public override IEnumerable<string> SplitUpMultipleHands(string rawHandHistories)
         {
-            var start = rawHandHistories[16] == '#' ? "PokerStars Game #" : "PokerStars Zoom Hand #";
+            //var start = rawHandHistories[16] == '#' ? "PokerStars Game #" : "PokerStars Zoom Hand #";
+            
+            //return HandSplitRegex.Split(rawHandHistories)
+            //                .Where(s => string.IsNullOrWhiteSpace(s) == false && s.Length > 30)
+            //                .Select(s => start + s.Trim('\r', 'n'));
 
-            return HandSplitRegex.Split(rawHandHistories)
-                            .Where(s => string.IsNullOrWhiteSpace(s) == false && s.Length > 30)
-                            .Select(s => start + s.Trim('\r', 'n'));
+            return Utils.HandSplitter.RegexHandSplitter.Split(rawHandHistories, _handSplitRegex);
         }
 
         public override IEnumerable<string[]> SplitUpMultipleHandsToLines(string rawHandHistories)

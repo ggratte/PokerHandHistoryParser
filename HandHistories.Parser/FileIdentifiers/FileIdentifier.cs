@@ -27,18 +27,17 @@ namespace HandHistories.Parser.FileIdentifiers
             ids.Add(new WinningPoker.WinningPokerV1FileIdentifier());
             ids.Add(new WinningPoker.WinningPokerV2FileIdentifier());
             ids.Add(new IGT.IGTFileIdentifier());
+            ids.Add(new AsianPokerClubs.AsianPokerClubsFileIdentifier());
 
             return ids;
         }
 
         public static SiteName IdentifyHand(string text)
         {
-            foreach (var id in Identifiers)
+            var match = Identifiers.FirstOrDefault(i => i.Match(text));
+            if (match != null)
             {
-                if (id.Match(text))
-                {
-                    return id.Site;
-                }
+                return match.Site;
             }
 
             return SiteName.Unknown;

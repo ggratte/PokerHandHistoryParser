@@ -1,6 +1,5 @@
 ﻿using System;
 using HandHistories.Objects.GameDescription;
-using HandHistories.Parser.Compression;
 using HandHistories.Parser.Parsers.Base;
 using HandHistories.Parser.Parsers.FastParser.Entraction;
 using HandHistories.Parser.Parsers.FastParser.FullTiltPoker;
@@ -17,6 +16,7 @@ using HandHistories.Parser.Parsers.FastParser.PartyPoker;
 using HandHistories.Parser.Parsers.JSONParser.IGT;
 using HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2;
 using HandHistories.Parser.Parsers.LineCategoryParser.PartyPoker;
+using System.Text.RegularExpressions;
 
 namespace HandHistories.Parser.Parsers.Factory
 {
@@ -24,7 +24,6 @@ namespace HandHistories.Parser.Parsers.Factory
     {
         public HandHistoryParserFactoryImpl()
         {
-       
         }
 
         public IHandHistoryParser GetFullHandHistoryParser(SiteName siteName)
@@ -132,6 +131,9 @@ namespace HandHistories.Parser.Parsers.Factory
                     return new BossMediaFastParserImpl();
                 case SiteName.IGT:
                     return new IGTJSONParserImpl();
+                case SiteName.AsianPokerClubs:
+                    var splitRegex = new Regex("PokerMaster Hand #", RegexOptions.Compiled);
+                    return new PokerStarsFastParserImpl(SiteName.AsianPokerClubs, splitRegex);
                 default:
                     throw new NotImplementedException("GetHandHistorySummaryParser: No summary regex parser for " + siteName);
             }
