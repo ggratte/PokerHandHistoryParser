@@ -67,7 +67,7 @@ namespace HandHistories.Parser.Parsers.JSONParser.Base
             hand.HandActions = AdjustHandActions(ParseHandActions(JSON));
             hand.Winners = ParseWinners(JSON);
             hand.GameDescription = ParseGameDescriptor(JSON);
-            hand.ComumnityCards = ParseCommunityCards(JSON);
+            hand.CommunityCards = ParseCommunityCards(JSON);
 
             string heroName = ParseHeroName(JSON);
             hand.Hero = hand.Players.FirstOrDefault(p => p.PlayerName == heroName);

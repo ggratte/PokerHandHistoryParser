@@ -123,7 +123,7 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.Base
                 handHistory.HandId = ParseHandId(Lines.Header);
                 handHistory.TableName = ParseTableName(Lines.Header);
                 handHistory.DealerButtonPosition = ParseDealerPosition(Lines.Header);
-                handHistory.ComumnityCards = ParseCommunityCards(Lines.Summary);
+                handHistory.CommunityCards = ParseCommunityCards(Lines.Summary);
                 handHistory.Cancelled = isCancelled;
                 handHistory.Players = ParsePlayers(Lines.Seat);
                 handHistory.NumPlayersSeated = handHistory.Players.Count;

@@ -25,7 +25,7 @@ namespace HandHistories.Objects.UnitTests.Serialization
         {
             _handHistory = new HandHistory()
                                {                                  
-                                   ComumnityCards =
+                                   CommunityCards =
                                        BoardCards.ForFlop(Card.GetCardFromIntValue(5), Card.GetCardFromIntValue(14),
                                                           Card.GetCardFromIntValue(40)),
                                    DateOfHandUtc = new DateTime(2012, 3, 20, 12, 30, 44),

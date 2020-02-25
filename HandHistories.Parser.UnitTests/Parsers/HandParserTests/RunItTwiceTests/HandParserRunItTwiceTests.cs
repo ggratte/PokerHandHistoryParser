@@ -29,7 +29,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.RunItTwiceTests
 
             var Run1ShowdownActions = actualHand.HandActions.Street(Street.Showdown).ToList();
 
-            Assert.AreEqual(expectedBoard1, actualHand.ComumnityCards);
+            Assert.AreEqual(expectedBoard1, actualHand.CommunityCards);
             Assert.AreEqual(expectedBoard2, actualHand.RunItTwiceData.Board);
 
             Assert.AreEqual(expectedActions_Run1, Run1ShowdownActions);

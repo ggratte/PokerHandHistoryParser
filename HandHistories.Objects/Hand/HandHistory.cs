@@ -16,7 +16,7 @@ namespace HandHistories.Objects.Hand
             HandActions = new List<HandAction>();
             Players = new PlayerList();
 
-            ComumnityCards = BoardCards.ForPreflop();
+            CommunityCards = BoardCards.ForPreflop();
             GameDescription = gameDescription;
         }
 
@@ -29,7 +29,7 @@ namespace HandHistories.Objects.Hand
 
         public List<WinningsAction> Winners { get; set; }
 
-        public BoardCards ComumnityCards { get; set; }
+        public BoardCards CommunityCards { get; set; }
 
         public PlayerList Players { get; set; }
 

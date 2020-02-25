@@ -62,7 +62,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.Pacific
         {
             var expectedBoard = BoardCards.FromCards("4dKs2hTcKd");
 
-            var actualBoard = GetExtraHand("SpecialCards").ComumnityCards;
+            var actualBoard = GetExtraHand("SpecialCards").CommunityCards;
 
             Assert.AreEqual(expectedBoard, actualBoard);
         }

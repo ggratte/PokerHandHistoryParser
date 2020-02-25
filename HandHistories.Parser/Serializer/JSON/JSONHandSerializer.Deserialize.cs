@@ -23,7 +23,7 @@ namespace HandHistories.Parser.Serializer.JSON
             ReadPlayers(hand, jhand.players);
             ReadActions(hand, jhand.actions);
             ReadWinner(hand, jhand.winners);
-            hand.ComumnityCards = BoardCards.FromCards(jhand.board);
+            hand.CommunityCards = BoardCards.FromCards(jhand.board);
             return hand;
         }
 

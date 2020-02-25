@@ -30,7 +30,7 @@ namespace HandHistories.Parser.Serializer.JSON
             jhand.players = GetPlayers(hand);
             jhand.actions = GetHandActions(hand);
             jhand.winners = GetWinners(hand);
-            jhand.board = hand.ComumnityCards.ToString();
+            jhand.board = hand.CommunityCards.ToString();
             jhand.raw = hand.FullHandHistoryText;
 
             return jhand;

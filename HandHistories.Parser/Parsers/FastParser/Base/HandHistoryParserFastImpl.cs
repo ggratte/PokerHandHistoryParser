@@ -180,7 +180,7 @@ namespace HandHistories.Parser.Parsers.FastParser.Base
                 handHistory.HandId = ParseHandId(handLines);
                 handHistory.TableName = ParseTableName(handLines);
                 handHistory.DealerButtonPosition = ParseDealerPosition(handLines);
-                handHistory.ComumnityCards = ParseCommunityCards(handLines);
+                handHistory.CommunityCards = ParseCommunityCards(handLines);
                 handHistory.Cancelled = isCancelled;
                 handHistory.Players = ParsePlayers(handLines);
                 handHistory.NumPlayersSeated = handHistory.Players.Count;
