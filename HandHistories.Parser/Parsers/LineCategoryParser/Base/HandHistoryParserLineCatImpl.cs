@@ -24,7 +24,7 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.Base
         /// We use a [ThreadStaticAttribute] here to avoid allocations of new Categories. Categories are only alive while within a parsing method
         /// </summary>
         [ThreadStatic]
-        static Categories Lines;
+        internal static Categories Lines;
 
         private Categories GetCategories(string hand)
         {
