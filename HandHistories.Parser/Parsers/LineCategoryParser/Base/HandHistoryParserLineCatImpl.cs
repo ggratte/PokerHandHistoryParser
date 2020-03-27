@@ -19,8 +19,12 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.Base
     abstract class HandHistoryParserLineCatImpl : IHandHistoryParser
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();
-        
-        protected readonly Categories Lines = new Categories();
+
+        /// <summary>
+        /// We use a [ThreadStaticAttribute] here to avoid allocations of new Categories. Categories are only alive while within a parsing method
+        /// </summary>
+        [ThreadStatic]
+        static Categories Lines;
 
         private Categories GetCategories(string hand)
         {
