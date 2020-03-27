@@ -28,8 +28,12 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.Base
 
         private Categories GetCategories(string hand)
         {
+            if (Lines == null)
+            {
+                Lines = new Categories();
+            }
             Lines.Clear();
-            
+
             Categorize(Lines, SplitHandsLines(hand));
             return Lines;
         }
@@ -104,24 +108,20 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.Base
 
         public HandHistory ParseFullHandHistory(string handText, bool rethrowExceptions = false)
         {
-            Lines.Clear();
+            GetCategories(handText);
 
-            var textlines = SplitHandsLines(handText);
-            Categorize(Lines, textlines);
-            
             try
             {
                 bool isCancelled;
                 if (IsValidOrCancelledHand(Lines, out isCancelled) == false)
                 {
-                    throw new InvalidHandException(string.Join("\r\n", textlines));
+                    throw new InvalidHandException(handText);
                 }
 
                 //Set members outside of the constructor for easier performance analysis
                 HandHistory handHistory = new HandHistory();
 
-                handHistory.FullHandHistoryLines = textlines;
-                handHistory.FullHandHistoryText = string.Join("\r\n", textlines);
+                handHistory.FullHandHistoryText = handText;
                 handHistory.DateOfHandUtc = ParseDateUtc(Lines.Header);
                 handHistory.GameDescription = ParseGameDescriptor(Lines.Header);
                 handHistory.HandId = ParseHandId(Lines.Header);
@@ -142,7 +142,7 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.Base
 
                 if (handHistory.Players.Count(p => p.IsSittingOut == false) <= 1)
                 {
-                    throw new PlayersException(string.Join("\r\n", textlines), "Only found " + handHistory.Players.Count + " players with actions.");
+                    throw new PlayersException(handText, "Only found " + handHistory.Players.Count + " players with actions.");
                 }
 
                 //    if (SupportRunItTwice)
@@ -197,7 +197,7 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.Base
 
                 if (handHistory.Players.All(p => p.SeatNumber != handHistory.DealerButtonPosition))
                 {
-                    throw new InvalidHandException(string.Join("\r\n", textlines), "Dealer not found");
+                    throw new InvalidHandException(handText, "Dealer not found");
                 }
 
                 FinalizeHand(handHistory);
@@ -214,7 +214,7 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.Base
                     throw;
                 }
 
-                logger.Warn("Couldn't parse hand {0} with error {1} and trace {2}", string.Join("\r\n", textlines), ex.Message, ex.StackTrace);
+                logger.Warn("Couldn't parse hand {0} with error {1} and trace {2}", handText, ex.Message, ex.StackTrace);
                 return null;
             }
         }
