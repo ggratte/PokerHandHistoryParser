@@ -15,6 +15,60 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.HandActionTests
         }
 
         [Test]
+        public void Sittingout_Works()
+        {
+//Player 5x5 = 10 has small blind(15)
+//Player Scout327 sitting out
+//Player PLOwned has big blind(30)
+//Player sugar baby raises(90)
+//Player 5x5 = 10 folds
+//Player PLOwned calls(60)
+//***FLOP * **: [6d 7d 7c]
+//Player PLOwned bets(64)
+//Player sugar baby calls(64)
+//*** TURN***: [6d 7d 7c]
+//[Kc]
+//Player PLOwned checks
+//Player sugar baby checks
+//*** RIVER ***: [6d 7d 7c Kc]
+//[6h]
+//Player PLOwned checks
+//Player sugar baby checks
+//Player PLOwned mucks cards
+//------ Summary ------
+//Pot: 320.75. Rake 2.17. JP fee 0.08
+//Board: [6d 7d 7c Kc 6h]
+//* Player sugar baby shows: Two pairs.Js and 7s[5c Jh 8c Jd]. Bets: 154. Collects: 320.75. Wins: 166.75.
+
+
+            List<HandAction> expectedActions = new List<HandAction>()
+            {
+                new HandAction("5x5=10", HandActionType.SMALL_BLIND, 15m, Street.Preflop),
+                new HandAction("PLOwned", HandActionType.BIG_BLIND, 30m, Street.Preflop),
+
+                new HandAction("sugar baby", HandActionType.RAISE, 90m, Street.Preflop),
+                new HandAction("5x5=10", HandActionType.FOLD, 0m, Street.Preflop),
+                new HandAction("PLOwned", HandActionType.CALL, 60m, Street.Preflop),
+
+                new HandAction("PLOwned", HandActionType.BET, 64m, Street.Flop),
+                new HandAction("sugar baby", HandActionType.CALL, 64m, Street.Flop),
+
+                new HandAction("PLOwned", HandActionType.CHECK, 0m, Street.Turn),
+                new HandAction("sugar baby", HandActionType.CHECK, 0m, Street.Turn),
+
+                new HandAction("PLOwned", HandActionType.CHECK, 0m, Street.River),
+                new HandAction("sugar baby", HandActionType.CHECK, 0m, Street.River),
+
+            };
+
+            var expectedWinners = new List<WinningsAction>(){
+                new WinningsAction("sugar baby", WinningsActionType.WINS, 320.75m, 0)
+            };
+
+            TestParseActions("SitOut", expectedActions, expectedWinners);
+        }
+
+        [Test]
         public void WaitingBB_Works()
         {
             List<HandAction> expectedActions = new List<HandAction>()

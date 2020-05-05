@@ -79,7 +79,7 @@ namespace HandHistories.Parser.Utils.Extensions
         /// <returns></returns>
         public static decimal ParseAmount(this string str)
         {
-            str = str.Trim('£', '€', '$');
+            str = str.Trim('£', '€', '$', '¥');
             return Decimal.Parse(str, CultureInfo.InvariantCulture);
         }
 
@@ -90,13 +90,13 @@ namespace HandHistories.Parser.Utils.Extensions
         /// <returns></returns>
         public static decimal ParseAmount(this string str, NumberFormatInfo numberFormat)
         {
-            str = str.Trim('£', '€', '$');
+            str = str.Trim('£', '€', '$', '¥');
             return Decimal.Parse(str, numberFormat);
         }
 
         static readonly char[] ParseWSTrimChars = new char[]
         {
-            '£', '€', '$', ' ', (char)160
+            '£', '€', '$', ' ', '¥', (char)160
         };
 
         /// <summary>

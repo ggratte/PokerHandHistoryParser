@@ -24,6 +24,7 @@ namespace HandHistories.Objects.GameDescription
         /// </summary>
         [EnumMember] SATELLITE = 6,
         [EnumMember] SEK = 7,
+        [EnumMember] CNY = 8,
         [EnumMember] All = 255,
     }
 }

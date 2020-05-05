@@ -448,6 +448,9 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
                 case '£':
                     _numberFormatInfo.CurrencySymbol = "£";
                     return Currency.GBP;
+                case '¥':
+                    _numberFormatInfo.CurrencySymbol = "¥";
+                    return Currency.CNY;
 
                 case '0':
                 case '1':
@@ -490,6 +493,10 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
                 case "EUR":
                     _numberFormatInfo.CurrencySymbol = "€";
                     currency = Currency.EURO;
+                    return true;
+                case "CNY":
+                    _numberFormatInfo.CurrencySymbol = "¥";
+                    currency = Currency.CNY;
                     return true;
                 default:
                     currency = Currency.All;

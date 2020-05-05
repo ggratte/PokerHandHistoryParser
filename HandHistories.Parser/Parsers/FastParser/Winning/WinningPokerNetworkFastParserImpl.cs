@@ -357,14 +357,17 @@ namespace HandHistories.Parser.Parsers.FastParser.Winning
                     //Player Aquasces1 received a card.
                     case '.':
                     //Player WP_Hero received card: [6d]
-                    case ']': 
+                    case ']':
                         //No more posts can occur when players start reciving cards
                         return i;
 
                     //Player TheKunttzz posts (0.25) as a dead bet
                     //Player TheKunttzz posts (0.50)
-                    case 't':   
-                        deadBet = true;
+                    case 't':
+                        if (!line.Contains("sitting out"))
+                        {
+                            deadBet = true;
+                        }
                         break;
 
                     //Player Aquasces1 has small blind (2)
@@ -384,10 +387,23 @@ namespace HandHistories.Parser.Parsers.FastParser.Winning
                     playerNameEndIndex = line.IndexOfFast(" straddle (");
                 }
 
-                string playerName = line.Substring(PlayerNameStartindex, playerNameEndIndex - PlayerNameStartindex);
-                decimal Amount = ParseActionAmountAfterPlayer(line);
+                bool _sittingOut = false;
+                if (playerNameEndIndex == -1 && line.Contains("sitting out"))
+                {
+                    playerNameEndIndex = line.IndexOfFast(" sitting out");
+                    _sittingOut = true;
+                }
 
-                if (deadBet)
+                string playerName = line.Substring(PlayerNameStartindex, playerNameEndIndex - PlayerNameStartindex);
+
+
+                decimal Amount = 0;
+                if (!_sittingOut)
+                {
+                    Amount = ParseActionAmountAfterPlayer(line);
+                }
+
+                if (deadBet )
                 {
                     Amount += ParseActionAmountAfterPlayer(handLines[++i]);
                 }

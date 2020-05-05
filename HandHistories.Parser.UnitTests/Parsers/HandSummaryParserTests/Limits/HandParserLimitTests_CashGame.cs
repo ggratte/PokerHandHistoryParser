@@ -114,5 +114,33 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.Limits
 
             }
         }
+        [Test]
+        public void ParseLimit_YuanTable_Correct()
+        {
+            switch (Site)
+            {
+                case SiteName.IPoker:
+                case SiteName.MicroGaming:
+                case SiteName.PartyPoker:
+                case SiteName.OnGame:
+                case SiteName.Pacific:
+                case SiteName.Merge:
+                case SiteName.Entraction:
+                case SiteName.FullTilt:
+                case SiteName.Winamax:
+                case SiteName.WinningPoker:
+                case SiteName.WinningPokerV2:
+                case SiteName.BossMedia:
+                case SiteName.OnGameIt:
+                case SiteName.IGT:
+                    Assert.Ignore("Site doesn't have yuan tables.");
+                    break;
+                default:
+                    TestLimit("¥25-¥50", "YuanTable");
+                    break;
+
+            }
+        }
+
     }
 }
