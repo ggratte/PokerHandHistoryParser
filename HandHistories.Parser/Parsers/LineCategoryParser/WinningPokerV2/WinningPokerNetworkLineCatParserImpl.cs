@@ -312,11 +312,13 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
                             var amount = line.SubstringBetween(amountStartIndex, amountEndIndex);
                             var nameStartIndex = line.IndexOf(':') + 2;
                             var nameEndIndex = line.LastIndexOfFast(" showed", amountEndIndex);//" did not show and won ".Length
-                            if (line[nameEndIndex - 1] == ')')
-                            {
-                                nameEndIndex = line.LastIndexOf(' ', nameEndIndex - 1);
-                            }
+
                             var name = line.SubstringBetween(nameStartIndex, nameEndIndex);
+                            if (name.Contains("blind)") || name.Contains("(button)"))
+                            {
+                                nameEndIndex = line.LastIndexOf('(', nameEndIndex - 1) - 1;
+                            }
+                            name = line.SubstringBetween(nameStartIndex, nameEndIndex);
                             winners.Add(new WinningsAction(name, WinningsActionType.WINS, amount.ParseAmount(), 0));
                         }
                         break;
