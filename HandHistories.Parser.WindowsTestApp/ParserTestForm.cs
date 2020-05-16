@@ -15,6 +15,7 @@ using HandHistories.Parser.Utils;
 using HandHistories.Parser.Parsers.Base;
 using System.IO;
 using HandHistories.Parser.Serializer.JSON;
+using HandHistories.Objects.Hand;
 
 namespace HandHistories.Parser.WindowsTestApp
 {
@@ -53,6 +54,8 @@ namespace HandHistories.Parser.WindowsTestApp
                 return;
             }
 
+            listBoxHands.Items.Clear();
+
             IHandHistoryParserFactory factory = new HandHistoryParserFactoryImpl();
             var handParser = factory.GetFullHandHistoryParser((SiteName) listBoxSite.SelectedItem);
             bool validate = checkBox_validateHands.Checked;
@@ -81,6 +84,7 @@ namespace HandHistories.Parser.WindowsTestApp
                         var json = new JSONHandSerializer().Serialize(parsedHand);
                         File.AppendAllText("parsed hands.txt", json + Environment.NewLine);
                     }
+                    listBoxHands.Items.Add(parsedHand);
                     parsedHands++;
                 }
 
@@ -96,6 +100,47 @@ namespace HandHistories.Parser.WindowsTestApp
             {
                 MessageBox.Show(this, ex.Message + "\r\n" + ex.StackTrace, "Error");
             }
+        }
+
+        private void listBoxHands_Format(object sender, ListControlConvertEventArgs e)
+        {
+            var hh = e.ListItem as HandHistory;
+            e.Value = hh.HandIdString;
+        }
+
+        private void listBoxHands_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var hand = listBoxHands.SelectedItem as HandHistory;
+
+            StringBuilder hhtext = new StringBuilder();
+            hhtext.AppendLine($"Site: {hand.GameDescription.Site}    HandID: {hand.HandIdString}");
+            hhtext.AppendLine($"Limit: {hand.GameDescription.Limit.SmallBlind}/{hand.GameDescription.Limit.BigBlind}-{hand.GameDescription.Limit.Ante}");
+            hhtext.AppendLine($"Tablename: {hand.TableName}");
+            hhtext.AppendLine($"Hero: {(hand.Hero != null ? hand.Hero.PlayerName : "None")}");
+            hhtext.AppendLine($"");
+            hhtext.AppendLine($"PlayerList:");
+            foreach (var item in hand.Players)
+            {
+                hhtext.AppendLine(item.ToString());
+            }
+
+            hhtext.AppendLine();
+            hhtext.AppendLine($"Actions:");
+            foreach (var item in hand.HandActions)
+            {
+                hhtext.AppendLine(item.ToString());
+            }
+
+            hhtext.AppendLine($"Total Pot: {hand.TotalPot} Rake: {hand.Rake}");
+            hhtext.AppendLine($"Board: {hand.CommunityCards.ToString()}");
+            hhtext.AppendLine();
+            hhtext.AppendLine($"Winners");
+            foreach (var item in hand.Winners)
+            {
+                hhtext.AppendLine(item.ToString());
+            }
+
+            richTextBoxParsedHand.Text = hhtext.ToString();
         }
     }
 }

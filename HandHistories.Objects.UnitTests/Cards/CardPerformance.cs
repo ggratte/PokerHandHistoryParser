@@ -9,12 +9,12 @@ namespace HandHistories.Objects.UnitTests.Cards
         [Test]
         public void NewCard_Performance()
         {
-            const int numberOfCards = 20000000;
+            const int numberOfCards = 5000000;
             System.Diagnostics.Stopwatch timer = new System.Diagnostics.Stopwatch();
             timer.Start();
             for (int i = 0; i < numberOfCards; i++)
             {
-                Card card = new Card("T", "h");
+                Card card = new Card('T', 'h');
             }
             timer.Stop();
             double elapsedMillis = timer.Elapsed.TotalMilliseconds;

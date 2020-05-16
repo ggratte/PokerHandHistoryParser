@@ -5,15 +5,15 @@ using System.Linq;
 
 namespace HandHistories.Objects.Cards
 {
-    //When Card is a struct it only allocates 2 byte on the stack instead of 4 Reference bytes and two strings on the heap
-    //Combined with lookup tables and using enums we get a 20x speedup of parsing cards
     /// <summary>
     /// Represents a card.
-    /// Uses 2 bytes of memory.
     /// </summary>
     [DataContract]
     public partial struct Card
     {
+        [DataMember]
+        public readonly CardEnum CardEnum;
+
         #region Properties
         public int RankNumericValue
         {
@@ -30,36 +30,28 @@ namespace HandHistories.Objects.Cards
             }
         }
 
+        public SuitEnum Suit => (SuitEnum)((int)CardEnum / 13);
+
+        public CardValueEnum Rank => (CardValueEnum)((int)CardEnum % 13);
+
         /// <summary>
-        /// 2c = 0, 3c = 1, ..., Ac = 12, ..., As = 51. Returns -1 if there was an error with the rank or suit values.
+        /// 2c = 0, 3c = 1, ..., Ac = 12, ..., As = 51.
         /// </summary>
-        public int CardIntValue
-        {
-            get
-            {
-                return (int)Suit * 13 + (int)Rank;
-            }
-        }
-        #endregion
-
-        #region Members
-        [DataMember]
-        public readonly SuitEnum Suit;
-
-        [DataMember]
-        public readonly CardValueEnum Rank; 
+        public int CardIntValue => (int)CardEnum;
         #endregion
 
         #region Constructors
         public Card(char rank, char suit)
         {
-            Rank = CardParser.ParseRank(rank);
-            Suit = CardParser.ParseSuit(suit);
+            var r = ParseRank(rank);
+            var s = ParseSuit(suit);
 
-            if (Suit == SuitEnum.Unknown || Rank == CardValueEnum.Unknown)
+            if (r == null || s == null)
             {
                 throw new ArgumentException("Hand is not correctly formatted. Value: " + rank + " Suit: " + suit);
             }
+
+            CardEnum = GetCardEnum(r.Value, s.Value);
         }
 
         /// <summary>
@@ -72,32 +64,31 @@ namespace HandHistories.Objects.Cards
 
         private Card(CardValueEnum rank, SuitEnum suit)
         {
-            Rank = rank;
-            Suit = suit;
+            CardEnum = GetCardEnum(rank, suit);
+        }
+
+        private Card(CardEnum cardCode)
+        {
+            CardEnum = cardCode;
         }
         #endregion
 
         #region Operators
         public static bool operator ==(Card c1, Card c2)
         {
-            return c1.Rank == c2.Rank && c1.Suit == c2.Suit;
+            return c1.CardEnum == c2.CardEnum;
         }
 
         public static bool operator !=(Card c1, Card c2)
         {
-            return c1.Rank != c2.Rank || c1.Suit != c2.Suit;
-        }
-
-        public static explicit operator Card(string card)
-        {
-            return Card.Parse(card);
+            return c1.CardEnum != c2.CardEnum;
         }
         #endregion
 
         #region Functions
         public override string ToString()
         {
-            return AllCardStrings[CardIntValue];
+            return AllCardStrings[(int)CardEnum];
         }
 
         public override bool Equals(object obj)
@@ -113,7 +104,7 @@ namespace HandHistories.Objects.Cards
 
         public override int GetHashCode()
         {
-            return CardIntValue;
+            return CardEnum.GetHashCode();
         } 
         #endregion
     }

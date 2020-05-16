@@ -28,6 +28,8 @@ namespace HandHistories.Parser.Parsers.FastParser.Merge
 
         public override bool RequiresTotalPotCalculation => true;
 
+        public override bool RequiresAllInUpdates => true;
+
         XDocument GetXDocumentFromLines(string[] handLines)
         {
             string handString = string.Join("", handLines);
@@ -440,7 +442,7 @@ namespace HandHistories.Parser.Parsers.FastParser.Merge
                     actionType = HandActionType.BET;
                     break;
                 case "ALL_IN":
-                    return new AllInAction(playerName, value, currentStreet, false, actionNumber);
+                    return new HandAction(playerName, HandActionType.ALL_IN, value, currentStreet, true, actionNumber);
                 case "SHOW":
                     actionType = HandActionType.SHOW;
                     break;

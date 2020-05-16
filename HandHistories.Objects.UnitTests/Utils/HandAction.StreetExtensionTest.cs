@@ -42,7 +42,7 @@ namespace HandHistories.Tools.UnitTests
                     new HandAction("joiso", HandActionType.BET, 300m, Street.Flop),
                     new HandAction("LewisFriend", HandActionType.CALL, 300m, Street.Flop),
                     new HandAction("Bluf_To_Much", HandActionType.CALL, 300m, Street.Flop),
-                    new AllInAction("Crazy Elior", 382.50m, Street.Flop, true),
+                    new HandAction("Crazy Elior", HandActionType.ALL_IN, 382.50m, Street.Flop, true),
                     new HandAction("joiso", HandActionType.CALL, 82.50m, Street.Flop),
                     new HandAction("LewisFriend", HandActionType.CALL, 82.50m, Street.Flop),
                     new HandAction("Bluf_To_Much", HandActionType.CALL, 82.50m, Street.Flop),
@@ -92,7 +92,7 @@ namespace HandHistories.Tools.UnitTests
                 new HandAction("joiso", HandActionType.BET, 300m, Street.Flop),
                 new HandAction("LewisFriend", HandActionType.CALL, 300m, Street.Flop),
                 new HandAction("Bluf_To_Much", HandActionType.CALL, 300m, Street.Flop),
-                new AllInAction("Crazy Elior", 382.50m, Street.Flop, true),
+                new HandAction("Crazy Elior", HandActionType.ALL_IN, 382.50m, Street.Flop, true),
                 new HandAction("joiso", HandActionType.CALL, 82.50m, Street.Flop),
                 new HandAction("LewisFriend", HandActionType.CALL, 82.50m, Street.Flop),
                 new HandAction("Bluf_To_Much", HandActionType.CALL, 82.50m, Street.Flop)

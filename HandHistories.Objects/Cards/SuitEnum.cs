@@ -11,6 +11,5 @@ namespace HandHistories.Objects.Cards
         Diamonds = 0x1,
         Hearts = 0x2,
         Spades = 0x3,
-        Unknown = 0xFF,
     }
 }

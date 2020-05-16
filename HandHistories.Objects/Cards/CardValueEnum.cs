@@ -20,6 +20,5 @@ namespace HandHistories.Objects.Cards
         _Q = 0xA,
         _K = 0xB,
         _A = 0xC,
-        Unknown = 0xFF,
     }
 }

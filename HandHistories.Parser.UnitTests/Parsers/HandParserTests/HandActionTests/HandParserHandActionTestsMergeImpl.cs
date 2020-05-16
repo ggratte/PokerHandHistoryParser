@@ -109,8 +109,8 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.HandActionTests
                     new HandAction("GODEXISTSJK", HandActionType.FOLD, 0m, Street.Preflop),
                     new HandAction("anica11", HandActionType.RAISE, 49m - 2m, Street.Preflop),
                     new HandAction("Hateordiehere", HandActionType.FOLD, 0, Street.Preflop),
-                    new AllInAction("dugaly", 200.59m, Street.Preflop, false),
-                    new AllInAction("anica11", 152.10m, Street.Preflop, false),
+                    new HandAction("dugaly", HandActionType.RAISE, 200.59m, Street.Preflop, true),
+                    new HandAction("anica11", HandActionType.CALL, 152.10m, Street.Preflop, true),
                     new HandAction("anica11", HandActionType.SHOW, 0m, Street.Preflop),
                     new HandAction("dugaly", HandActionType.SHOW, 0m, Street.Preflop),
                 };

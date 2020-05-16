@@ -24,6 +24,8 @@ namespace HandHistories.Parser.Parsers.FastParser.Entraction
 
         public override bool RequiresTotalPotCalculation => true;
 
+        public override bool RequiresAllInUpdates => true;
+
         public override IEnumerable<string> SplitUpMultipleHands(string rawHandHistories)
         {
             //Single Hand Identification Regex = Game #.*?Game.*?\w\w\w(\+|-)(\d+\:\d+)
@@ -304,7 +306,7 @@ namespace HandHistories.Parser.Parsers.FastParser.Entraction
                         handActions.Add(new HandAction(name, HandActionType.UNCALLED_BET, amount, currentStreet));
                         continue;
                     case "All-In":                        
-                        handActions.Add(new AllInAction(name, amount, currentStreet, false));
+                        handActions.Add(new HandAction(name, HandActionType.ALL_IN, amount, currentStreet, true));
                         continue;
                 }
 
