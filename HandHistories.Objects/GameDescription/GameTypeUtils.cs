@@ -54,6 +54,7 @@ namespace HandHistories.Objects.GameDescription
                 case "pot limit five card omaha hi-lo":
                 case "5 card omaha hi/lo pot limit":
                     return GameType.FiveCardPotLimitOmahaHiLo;
+                case "omaha5 pot limit":
                 case "pot limit five card omaha":
                 case "5 card omaha pot limit":
                     return GameType.FiveCardPotLimitOmaha;
