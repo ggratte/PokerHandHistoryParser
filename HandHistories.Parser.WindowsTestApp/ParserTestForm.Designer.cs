@@ -45,7 +45,7 @@
             // 
             this.richTextBoxHandText.Dock = System.Windows.Forms.DockStyle.Fill;
             this.richTextBoxHandText.Location = new System.Drawing.Point(4, 29);
-            this.richTextBoxHandText.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.richTextBoxHandText.Margin = new System.Windows.Forms.Padding(4);
             this.richTextBoxHandText.Name = "richTextBoxHandText";
             this.tableLayoutPanel1.SetRowSpan(this.richTextBoxHandText, 4);
             this.richTextBoxHandText.Size = new System.Drawing.Size(483, 800);
@@ -55,7 +55,7 @@
             // buttonParse
             // 
             this.buttonParse.Location = new System.Drawing.Point(495, 768);
-            this.buttonParse.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.buttonParse.Margin = new System.Windows.Forms.Padding(4);
             this.buttonParse.Name = "buttonParse";
             this.buttonParse.Size = new System.Drawing.Size(187, 60);
             this.buttonParse.TabIndex = 1;
@@ -69,7 +69,7 @@
             this.listBoxSite.FormattingEnabled = true;
             this.listBoxSite.ItemHeight = 16;
             this.listBoxSite.Location = new System.Drawing.Point(495, 29);
-            this.listBoxSite.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listBoxSite.Margin = new System.Windows.Forms.Padding(4);
             this.listBoxSite.Name = "listBoxSite";
             this.listBoxSite.Size = new System.Drawing.Size(192, 675);
             this.listBoxSite.TabIndex = 2;
@@ -92,7 +92,7 @@
             this.tableLayoutPanel1.Controls.Add(this.richTextBoxParsedHand, 3, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.tableLayoutPanel1.Margin = new System.Windows.Forms.Padding(4);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 5;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
@@ -131,7 +131,7 @@
             // 
             this.checkBox_validateHands.AutoSize = true;
             this.checkBox_validateHands.Location = new System.Drawing.Point(495, 712);
-            this.checkBox_validateHands.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBox_validateHands.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox_validateHands.Name = "checkBox_validateHands";
             this.checkBox_validateHands.Size = new System.Drawing.Size(124, 20);
             this.checkBox_validateHands.TabIndex = 5;
@@ -142,7 +142,7 @@
             // 
             this.checkBox_serialize.AutoSize = true;
             this.checkBox_serialize.Location = new System.Drawing.Point(495, 740);
-            this.checkBox_serialize.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.checkBox_serialize.Margin = new System.Windows.Forms.Padding(4);
             this.checkBox_serialize.Name = "checkBox_serialize";
             this.checkBox_serialize.Size = new System.Drawing.Size(141, 20);
             this.checkBox_serialize.TabIndex = 5;
@@ -153,6 +153,7 @@
             // 
             this.listBoxHands.Dock = System.Windows.Forms.DockStyle.Fill;
             this.listBoxHands.FormattingEnabled = true;
+            this.listBoxHands.IntegralHeight = false;
             this.listBoxHands.ItemHeight = 16;
             this.listBoxHands.Location = new System.Drawing.Point(694, 28);
             this.listBoxHands.Name = "listBoxHands";
@@ -177,7 +178,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1382, 833);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "ParserTestForm";
             this.Text = "Hand Parser Test App";
             this.tableLayoutPanel1.ResumeLayout(false);

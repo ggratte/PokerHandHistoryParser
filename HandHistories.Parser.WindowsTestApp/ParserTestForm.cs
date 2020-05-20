@@ -114,7 +114,7 @@ namespace HandHistories.Parser.WindowsTestApp
 
             StringBuilder hhtext = new StringBuilder();
             hhtext.AppendLine($"Site: {hand.GameDescription.Site}    HandID: {hand.HandIdString}");
-            hhtext.AppendLine($"Limit: {hand.GameDescription.Limit.SmallBlind}/{hand.GameDescription.Limit.BigBlind}-{hand.GameDescription.Limit.Ante}");
+            hhtext.AppendLine($"Limit: {hand.GameDescription.Limit.SmallBlind}/{hand.GameDescription.Limit.BigBlind}-{hand.GameDescription.Limit.Ante}   Game: {hand.GameDescription.GameType.ToString()}");
             hhtext.AppendLine($"Tablename: {hand.TableName}");
             hhtext.AppendLine($"Hero: {(hand.Hero != null ? hand.Hero.PlayerName : "None")}");
             hhtext.AppendLine($"");
