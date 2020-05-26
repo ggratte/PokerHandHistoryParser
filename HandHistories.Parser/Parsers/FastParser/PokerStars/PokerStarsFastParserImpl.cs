@@ -1306,9 +1306,10 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
                     playerList[playerName].HoleCards = HoleCards.FromCards(cards);
                 }
             }
-            else
+            else if (summaryIndex != -1)
             {
-                //Check for player shows
+                //Check for "player shows" in *** SHOW DOWN ***, backwards from *** SUMMARY *** index
+                List<string> playersWithCards = new List<string>();
                 for (int i = summaryIndex - 1; i > 0; i--)
                 {
                     string line = handLines[i];
@@ -1318,6 +1319,7 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
                         int nameEndIndex = line.IndexOfFast(": shows [");
 
                         string playerName = line.Remove(nameEndIndex);
+                        playersWithCards.Add(playerName);
 
                         int cardsStartIndex = nameEndIndex + 9;
                         int cardsEndIndex = line.IndexOf(']', cardsStartIndex);
@@ -1329,6 +1331,42 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
                     else
                     {
                         break;
+                    }
+                }
+
+                //pick hands from summary if showdown doesnt
+                if (playersWithCards.Count == 0)
+                {
+                    for (int i = summaryIndex; i < handLines.Length; i++)
+                    {
+                        string line = handLines[i];
+                        if (line.Contains("showed ["))
+                        {
+                            int nameExtraOffset = 0;
+                            switch (line)
+                            {
+                                case string s when s.Contains("(button) "):
+                                    nameExtraOffset = 9;
+                                    break;
+                                case string s when s.Contains("(big blind) "):
+                                    nameExtraOffset = 12;
+                                    break;
+                                case string s when s.Contains("(small blind) "):
+                                    nameExtraOffset = 14;
+                                    break;
+                            }
+
+                            int nameStart = line.IndexOfFast(": ") + 2;
+                            int nameEnd = line.IndexOfFast("showed [") - 1 - nameExtraOffset;
+                            string name = line.Substring(nameStart, nameEnd - nameStart);
+
+                            int cardStart = line.IndexOfFast("showed [") + 8;
+                            int cardEnd = line.IndexOf(']', cardStart);
+                            string cards = line.Substring(cardStart, cardEnd - cardStart);
+
+                            playerList[name].HoleCards = HoleCards.FromCards(cards);
+
+                        }
                     }
                 }
             }
