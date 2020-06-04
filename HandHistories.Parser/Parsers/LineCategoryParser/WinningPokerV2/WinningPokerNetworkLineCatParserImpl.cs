@@ -225,6 +225,12 @@ namespace HandHistories.Parser.Parsers.LineCategoryParser.WinningPokerV2
                         break;
                     case 'w'://<playername> does not show
                         break;
+                    case ')': //Doe0428 shows [As 6d Jc 4c] (a straight, Ace high [As Ks Qh Jc Tc])
+                        if (line.Contains("shows ["))
+                        {
+                            continue;
+                        }
+                        break;
                     default:
                         throw new Exception("Unhandled action: " + line);
                 }
