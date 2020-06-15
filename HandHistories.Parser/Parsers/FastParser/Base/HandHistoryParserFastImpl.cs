@@ -9,6 +9,7 @@ using HandHistories.Parser.Utils.AllInAction;
 using HandHistories.Parser.Utils.Pot;
 using HandHistories.Parser.Utils.RaiseAdjuster;
 using HandHistories.Parser.Utils.Uncalled;
+using NLog.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -451,7 +452,6 @@ namespace HandHistories.Parser.Parsers.FastParser.Base
                 throw new SeatTypeException(handText, "ParseSeatType: Error:" + ex.Message + " Stack:" + ex.StackTrace);
             }
         }
-
         protected abstract SeatType ParseSeatType(string[] handLines);
 
         public GameType ParseGameType(string handText)

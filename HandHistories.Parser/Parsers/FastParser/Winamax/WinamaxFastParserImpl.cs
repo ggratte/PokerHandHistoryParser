@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -47,14 +48,50 @@ namespace HandHistories.Parser.Parsers.FastParser.Winamax
         protected override int ParseDealerPosition(string[] handLines)
         {
             string line = handLines[1];
-            // Line 2  is:
-            // Table: 'Cardiff' 5-max (real money) Seat #4 is the button
             var seatNumberIndex = line.LastIndexOfFast("#") + 1;
             var spaceIndex = line.IndexOfFast(" ", seatNumberIndex);
 
             string dealerStr = line.Substring(seatNumberIndex, spaceIndex - seatNumberIndex);
-            return Int32.Parse(dealerStr);
+            var dealerSeatNumber = Int32.Parse(dealerStr);
+
+            var tempHH = new HandHistory();
+            tempHH.Players = ParsePlayers(handLines);
+
+            if (tempHH.Players.All(p => p.SeatNumber != dealerSeatNumber))
+            {
+                tempHH.HandActions = ParseHandActions(handLines, tempHH.GameDescription.GameType, out List<WinningsAction> tempWinners);
+                var playersWithAction = tempHH.HandActions.Select(p => p.PlayerName).Distinct().ToList();
+
+                if (playersWithAction.Count >= 3)
+                {
+                    var blindPlayers = tempHH.HandActions.Where(p => p.HandActionType == HandActionType.BIG_BLIND || p.HandActionType == HandActionType.SMALL_BLIND).Select(p => p.PlayerName).Distinct();
+
+                    var lastPlayerExBlinds = tempHH.HandActions.Where(p => !blindPlayers.Contains(p.PlayerName)).Select(p => p.PlayerName).Distinct().Last();
+
+                    dealerSeatNumber = tempHH.Players[lastPlayerExBlinds].SeatNumber;
+                }
+                else
+                {
+                    var smallBlindName = tempHH.HandActions.First(p => p.HandActionType == HandActionType.SMALL_BLIND).PlayerName;
+                    dealerSeatNumber = tempHH.Players[smallBlindName].SeatNumber;
+                }
+            }
+            return dealerSeatNumber;
         }
+
+        private static void SetActionNumbers(HandHistory handHistory)
+        {
+            for (int i = 0; i < handHistory.HandActions.Count; i++)
+            {
+                var action = handHistory.HandActions[i];
+                action.ActionNumber = i;
+            }
+        }
+
+        //private List<HandAction> OrderHandActions(List<HandAction> handActions)
+        //{
+        //    return handActions.OrderBy(action => action.ActionNumber).ToList();
+        //}
 
         protected override DateTime ParseDateUtc(string[] handLines)
         {
@@ -147,17 +184,45 @@ namespace HandHistories.Parser.Parsers.FastParser.Winamax
 
         protected override SeatType ParseSeatType(string[] handLines)
         {
-            // line 4 onward has all seated player
-            // Seat 1: ovechkin08 (2000€)
-            // Seat 4: R.BAGGIO (2000€)
-            // *** ANTE/BLINDS ***
+            foreach (var line in handLines)
+            {
+                switch (line.ToLower())
+                {
+                    case string a when 
+                    a.Contains("hu") || 
+                    a.Contains("2-max") || 
+                    a.Contains("heads up") ||
+                    a.Contains("headsup") ||
+                    a.Contains("heads-up"):
+                        return SeatType.FromMaxPlayers(2);
 
+                    case string a when a.Contains("3-max"):
+                        return SeatType.FromMaxPlayers(3);
+
+                    case string a when a.Contains("5-max"):
+                        return SeatType.FromMaxPlayers(5);
+
+                    case string a when a.Contains("6-max"):
+                        return SeatType.FromMaxPlayers(6);
+
+                    case string a when a.Contains("9-max"):
+                        return SeatType.FromMaxPlayers(9);
+
+                    case string a when a.StartsWithFast("***"):
+                        goto end_loop;
+                }
+            }
+            end_loop: return ParseSeatTypeObsolete(handLines);
+        }
+
+        private SeatType ParseSeatTypeObsolete(string[] handLines)
+        {
             int numPlayers = 0;
-            for(int i = 3; i< handLines.Length; i++)
+            for (int i = 2; i < handLines.Length; i++)
             {
                 if (handLines[i].StartsWithFast("***"))
                 {
-                    numPlayers = i - 3;
+                    numPlayers = i - 2;
                     break;
                 }
             }

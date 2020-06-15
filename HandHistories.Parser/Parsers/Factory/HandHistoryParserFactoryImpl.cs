@@ -67,6 +67,7 @@ namespace HandHistories.Parser.Parsers.Factory
                     var wpnMulti = new MultiVersionParser();
                     wpnMulti.Add(new WinningPokerNetworkFastParserImpl(), p => p.StartsWith("Game started at: "));
                     wpnMulti.Add(new WinningPokerNetworkV2LineCatParserImpl(), p => p.StartsWith("Hand #"));
+                    //wpnMulti.Add(new WinningPokerNetworkV2LineCatParserImpl(), p => p.StartsWith("Game Hand #")); //Tournament
                     return wpnMulti;
                 case SiteName.WinningPokerV1:
                     return new WinningPokerNetworkFastParserImpl();
