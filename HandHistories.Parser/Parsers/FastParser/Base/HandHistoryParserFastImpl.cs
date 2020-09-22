@@ -138,33 +138,13 @@ namespace HandHistories.Parser.Parsers.FastParser.Base
         protected virtual void FinalizeHandHistorySummary(HandHistorySummary Hand)
         {
         }
-        
+
         public HandHistory ParseFullHandHistory(string handText, bool rethrowExceptions = false)
         {
-            string[] handLines;
-
             try
             {
-                handLines = SplitHandsLines(handText);
-            }
-            catch (Exception ex)
-            {
-                if (rethrowExceptions)
-                {
-                    throw;
-                }
+                string[] handLines = SplitHandsLines(handText);
 
-                logger.Warn("Couldn't parse hand {0} with error {1} and trace {2}", handText, ex.Message, ex.StackTrace);
-                return null;
-            }
-
-            return ParseFullHandHistory(handLines, rethrowExceptions);
-        }
-
-        public HandHistory ParseFullHandHistory(string[] handLines, bool rethrowExceptions = false)
-        {
-            try
-            {
                 bool isCancelled;
                 if (IsValidOrCancelledHand(handLines, out isCancelled) == false)
                 {
@@ -174,8 +154,7 @@ namespace HandHistories.Parser.Parsers.FastParser.Base
                 //Set members outside of the constructor for easier performance analysis
                 HandHistory handHistory = new HandHistory();
 
-                handHistory.FullHandHistoryLines = handLines;
-                handHistory.FullHandHistoryText = string.Join("\r\n", handLines);
+                handHistory.FullHandHistoryText = handText;
                 handHistory.DateOfHandUtc = ParseDateUtc(handLines);
                 handHistory.GameDescription = ParseGameDescriptor(handLines);
                 handHistory.HandId = ParseHandId(handLines);
@@ -282,7 +261,7 @@ namespace HandHistories.Parser.Parsers.FastParser.Base
                     throw;
                 }
 
-                logger.Warn("Couldn't parse hand {0} with error {1} and trace {2}", string.Join("\r\n", handLines), ex.Message, ex.StackTrace);
+                logger.Warn("Couldn't parse hand {0} with error {1} and trace {2}", handText, ex.Message, ex.StackTrace);
                 return null;
             }
         }
