@@ -7,7 +7,7 @@ using HandHistories.Objects.Hand;
 using HandHistories.Parser.UnitTests.Parsers.Base;
 using NUnit.Framework;
 
-namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.PokerStars
+namespace HandHistories.Parser.UnitTests.Parsers.JSONParserTests.IGT
 {
     [TestFixture]
     class IGTJSONParserExtraTests : HandHistoryParserBaseTests 

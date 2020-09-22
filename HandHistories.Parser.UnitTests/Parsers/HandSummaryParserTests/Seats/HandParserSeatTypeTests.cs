@@ -13,7 +13,6 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.Seats
     [TestFixture("Entraction")]
     [TestFixture("FullTilt")]
     [TestFixture("MicroGaming")]
-    [TestFixture("Winamax")]
     class HandParserSeatTypeTests : HandHistoryParserBaseTests 
     {
         public HandParserSeatTypeTests(string site) : base(site)
