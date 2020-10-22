@@ -38,7 +38,7 @@ namespace HandHistories.Parser.WPFTestApp.ViewModels
                     gametype = "H";
                     break;
                 case GameEnum.Omaha:
-                    gametype = "H";
+                    gametype = "O";
                     break;
                 case GameEnum.FiveCardOmaha:
                     gametype = "O5";

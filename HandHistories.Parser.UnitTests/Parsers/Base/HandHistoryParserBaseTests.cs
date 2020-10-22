@@ -1,5 +1,4 @@
 using System;
-using System.Security.Policy;
 using HandHistories.Objects.GameDescription;
 using HandHistories.Parser.Parsers.Base;
 using HandHistories.Parser.Parsers.Factory;
