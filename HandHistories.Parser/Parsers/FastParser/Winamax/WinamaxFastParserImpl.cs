@@ -283,6 +283,13 @@ namespace HandHistories.Parser.Parsers.FastParser.Winamax
 
             var limitStr = gameLimitStr.Substring(limitStartIndex, limitEndIndex - limitStartIndex);
 
+
+            //Fix for python winamax parser unable to get currency
+            if (limitStr.Contains('�'))
+            {
+                limitStr = limitStr.Replace('�', '€');
+            }
+
             var limitItems = limitStr.Split('/');
 
             decimal smallBlind = limitItems[limitItems.Length - 2].ParseAmount();

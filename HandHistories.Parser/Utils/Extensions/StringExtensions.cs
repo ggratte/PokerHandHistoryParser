@@ -79,7 +79,7 @@ namespace HandHistories.Parser.Utils.Extensions
         /// <returns></returns>
         public static decimal ParseAmount(this string str)
         {
-            str = str.Trim('£', '€', '$', '¥');
+            str = str.Trim('£', '€', '$', '¥', '�');
             return Decimal.Parse(str, CultureInfo.InvariantCulture);
         }
 
