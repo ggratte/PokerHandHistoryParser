@@ -31,25 +31,6 @@ namespace HandHistories.Objects.GameDescription
             return new Limit(smallBlind, bigBlind, currency, isAnteTable, anteAmount);
         }
 
-        public  static Limit FromLimitEnum(LimitEnum limitEnum,
-                                           Currency currency,
-                                           bool isAnteTable = false, 
-                                           decimal anteAmount = 0)
-        {
-            if (limitEnum == LimitEnum.Any)
-            {
-                return new Limit(0, 0, Currency.All, isAnteTable, anteAmount);
-            }
-
-            string smallBlindString = limitEnum.ToString().Split('_')[1].Replace("c", "");
-            decimal smallBlind = decimal.Parse(smallBlindString, System.Globalization.CultureInfo.InvariantCulture) / 100.0m;
-
-            string bigBlindString = limitEnum.ToString().Split('_')[2].Replace("c", "");
-            decimal bigBlind = decimal.Parse(bigBlindString, System.Globalization.CultureInfo.InvariantCulture) / 100;
-
-            return FromSmallBlindBigBlind(smallBlind, bigBlind, currency, isAnteTable, anteAmount);
-        }
-
         [DataMember]
         public Currency Currency { get; set; }
 
@@ -110,34 +91,11 @@ namespace HandHistories.Objects.GameDescription
             {
                 return LimitGrouping.NoseBleeds;
             }
-        }
-
-        public LimitEnum GetLimitEnum()
-        {
-            if (SmallBlind == 0 && BigBlind == 0)
-            {
-                return LimitEnum.Any;
-            }
-
-            int smallBlindCents = (int)(SmallBlind * 100);
-            int bigBlindCents = (int)(BigBlind * 100);
-
-            string limit = string.Format("Limit_{0}c_{1}c", smallBlindCents, bigBlindCents);
-
-            LimitEnum limitEnum;
-            bool result = Enum.TryParse(limit, out limitEnum);
-
-            if (result == false)
-            {
-                throw new Exception("Limit " + SmallBlind + " / " + BigBlind + " does not have a matching LimitEnum.");
-            }
-
-            return limitEnum;
-        }        
+        }    
 
         public string ToDbSafeString(bool skipCurrency = false)
         {
-            if (GetLimitEnum() == LimitEnum.Any)
+            if (SmallBlind == 0 && BigBlind == 0)
             {
                 return "Any";
             }
