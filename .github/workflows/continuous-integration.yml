@@ -21,5 +21,7 @@ jobs:
       run: dotnet restore
     - name: Build
       run: dotnet build --configuration Release --no-restore
-    - name: Test
-      run: dotnet test --no-restore PokerHandHistoryParser.sln
+    - name: Test Objects
+      run: dotnet test --no-restore HandHistories.Objects.UnitTests/HandHistories.Objects.UnitTests.csproj
+    - name: Test Parser
+      run: dotnet test --no-restore HandHistories.Parser.UnitTests/HandHistories.Parser.UnitTests.csproj
