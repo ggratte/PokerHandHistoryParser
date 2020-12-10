@@ -25,8 +25,6 @@ namespace HandHistories.Parser.Parsers.FastParser.PartyPoker
             CurrencyGroupSeparator = ",",
         };
 
-        private readonly Currency _currency;
-
         public override SiteName SiteName => _siteName;
 
         public override bool RequiresUncalledBetFix => true;

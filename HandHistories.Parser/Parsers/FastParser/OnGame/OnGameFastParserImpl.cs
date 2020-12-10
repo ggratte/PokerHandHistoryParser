@@ -27,7 +27,6 @@ namespace HandHistories.Parser.Parsers.FastParser.OnGame
         static readonly char[] CurrencyChars = new char[] { '€', '$' };
 
         private readonly NumberFormatInfo _numberFormatInfo;
-        private readonly Currency _currency;
         // So the same parser can be used for It and Fr variations
         public OnGameFastParserImpl(SiteName siteName = SiteName.OnGame)
         {
@@ -45,11 +44,9 @@ namespace HandHistories.Parser.Parsers.FastParser.OnGame
                 case SiteName.OnGameIt:
                 case SiteName.OnGameFr:
                     _numberFormatInfo.CurrencySymbol = "€";
-                    _currency = Currency.EURO;
                     break;
                 default:
                     _numberFormatInfo.CurrencySymbol = "$";
-                    _currency = Currency.USD;
                     break;
 
             }

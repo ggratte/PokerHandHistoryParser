@@ -14,4 +14,8 @@
     <ProjectReference Include="..\HandHistories.Objects\HandHistories.Objects.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="GameDescription\" />
+  </ItemGroup>
+
 </Project>

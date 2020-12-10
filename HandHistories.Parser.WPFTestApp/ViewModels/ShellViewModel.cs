@@ -66,6 +66,7 @@ namespace HandHistories.Parser.WPFTestApp.ViewModels
             try
             {
                 int parsedHands = 0;
+                int errors = 0;
                 Stopwatch SW = new Stopwatch();
                 SW.Start();
 
@@ -85,12 +86,9 @@ namespace HandHistories.Parser.WPFTestApp.ViewModels
                         }
                         parsedHands++;
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
-                        //treeviewHands.Items.Add(new TreeViewItem()
-                        //{
-                        //    Header = "Error: " + ex.Message,
-                        //});
+                        errors++;
                     }
                 }
 
@@ -101,7 +99,7 @@ namespace HandHistories.Parser.WPFTestApp.ViewModels
                     ParsedHands.Add(hand);
                 }
 
-                StatusText = $"Parsed {parsedHands} hands. {SW.Elapsed.TotalMilliseconds:0.00}ms";
+                StatusText = $"Parsed {parsedHands} hands. {errors} errors. {SW.Elapsed.TotalMilliseconds:0.00}ms";
             }
             catch (Exception ex)
             {
