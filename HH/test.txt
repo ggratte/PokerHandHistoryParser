@@ -1,0 +1,34 @@
+Hand #191676962 - Omaha(Pot Limit) - $2/$4 - 2020/01/05 06:54:00 UTC
+Bazine 6-max Seat #2 is the button
+Seat 1: player1 ($406.9)
+Seat 2: player2 ($0) is sitting out
+Seat 3: player3 ($245.2)
+Seat 4: player4 ($80) is sitting out
+Seat 5: player5 ($80)
+Seat 6: player6 ($420.5)
+player3 posts the small blind $2
+player5 posts the big blind $4
+*** HOLE CARDS ***
+player6 raises $14 to $14
+player1 folds
+player3 folds
+player5 calls $10
+*** FLOP *** [6c 8s 7h]
+Main pot $30 | Rake $1.5
+player5 checks
+player6 bets $30
+player5 raises $66 to $66 and is all-in
+player6 calls $36
+*** TURN *** [6c 8s 7h] [3h]
+Main pot $162 | Rake $2
+*** RIVER *** [6c 8s 7h 3h] [Jd]
+Main pot $162 | Rake $2
+*** SHOW DOWN ***
+Main pot $162 | Rake $2
+player6 shows [Jh Js 8c 8d] (a pair of Jacks [Js Jc])
+player5 shows [Qh Th 7d 3d] (a pair of Jacks [Js Jc])
+*** SUMMARY ***
+Total pot $160 | Rake $2
+Board [6c 8s 7h 3h Jd]
+Seat 6: player6 showed [Jh Js 8c 8d] and won $160 with a straight, Jack high[Jh Td 9h 8c 7h]
+Seat 5: player5 showed [Qh Th 7d 3d] and lost with a pair of Jacks [Js Jc Kd 9h 8c]

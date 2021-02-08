@@ -2,6 +2,7 @@
 using HandHistories.Objects.GameDescription;
 using HandHistories.Objects.Hand;
 using HandHistories.Objects.Players;
+using HandHistories.Parser.FileIdentifiers;
 using HandHistories.Parser.Parsers.Base;
 using HandHistories.Parser.Parsers.Factory;
 using HandHistories.Parser.Utils;
@@ -34,6 +35,7 @@ namespace HandHistories.Parser.WPFTestApp.ViewModels
         public ShellViewModel()
         {
             CmdParse = new RelayCommand((arg) => ParseHands());
+            this.SelectedSite = SiteName.Unknown;
         }
 
         public string HandHistories { get => _handHistories; set => SetProperty(ref _handHistories, value, nameof(HandHistories)); }
@@ -48,10 +50,38 @@ namespace HandHistories.Parser.WPFTestApp.ViewModels
 
         public ObservableCollection<SiteName> AvailableSites { get => _availableSites; set => SetProperty(ref _availableSites, value, nameof(AvailableSites)); }
 
-        public SiteName? SelectedSite { get => _selectedSite; set => SetProperty(ref _selectedSite, value, nameof(SelectedSite)); }
+        public SiteName? SelectedSite 
+        { 
+            get 
+            { 
+                return _selectedSite; 
+            }
+            set
+            {
+                SetProperty(ref _selectedSite, value, nameof(SelectedSite));
+            } 
+        }
 
         void ParseHands()
         {
+            if (SelectedSite == SiteName.Unknown)
+            {
+                try
+                {
+                    var autoSite = FileIdentifier.IdentifyHand(HandHistories);
+                    if (autoSite != SiteName.Unknown)
+                    {
+                        SelectedSite = autoSite;
+                    }
+
+                }
+                catch (Exception)
+                {
+                    StatusText = "Could not determine site from HH";
+                    return;
+                }
+            }
+
             if (SelectedSite == null)
             {
                 StatusText = "Please pick a site";

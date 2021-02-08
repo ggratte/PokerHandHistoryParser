@@ -38,6 +38,7 @@ namespace HandHistories.Parser.WPFTestApp
 
             var model = new ShellViewModel();
 
+            model.AvailableSites.Add(SiteName.Unknown);
             model.AvailableSites.Add(SiteName.AsianPokerClubs);
             model.AvailableSites.Add(SiteName.BossMedia);
             model.AvailableSites.Add(SiteName.PokerStars);
@@ -54,6 +55,7 @@ namespace HandHistories.Parser.WPFTestApp
             model.AvailableSites.Add(SiteName.Entraction);
             model.AvailableSites.Add(SiteName.Merge);
             model.AvailableSites.Add(SiteName.WinningPoker);
+            model.AvailableSites.Add(SiteName.WinningPokerV2);
             model.AvailableSites.Add(SiteName.MicroGaming);
             model.AvailableSites.Add(SiteName.Winamax);
             model.AvailableSites.Add(SiteName.IGT);
