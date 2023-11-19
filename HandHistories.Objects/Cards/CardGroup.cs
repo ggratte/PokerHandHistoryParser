@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -67,6 +68,8 @@ namespace HandHistories.Objects.Cards
             }
         }
 
+        public List<Card> GetCards() { return Cards; }
+
         public Card this[int i]
         {
             get { return Cards[i]; }
@@ -93,13 +96,32 @@ namespace HandHistories.Objects.Cards
             if (stringEquality) return true;
 
             CardGroup cardGroup = obj as CardGroup;
+
             if (cardGroup == null) return false;
 
             if (cardGroup.Cards.Count != Cards.Count) return false;
 
             return (cardGroup.Cards.All(c => Cards.Contains(c)));
         }
-       
+
+        
+        public static bool operator ==(CardGroup c1, CardGroup c2) 
+        { 
+            if (ReferenceEquals(c1, c2))
+            {
+                return true;
+            }
+            else if (ReferenceEquals(c1, null) || ReferenceEquals(c2, null))
+            {
+                return false;
+            }
+
+            return c1.Equals(c2); 
+        }
+        
+
+        public static bool operator !=(CardGroup c1, CardGroup c2) { return !(c1 == c2); }
+
         public override int GetHashCode()
         {
             return (Cards != null ? Cards.GetHashCode() : 0);
