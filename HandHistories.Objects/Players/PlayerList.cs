@@ -51,6 +51,34 @@ namespace HandHistories.Objects.Players
             }
         }
 
+        public override bool Equals(object obj)
+        {
+            PlayerList playerList = obj as PlayerList;
+            if (playerList == null) return false;
+
+            if (playerList.Count != this.Count) return false;
+            for (int i = 0; i < playerList.Count; i ++)
+            {
+                if (!playerList[i].Equals(this[i]))  
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public override int GetHashCode()
+        {
+            int res = 0x2D2816FE;
+            foreach (var item in this)
+            {
+                res = res * 31 + (item == null ? 0 : item.GetHashCode());
+            }
+            return res;
+        }
+
+        public List<Player> GetPlayers() { return _players; }
+
         public void SortList()
         {
             _players = _players.OrderBy(p => p.SeatNumber).ToList();

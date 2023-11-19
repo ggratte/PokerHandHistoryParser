@@ -38,6 +38,16 @@ namespace HandHistories.Objects.Players
             HoleCards = null;
         }
 
+        public Player(string playerName, 
+                      decimal startingStack,
+                      int seatNumber, HoleCards cards)
+        {
+            PlayerName = playerName;
+            StartingStack = startingStack;
+            SeatNumber = seatNumber;
+            HoleCards = cards;
+        }
+
         public bool hasHoleCards
         {
             get
