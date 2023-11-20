@@ -25,6 +25,7 @@ The poker hand-history parser currently supports the following sites:
  * Winning Poker
  * Boss Media
  * Entraction (deprecated)
+ * GGPoker (NLH Cash Game Only)
 
 Format Support
 --------------

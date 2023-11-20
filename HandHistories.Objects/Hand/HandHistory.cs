@@ -35,7 +35,9 @@ namespace HandHistories.Objects.Hand
 
         public Player Hero { get; set; }
 
-        public RunItTwice RunItTwiceData { get; set;  }
+        public RunItTwice RunItTwiceData { get; set;  } 
+        
+        public RunItTwice[] RunItMultipleTimes { get; set;  }
 
         public int NumPlayersActive
         {
