@@ -180,7 +180,14 @@ namespace HandHistories.Parser.Parsers.FastParser.Base
 
                 if (SupportRunItTwice)
                 {
-                    handHistory.RunItTwiceData = ParseRunItTwice(handLines);
+                    if (SiteName.Equals(SiteName.GGPoker))
+                    {
+                        handHistory.RunItMultipleTimes = ParseMultiplerRuns(handLines);
+                    }
+                    else 
+                    {
+                        handHistory.RunItTwiceData = ParseRunItTwice(handLines);
+                    }
                 }
 
                 List<WinningsAction> winners;
@@ -597,6 +604,11 @@ namespace HandHistories.Parser.Parsers.FastParser.Base
         protected abstract BoardCards ParseCommunityCards(string[] handLines);
 
         public virtual RunItTwice ParseRunItTwice(string[] handLines)
+        {
+            throw new NotImplementedException();
+        }
+
+        public virtual RunItTwice[] ParseMultiplerRuns(string[] handLines)
         {
             throw new NotImplementedException();
         }

@@ -1,0 +1,51 @@
+Poker Hand #HD9988158: Hold'em No Limit  ($0.25/$0.5) - 2021/01/23 15:12:01
+Table 'NLHBronze1' 6-max Seat #4 is the button
+Seat 1: Hero ($53.48 in chips)
+Seat 2: 123dca2d ($50 in chips)
+Seat 4: casf123d ($58.14 in chips)
+Seat 5: facdasfwc ($19.61 in chips)
+Seat 6: fadfvasf ($50 in chips)
+facdasfwc: posts small blind $0.25
+fadfvasf: posts big blind $0.5
+123dca2d: posts big blind $0.5
+*** HOLE CARDS ***
+Dealt to Hero [9d 5c]
+Dealt to 123dca2d
+Dealt to casf123d
+Dealt to facdasfwc
+Dealt to fadfvasf
+Hero: folds
+123dca2d: checks
+casf123d: calls $0.5
+facdasfwc: calls $0.25
+fadfvasf: checks
+*** FLOP *** [2c 8h Th]
+facdasfwc: checks
+fadfvasf: checks
+123dca2d: bets $1
+casf123d: folds
+facdasfwc: calls $1
+fadfvasf: calls $1
+*** TURN *** [3c 8h Th] [2h]
+facdasfwc: checks
+fadfvasf: checks
+123dca2d: bets $2.5
+facdasfwc: calls $2.5
+fadfvasf: calls $2.5
+*** RIVER *** [2c 8h Th 2h] [8c]
+facdasfwc: checks
+fadfvasf: checks
+123dca2d: bets $9.38
+facdasfwc: folds
+fadfvasf: folds
+Uncalled bet ($9.38) returned to 123dca2d
+*** SHOWDOWN ***
+123dca2d collected $11.88 from pot
+*** SUMMARY ***
+Total pot $12.5 | Rake $0.62 | Jackpot $0 | Bingo $0
+Board [2c 8h Th 2h Tc]
+Seat 1: Hero folded before Flop (didn't bet)
+Seat 2: 123dca2d won ($11.88)
+Seat 4: casf123d (button) folded on the Flop
+Seat 5: facdasfwc (small blind) folded on the River
+Seat 6: fadfvasf (big blind) folded on the River
