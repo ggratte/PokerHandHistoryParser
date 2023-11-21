@@ -1,0 +1,55 @@
+Poker Hand #HD1245993: Hold'em No Limit  ($0.5/$1) - 2018/11/16 13:15:16
+Table 'NLHGold14' 6-max Seat #2 is the button
+Seat 1: 88kkaa62 ($110.97 in chips)
+Seat 2: 25611aab ($179.23 in chips)
+Seat 3: Hero ($118.31 in chips)
+Seat 4: thg124da ($100 in chips)
+Seat 5: 22ab6yhc ($26.77 in chips)
+Seat 6: ma2fcaaf ($114.72 in chips)
+Hero: posts small blind $0.5
+thg124da: posts big blind $1
+*** HOLE CARDS ***
+Dealt to 88kkaa62
+Dealt to 25611aab
+Dealt to Hero [8d 3s]
+Dealt to thg124da
+Dealt to 22ab6yhc
+Dealt to ma2fcaaf
+22ab6yhc: calls $1
+ma2fcaaf: folds
+88kkaa62: raises $4 to $5
+25611aab: folds
+Hero: folds
+thg124da: folds
+22ab6yhc: calls $4
+*** FLOP *** [Th 9c 5s]
+22ab6yhc: checks
+88kkaa62: bets $11.5
+22ab6yhc: raises $10.27 to $21.77 and is all-in
+88kkaa62: calls $10.27
+22ab6yhc: shows [Kc Qs] (King-High)
+88kkaa62: shows [Js Jd] (Pair of Jacks)
+*** FIRST TURN *** [Th 9c 5s] [6h]
+*** FIRST RIVER *** [Th 9c 5s 6h] [Jc]
+*** SECOND TURN *** [Th 9c 5s] [4d]
+*** SECOND RIVER *** [Th 9c 5s 4d] [Kd]
+*** THIRD TURN *** [Th 9c 5s] [Ad]
+*** THIRD RIVER *** [Th 9c 5s Ad] [2h]
+*** FIRST SHOWDOWN ***
+22ab6yhc collected $17.12 from pot
+*** SECOND SHOWDOWN ***
+22ab6yhc collected $17.11 from pot
+*** THIRD SHOWDOWN ***
+88kkaa62 collected $17.11 from pot
+*** SUMMARY ***
+Total pot $55.04 | Rake $2.7 | Jackpot $1 | Bingo $0
+Hand was run three times
+FIRST Board [Th 9c 5s 6h Jc]
+SECOND Board [4d Kd]
+THIRD Board [Ad 2h]
+Seat 1: 88kkaa62 showed [Js Jd] and lost with Three Jacks, and lost, and won ($17.11)
+Seat 2: 25611aab (button) folded before Flop (didn't bet)
+Seat 3: Hero (small blind) folded before Flop
+Seat 4: thg124da (big blind) folded before Flop
+Seat 5: 22ab6yhc showed [Kc Qs] and won ($17.12) with Kings-High Straight, and won ($17.11), and lost
+Seat 6: ma2fcaaf folded before Flop (didn't bet)
