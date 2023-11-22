@@ -10,6 +10,7 @@ using HandHistories.Objects.Hand;
 using HandHistories.Objects.Players;
 using HandHistories.Parser.UnitTests.Utils.Pot;
 using HandHistories.Objects.Actions;
+using System.Net.NetworkInformation;
 
 namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
 {
@@ -59,7 +60,6 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
             Assert.IsTrue(expectedHandHistory.RunItMultipleTimes[1].Equals(handHistory.RunItMultipleTimes[1]));
             Assert.IsTrue(expectedHandHistory.RunItMultipleTimes[2].Equals(handHistory.RunItMultipleTimes[2]));
 
-            //Assert.IsTrue(expectedHandHistory.HandActions.Equals(handHistory.HandActions));
             TestWinners(expectedHandHistory.Winners, handHistory.Winners);
             TestActions(expectedHandHistory.HandActions, handHistory.HandActions);
 
@@ -377,6 +377,102 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
             };
             TestFullHandHistorySummary(expectedSummary, "RunTwice");
             TestHandHistory(expectedHandHistory, "RunTwice");
+        }
+
+        [Test]
+        public void RunThreeTimes()
+        {
+            HandHistorySummary expectedSummary = new HandHistorySummary()
+            {
+                GameDescription = new GameDescriptor()
+                {
+                    PokerFormat = PokerFormat.CashGame,
+                    GameType = GameType.NoLimitHoldem,
+                    Limit = Limit.FromSmallBlindBigBlind(0.5m, 1m, Currency.USD),
+                    SeatType = SeatType.FromMaxPlayers(6),
+                    Site = SiteName.GGPoker,
+                    TableType = TableType.FromTableTypeDescriptions(TableTypeDescription.Regular)
+                },
+                DateOfHandUtc = new DateTime(2018, 11, 16, 13, 15, 16),
+                DealerButtonPosition = 2,
+                HandId = HandID.From(1245993),
+                NumPlayersSeated = 6,
+                TableName = "NLHGold14",
+                TotalPot = 55.04m,
+                Rake = 2.7m,
+                Jackpot = 1,
+                Bingo = 0
+            };
+
+            HandHistory expectedHandHistory = new HandHistory()
+            {
+                CommunityCards = BoardCards.FromCards("Th9c5s6hJc"),
+                Players = new PlayerList(new List<Player>
+                {
+                    new Player("88kkaa62", 110.97m, 1, HoleCards.FromCards("Js Jd")),
+                    new Player("25611aab", 179.23m, 2),
+                    new Player("Hero", 118.31m, 3, HoleCards.FromCards("8d3s")),
+                    new Player("thg124da", 100, 4),
+                    new Player("22ab6yhc", 26.77m, 5, HoleCards.FromCards("Kc Qs")),
+                    new Player("ma2fcaaf", 114.72m, 6)
+                }),
+                Hero = new Player("Hero", 118.31m, 3, HoleCards.FromCards("8d3s")),
+                RunItMultipleTimes = new RunItTwice[]
+                {
+                    new RunItTwice
+                    {
+                        Board = BoardCards.FromCards("Th9c5s6hJc"),
+                        Actions = new List<HandAction> { },
+                        Winners = new List<WinningsAction>
+                        {
+                            new WinningsAction("22ab6yhc", WinningsActionType.WINS, 17.12m, 0)
+                        }
+                    },
+                    new RunItTwice 
+                    {
+                        Board = BoardCards.FromCards("Th9c5s4dkd"),
+                        Actions = new List<HandAction> { },
+                        Winners = new List<WinningsAction>
+                        {
+                            new WinningsAction("22ab6yhc", WinningsActionType.WINS, 17.11m, 0)
+                        }
+                    
+                    },
+                    new RunItTwice
+                    {
+                        Board = BoardCards.FromCards("Th9c5sAd2h"),
+                        Actions = new List<HandAction> { },
+                        Winners = new List<WinningsAction>
+                        {
+                            new WinningsAction("88kkaa62", WinningsActionType.WINS, 17.11m, 0)
+                        }
+                    }
+                },
+                Winners = new List<WinningsAction>() { 
+                    new WinningsAction("22ab6yhc", WinningsActionType.WINS, 17.12m, 0),
+                    new WinningsAction("22ab6yhc", WinningsActionType.WINS, 17.11m, 0),
+                    new WinningsAction("88kkaa62", WinningsActionType.WINS, 17.11m, 0)
+                },
+                HandActions = new List<HandAction>() {
+                    new HandAction("Hero", HandActionType.SMALL_BLIND, -0.5m, Street.Preflop),
+                    new HandAction("thg124da", HandActionType.BIG_BLIND, -1, Street.Preflop),
+                    new HandAction("22ab6yhc", HandActionType.CALL, 1, Street.Preflop),
+                    new HandAction("ma2fcaaf", HandActionType.FOLD, 0, Street.Preflop),
+                    new HandAction("88kkaa62", HandActionType.RAISE, 5m, Street.Preflop),
+                    new HandAction("25611aab", HandActionType.FOLD, 0, Street.Preflop),
+                    new HandAction("Hero", HandActionType.FOLD, 0, Street.Preflop),
+                    new HandAction("thg124da", HandActionType.FOLD, 0, Street.Preflop),
+                    new HandAction("22ab6yhc", HandActionType.CALL, 4, Street.Preflop),
+                    new HandAction("22ab6yhc", HandActionType.CHECK, 0, Street.Flop), 
+                    new HandAction("88kkaa62", HandActionType.BET, 11.5m, Street.Flop), 
+                    new HandAction("22ab6yhc", HandActionType.RAISE, 21.77m, Street.Flop, true), 
+                    new HandAction("88kkaa62", HandActionType.CALL, 10.27m, Street.Flop), 
+                    new HandAction("22ab6yhc", HandActionType.SHOW, Street.Showdown), 
+                    new HandAction("88kkaa62", HandActionType.SHOW, Street.Showdown) 
+                }
+            };
+            TestFullHandHistorySummary(expectedSummary, "RunThreeTimes");
+            TestHandHistory(expectedHandHistory, "RunThreeTimes");
         }
     }
 }

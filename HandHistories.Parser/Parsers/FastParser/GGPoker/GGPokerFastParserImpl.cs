@@ -229,8 +229,6 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
 
         public void ParseShowDown(string[] handLines, List<HandAction> handActions, List<WinningsAction> winners, int firstActionIndex, GameType gameType)
         {
-            Console.WriteLine("I am here ");
-            Console.WriteLine(handLines[firstActionIndex]);
             for (int i = firstActionIndex; i < handLines.Length; i++)
             {
                 var line = handLines[i];
@@ -563,7 +561,19 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                 // THIRD Board [4c Qc 6c Ac 9c]
                 if (line.EndsWithFast("]") && (line.First() == 'F' || line.First() == 'B' || line.First() == 'S' || line.First() == 'T'))
                 {
-                    multipleRuns[currentBoard].Board = ParseBoard(line);
+                    switch (currentBoard)
+                    {
+                        case 0:
+                            multipleRuns[currentBoard].Board = ParseBoard(line);
+                            break;
+                        case 1:
+                        case 2:
+                            multipleRuns[currentBoard].Board = ParseBoard(line, multipleRuns[currentBoard - 1].Board);
+                            break;
+                        default:
+                            throw new Exception("Exception in parsing multiple runs: " +  currentBoard.ToString() + handLines[i]);
+
+                    }
                     currentBoard++;
                 }
 
