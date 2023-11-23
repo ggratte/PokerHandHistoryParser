@@ -1,15 +1,15 @@
-Poker Hand #HD9988158: Hold'em No Limit  ($0.25/$0.5) - 2021/01/23 15:12:01
-Table 'NLHBronze1' 6-max Seat #4 is the button
-Seat 1: Hero ($53.48 in chips)
-Seat 2: 123dca2d ($50 in chips)
+Poker Hand #HD11358: Hold'em No Limit  ($0.25/$0.5) - 2017/11/30 19:22:11
+Table 'NLHGold12' 6-max Seat #4 is the button
+Seat 1: Hero ($25.31 in chips)
+Seat 2: 123dca2d ($40 in chips)
 Seat 4: casf123d ($58.14 in chips)
-Seat 5: facdasfwc ($19.61 in chips)
-Seat 6: fadfvasf ($50 in chips)
+Seat 5: facdasfwc ($29.61 in chips)
+Seat 6: fadfvasf ($42.3 in chips)
 facdasfwc: posts small blind $0.25
 fadfvasf: posts big blind $0.5
 123dca2d: posts big blind $0.5
 *** HOLE CARDS ***
-Dealt to Hero [9d 5c]
+Dealt to Hero [7d 2c]
 Dealt to 123dca2d
 Dealt to casf123d
 Dealt to facdasfwc
@@ -19,31 +19,31 @@ Hero: folds
 casf123d: calls $0.5
 facdasfwc: calls $0.25
 fadfvasf: checks
-*** FLOP *** [2c 8h Th]
+*** FLOP *** [Ts 7h 5d]
 facdasfwc: checks
 fadfvasf: checks
 123dca2d: bets $1
 casf123d: folds
 facdasfwc: calls $1
 fadfvasf: calls $1
-*** TURN *** [3c 8h Th] [2h]
+*** TURN *** [Ts 7h 5d] [2h]
 facdasfwc: checks
 fadfvasf: checks
-123dca2d: bets $2.5
-facdasfwc: calls $2.5
-fadfvasf: calls $2.5
-*** RIVER *** [2c 8h Th 2h] [8c]
+123dca2d: bets $3.1
+facdasfwc: calls $3.1
+fadfvasf: calls $3.1
+*** RIVER *** [Ts 7h 5d 2h] [Kc]
 facdasfwc: checks
 fadfvasf: checks
-123dca2d: bets $9.38
+123dca2d: bets $8.2
 facdasfwc: folds
 fadfvasf: folds
-Uncalled bet ($9.38) returned to 123dca2d
+Uncalled bet ($8.2) returned to 123dca2d
 *** SHOWDOWN ***
 123dca2d collected $11.88 from pot
 *** SUMMARY ***
-Total pot $12.5 | Rake $0.62 | Jackpot $0 | Bingo $0
-Board [2c 8h Th 2h Tc]
+Total pot $13.3 | Rake $1.42 | Jackpot $0 | Bingo $0
+Board [Ts 7h 5d 2h Kc]
 Seat 1: Hero folded before Flop (didn't bet)
 Seat 2: 123dca2d won ($11.88)
 Seat 4: casf123d (button) folded on the Flop

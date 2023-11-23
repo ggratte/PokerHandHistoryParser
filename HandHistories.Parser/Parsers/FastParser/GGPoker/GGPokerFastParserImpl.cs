@@ -40,9 +40,7 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
 
         private readonly Regex _handSplitRegex;
 
-        private readonly Regex _handIdRegex;
-
-        private readonly String _summarySeperator;
+        private readonly String _summarySeperator = " | ";
 
         public GGPokerFastParserImpl()
         {
@@ -54,8 +52,6 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                 CurrencySymbol = "$"
             };
             _handSplitRegex = new Regex("Poker Hand #", RegexOptions.Compiled);
-            _summarySeperator = " | ";
-            _handIdRegex = new Regex("RC#[0-9]+|HD#[0-9]+", RegexOptions.Compiled);
         }
 
         public override IEnumerable<string> SplitUpMultipleHands(string rawHandHistories)
@@ -273,7 +269,6 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                         }
                     // 1234abcd: shows[4d 3d] (Pair of Fours)
                     case ')':
-                        Console.WriteLine(line);
                         break;
 
 

@@ -21,7 +21,7 @@ gm27b4sg: folds
 1234gsaa: folds
 2734abdf: raises $0.2 to $0.3
 Hero: calls $0.2
-*** FLOP *** [Jc 8d 2s]
+*** FLOP *** [Ks 7h 5d]
 2734abdf: checks
 Hero: bets $0.2
 2734abdf: raises $0.5 to $0.7
@@ -31,7 +31,7 @@ Uncalled bet ($0.5) returned to 2734abdf
 2734abdf collected $0.95 from pot
 *** SUMMARY ***
 Total pot $1 | Rake $0.05 | Jackpot $0 | Bingo $0
-Board [Jc 8d 2s]
+Board [Ks 7h 5d]
 Seat 1: 1234gsaa (button) folded before Flop (didn't bet)
 Seat 2: 2734abdf (small blind) won ($0.95)
 Seat 3: Hero (big blind) folded on the Flop

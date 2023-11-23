@@ -49,8 +49,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
             string handText = SampleHandHistoryRepository.GetHandExample(PokerFormat.CashGame, Site, "GeneralHands", fileName);
 
             HandHistory handHistory = GetParser().ParseFullHandHistory(handText, true);
-           
-            Assert.IsTrue(expectedHandHistory.CommunityCards.Equals(handHistory.CommunityCards));
+            Assert.IsTrue(expectedHandHistory.CommunityCards == handHistory.CommunityCards);
             Assert.IsTrue(expectedHandHistory.Players.Equals(handHistory.Players));
             Assert.AreEqual(expectedHandHistory.Hero, handHistory.Hero);
             Assert.AreEqual(expectedHandHistory.NumPlayersActive, handHistory.NumPlayersActive);
@@ -111,7 +110,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
 
             HandHistory expectedHandHistory = new HandHistory()
             {
-                CommunityCards = BoardCards.FromCards("8dJc2s"),
+                CommunityCards = BoardCards.FromCards("5d7hks"),
                 Players = new PlayerList(new List<Player>
                 {
                     new Player("Hero", 22, 3, HoleCards.FromCards("Ac3d")),
@@ -126,7 +125,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
                 {
                     new RunItTwice
                     {
-                        Board = BoardCards.FromCards("2sjc8D"),
+                        Board = BoardCards.FromCards("ks7h5d"),
                         Actions = new List<HandAction> { },
                         Winners = new List<WinningsAction>
                         {
@@ -185,21 +184,21 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
 
             HandHistory expectedHandHistory = new HandHistory()
             {
-                CommunityCards = BoardCards.FromCards(String.Empty),
+                CommunityCards = null,
                 Players = new PlayerList(new List<Player>
                 {
                     new Player("79adcegg", 173.04m, 1),
                     new Player("853aak6d", 100m, 2),
                     new Player("ac12334d", 190.65m, 4),
                     new Player("1234gsaa", 85.59m, 5),
-                    new Player("Hero", 300.5m, 6, HoleCards.FromCards("5h2h")),
+                    new Player("Hero", 300.5m, 6, HoleCards.FromCards("5h2c")),
                 }),
-                Hero = new Player("Hero", 300.5m, 6, HoleCards.FromCards("2h5h")),
+                Hero = new Player("Hero", 300.5m, 6, HoleCards.FromCards("2c5h")),
                 RunItMultipleTimes = new RunItTwice[]
                 {
                     new RunItTwice
                     {
-                        Board = BoardCards.FromCards(String.Empty),
+                        Board = null,
                         Actions = new List<HandAction> { },
                         Winners = new List<WinningsAction>
                         {
