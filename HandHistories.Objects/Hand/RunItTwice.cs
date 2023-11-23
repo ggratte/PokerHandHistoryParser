@@ -12,7 +12,7 @@ namespace HandHistories.Objects.Hand
         /// <summary>
         /// The second board
         /// </summary>
-        public BoardCards Board = BoardCards.FromCards(String.Empty);
+        public BoardCards Board; 
 
         /// <summary>
         /// All actions that occur during the second showdown
@@ -87,8 +87,6 @@ namespace HandHistories.Objects.Hand
 
                 if (!w1[i].Equals(w2[i]))
                 {
-                    Console.WriteLine(w1[i].Amount);
-                    Console.WriteLine(w2[i].Amount);
                     return false;
                 }
             }

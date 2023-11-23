@@ -48,8 +48,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
             string handText = SampleHandHistoryRepository.GetHandExample(PokerFormat.CashGame, Site, "GeneralHands", fileName);
 
             HandHistory handHistory = GetParser().ParseFullHandHistory(handText, true);
-           
-            Assert.IsTrue(expectedHandHistory.CommunityCards.Equals(handHistory.CommunityCards));
+            Assert.IsTrue(expectedHandHistory.CommunityCards == handHistory.CommunityCards);
             Assert.IsTrue(expectedHandHistory.Players.Equals(handHistory.Players));
             Assert.AreEqual(expectedHandHistory.Hero, handHistory.Hero);
             Assert.AreEqual(expectedHandHistory.NumPlayersActive, handHistory.NumPlayersActive);
@@ -59,7 +58,6 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
             Assert.IsTrue(expectedHandHistory.RunItMultipleTimes[1].Equals(handHistory.RunItMultipleTimes[1]));
             Assert.IsTrue(expectedHandHistory.RunItMultipleTimes[2].Equals(handHistory.RunItMultipleTimes[2]));
 
-            //Assert.IsTrue(expectedHandHistory.HandActions.Equals(handHistory.HandActions));
             TestWinners(expectedHandHistory.Winners, handHistory.Winners);
             TestActions(expectedHandHistory.HandActions, handHistory.HandActions);
 
@@ -185,7 +183,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
 
             HandHistory expectedHandHistory = new HandHistory()
             {
-                CommunityCards = BoardCards.FromCards(String.Empty),
+                CommunityCards = null,
                 Players = new PlayerList(new List<Player>
                 {
                     new Player("79adcegg", 173.04m, 1),
@@ -199,7 +197,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
                 {
                     new RunItTwice
                     {
-                        Board = BoardCards.FromCards(String.Empty),
+                        Board = null,
                         Actions = new List<HandAction> { },
                         Winners = new List<WinningsAction>
                         {
