@@ -183,7 +183,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
 
             HandHistory expectedHandHistory = new HandHistory()
             {
-                CommunityCards = null,
+                CommunityCards = BoardCards.ForPreflop(),
                 Players = new PlayerList(new List<Player>
                 {
                     new Player("79adcegg", 173.04m, 1),
