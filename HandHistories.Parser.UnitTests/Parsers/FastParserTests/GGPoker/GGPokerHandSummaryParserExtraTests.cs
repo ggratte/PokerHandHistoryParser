@@ -10,7 +10,6 @@ using HandHistories.Objects.Hand;
 using HandHistories.Objects.Players;
 using HandHistories.Parser.UnitTests.Utils.Pot;
 using HandHistories.Objects.Actions;
-using System.Net.NetworkInformation;
 
 namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
 {
