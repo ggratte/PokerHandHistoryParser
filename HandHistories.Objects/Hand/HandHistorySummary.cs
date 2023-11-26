@@ -49,6 +49,8 @@ namespace HandHistories.Objects.Hand
         public decimal? TotalPot { get; set; }
 
         public decimal? Rake { get; set; }
+        public decimal? Jackpot { get; set; }
+        public decimal? Bingo { get; set; }
 
         public override int GetHashCode()
         {

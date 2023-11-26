@@ -1,0 +1,42 @@
+Poker Hand #HD582731: Hold'em No Limit  ($0.5/$1) - 2018/12/11 16:21:51
+Table 'NLHGold7' 6-max Seat #6 is the button
+Seat 1: xnvdam1 ($103.5 in chips)
+Seat 2: 3fak3jfj2 ($106.89 in chips)
+Seat 3: Hero ($100.23 in chips)
+Seat 4: 62dfdfaf ($105.63 in chips)
+Seat 5: fdafscsa ($100 in chips)
+Seat 6: 123dca2d ($133.34 in chips)
+xnvdam1: posts small blind $0.5
+3fak3jfj2: posts big blind $1
+62dfdfaf: straddle $2
+*** HOLE CARDS ***
+Dealt to xnvdam1
+Dealt to 3fak3jfj2
+Dealt to Hero [Tc Ks]
+Dealt to 62dfdfaf
+Dealt to fdafscsa
+Dealt to 123dca2d
+fdafscsa: folds
+123dca2d: folds
+xnvdam1: raises $5 to $7
+3fak3jfj2: folds
+Hero: folds
+62dfdfaf: calls $5
+*** FLOP *** [Th Jh 7d]
+xnvdam1: bets $6.95
+62dfdfaf: calls $6.95
+*** TURN *** [Th Jh 7d] [Ac]
+xnvdam1: bets $22.68
+62dfdfaf: folds
+Uncalled bet ($22.68) returned to xnvdam1
+*** SHOWDOWN ***
+xnvdam1 collected $27.46 from pot
+*** SUMMARY ***
+Total pot $28.9 | Rake $1.44 | Jackpot $0 | Bingo $0
+Board [Th Jh 7d Ac]
+Seat 1: xnvdam1 (small blind) won ($27.46)
+Seat 2: 3fak3jfj2 (big blind) folded before Flop
+Seat 3: Hero folded before Flop (didn't bet)
+Seat 4: 62dfdfaf folded on the Turn
+Seat 5: fdafscsa folded before Flop (didn't bet)
+Seat 6: 123dca2d (button) folded before Flop (didn't bet)

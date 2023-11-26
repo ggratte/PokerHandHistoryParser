@@ -44,7 +44,7 @@ namespace HandHistories.Objects.UnitTests.Serialization
                                                      },
                                    HandId = HandID.From(141234124),
                                    NumPlayersSeated = 2,
-                                   Players = new PlayerList()
+                                   Players = new Players.PlayerList()
                                                  {
                                                      new Player("Player1", 1000, 1),
                                                      new Player("Player2", 300, 5),

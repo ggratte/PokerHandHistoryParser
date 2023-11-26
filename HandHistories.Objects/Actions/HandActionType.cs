@@ -15,6 +15,7 @@
         ANTE,
         SMALL_BLIND,
         BIG_BLIND,
+        STRADDLE,
         #endregion
 
         #region Game Actions

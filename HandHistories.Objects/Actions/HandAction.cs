@@ -137,6 +137,8 @@ namespace HandHistories.Objects.Actions
                     return amount * -1;
                 case HandActionType.BIG_BLIND:
                     return amount * -1;
+                case HandActionType.STRADDLE:
+                    return amount * -1;
                 case HandActionType.UNCALLED_BET:
                     return amount;
                 case HandActionType.POSTS:
