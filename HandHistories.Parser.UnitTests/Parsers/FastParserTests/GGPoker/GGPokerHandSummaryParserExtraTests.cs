@@ -299,6 +299,90 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
         }
 
         [Test]
+        public void MultiplePosts()
+        {
+            HandHistorySummary expectedSummary = new HandHistorySummary()
+            {
+                GameDescription = new GameDescriptor()
+                {
+                    PokerFormat = PokerFormat.CashGame,
+                    GameType = GameType.NoLimitHoldem,
+                    Limit = Limit.FromSmallBlindBigBlind(0.25m, 0.5m, Currency.USD),
+                    SeatType = SeatType.FromMaxPlayers(6),
+                    Site = SiteName.GGPoker,
+                    TableType = TableType.FromTableTypeDescriptions(TableTypeDescription.Regular)
+                },
+                DateOfHandUtc = new DateTime(2017, 11, 30, 19, 22, 11),
+                DealerButtonPosition = 4,
+                HandId = HandID.From(11358),
+                NumPlayersSeated = 5,
+                TableName = "NLHGold12",
+                TotalPot = 13.3m,
+                Rake = 1.42m,
+                Jackpot = 0,
+                Bingo = 0
+            };
+
+            HandHistory expectedHandHistory = new HandHistory()
+            {
+                CommunityCards = BoardCards.FromCards("Ts7h5d2hKc"),
+                Players = new PlayerList(new List<Player>
+                {
+                    new Player("Hero", 25.31m, 1, HoleCards.FromCards("7d2c")),
+                    new Player("123dca2d", 40m, 2),
+                    new Player("casf123d", 58.14m, 4),
+                    new Player("facdasfwc", 29.61m, 5),
+                    new Player("fadfvasf", 42.3m, 6),
+                }),
+                Hero = new Player("Hero", 25.31m, 1, HoleCards.FromCards("7d2c")),
+                RunItMultipleTimes = new RunItTwice[]
+                {
+                    new RunItTwice
+                    {
+                        Board = BoardCards.FromCards("Ts7h5d2hKc"),
+                        Actions = new List<HandAction> { },
+                        Winners = new List<WinningsAction>
+                        {
+                            new WinningsAction("123dca2d", WinningsActionType.WINS, 11.88m, 0)
+                        }
+                    },
+                    new RunItTwice {},
+                    new RunItTwice {}
+                },
+                Winners = new List<WinningsAction>() { new WinningsAction("123dca2d", WinningsActionType.WINS, 11.88m, 0) },
+                HandActions = new List<HandAction>() {
+                    new HandAction("facdasfwc", HandActionType.SMALL_BLIND, -0.25m, Street.Preflop),
+                    new HandAction("fadfvasf", HandActionType.BIG_BLIND, -0.5m, Street.Preflop),
+                    new HandAction("123dca2d", HandActionType.POSTS, -0.5m, Street.Preflop),
+                    new HandAction("Hero", HandActionType.FOLD, 0, Street.Preflop),
+                    new HandAction("123dca2d", HandActionType.CHECK, 0, Street.Preflop),
+                    new HandAction("casf123d", HandActionType.CALL, 0.5m, Street.Preflop),
+                    new HandAction("facdasfwc", HandActionType.CALL, 0.25m, Street.Preflop),
+                    new HandAction("fadfvasf", HandActionType.CHECK, 0, Street.Preflop),
+                    new HandAction("facdasfwc", HandActionType.CHECK, 0, Street.Flop),
+                    new HandAction("fadfvasf", HandActionType.CHECK, 0, Street.Flop),
+                    new HandAction("123dca2d", HandActionType.BET, 1m, Street.Flop),
+                    new HandAction("casf123d", HandActionType.FOLD, 0m, Street.Flop),
+                    new HandAction("facdasfwc", HandActionType.CALL, 1m, Street.Flop),
+                    new HandAction("fadfvasf", HandActionType.CALL, 1m, Street.Flop),
+                    new HandAction("facdasfwc", HandActionType.CHECK, 0, Street.Turn),
+                    new HandAction("fadfvasf", HandActionType.CHECK, 0, Street.Turn),
+                    new HandAction("123dca2d", HandActionType.BET, 3.1m, Street.Turn),
+                    new HandAction("facdasfwc", HandActionType.CALL, 3.1m, Street.Turn),
+                    new HandAction("fadfvasf", HandActionType.CALL, 3.1m, Street.Turn),
+                    new HandAction("facdasfwc", HandActionType.CHECK, 0, Street.River),
+                    new HandAction("fadfvasf", HandActionType.CHECK, 0, Street.River),
+                    new HandAction("123dca2d", HandActionType.BET, 8.2m, Street.River),
+                    new HandAction("facdasfwc", HandActionType.FOLD, 0m, Street.River),
+                    new HandAction("fadfvasf", HandActionType.FOLD, 0m, Street.River),
+                    new HandAction("123dca2d", HandActionType.UNCALLED_BET, 8.2m, Street.River),
+                }
+            };
+            TestFullHandHistorySummary(expectedSummary, "MultiplePosts");
+            TestHandHistory(expectedHandHistory, "MultiplePosts");
+        }
+
+        [Test]
         public void TestRunTwice()
         {
             HandHistorySummary expectedSummary = new HandHistorySummary()
