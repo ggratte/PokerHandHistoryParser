@@ -534,7 +534,7 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                     return ParseBoard(line);
                 }
             }
-            return null; 
+            return BoardCards.ForPreflop();
         }
 
         public override RunItTwice[] ParseMultipleRuns(string[] handLines)
