@@ -229,13 +229,11 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
             {
                 var line = handLines[i];
 
-                var lastChar = line.Last();
-
-                switch (lastChar)
+                switch (line.Last())
                 {
                     // xyz collected $7.50 from pot.
                     case 't':
-                        if (line.EndsWithFast("pot"))
+                        if (line.EndsWithFast(" pot"))
                         {
                             winners.Add(ParseWinnings(line));
                         }
@@ -261,7 +259,7 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                         {
                             return;
                         }
-                        else if (line.Contains("SHOW"))
+                        else if (line.EndsWithFast("DOWN ***"))
                         {
                             continue;
                         }
@@ -435,10 +433,7 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
             Street currentStreet;
             actionIndex = ParseGameActions(handLines, handActions, winners, actionIndex, out currentStreet);
 
-            if (currentStreet == Street.Showdown)
-            {
-                ParseShowDown(handLines, handActions, winners, actionIndex, gameType);
-            }
+            ParseShowDown(handLines, handActions, winners, actionIndex, gameType);
 
             return handActions;
 
@@ -542,7 +537,7 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
             return BoardCards.ForPreflop();
         }
 
-        public override RunItTwice[] ParseMultiplerRuns(string[] handLines)
+        public override RunItTwice[] ParseMultipleRuns(string[] handLines)
         {
             RunItTwice[] multipleRuns = new RunItTwice[3];
             for (int i = 0; i < 3; i++)
@@ -550,64 +545,55 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                 multipleRuns[i] = new RunItTwice();
             }
 
+            int currentBoard = -1;
             for (int i = 0; i < handLines.Length; i++)
             {
                 string line = handLines[i];
                 // FIRST Board [3c 9d 3d 8d 7s]
                 // Board [3c 9d 3d 8d 7s]
-                if (line.StartsWithFast("Board") || line.StartsWithFast("FIRST Board"))
+                // SECOND Board [8h]
+                // THIRD Board [8s]
+                // THIRD Board [4c Qc 6c Ac 9c]
+                if (line.EndsWithFast("]") && (line.First() == 'F' || line.First() == 'B' || line.First() == 'S' || line.First() == 'T'))
                 {
-                    multipleRuns[0].Board = ParseBoard(line);
-                }
-
-                //SECOND Board [8h]
-                if (line.StartsWithFast("SECOND Board"))
-                {
-                    multipleRuns[1].Board = ParseBoard(line, multipleRuns[0].Board);
-                }
-
-                //THIRD Board [8s]
-                //THIRD Board [4c Qc 6c Ac 9c]
-                if (line.StartsWithFast("THIRD Board"))
-                {
-                    multipleRuns[2].Board = ParseBoard(line, multipleRuns[0].Board);
-                }
-
-
-                if (line.StartsWithFast("*** SHOWDOWN") || line.StartsWithFast("*** FIRST SHOWDOWN"))
-                {
-                    i++;
-                    while (i < handLines.Length && !handLines[i].StartsWith("*"))
+                    switch (currentBoard)
                     {
-                        // expect to look like this:
-                        // 125b4606 collected $2.5 from pot
-                        string curLine = handLines[i++];
-                        multipleRuns[0].Winners.Add(ParseWinnings(curLine));
+                        case 0:
+                            multipleRuns[currentBoard].Board = ParseBoard(line);
+                            break;
+                        case 1:
+                        case 2:
+                            multipleRuns[currentBoard].Board = ParseBoard(line, multipleRuns[currentBoard - 1].Board);
+                            break;
+                        default:
+                            throw new Exception("Exception in parsing multiple runs: " +  currentBoard.ToString() + handLines[i]);
+
                     }
+                    currentBoard++;
                 }
 
-                if (line.StartsWithFast("*** SECOND SHOWDOWN")) 
+                // expect to look like this:
+                // 125b4606 collected $2.5 from pot
+                if (line.EndsWithFast(" pot"))
                 {
-                    i++;
-                    while (i < handLines.Length && !handLines[i].StartsWith("*"))
-                    {
-                        // expect to look like this:
-                        // 125b4606 collected $2.5 from pot
-                        string curLine = handLines[i++];
-                        multipleRuns[1].Winners.Add(ParseWinnings(curLine));
-                    }       
+                    line = handLines[i];
+                    multipleRuns[currentBoard].Winners.Add(ParseWinnings(line));
                 }
 
-                if (line.StartsWithFast("*** THIRD SHOWDOWN")) 
+                // *** SHOWDOWN ***
+                // *** FIRST SHOWDOWN ***
+                // *** SECOND SHOWDOWN ***
+                // *** THIRD SHOWDOWN ***
+                if (line.EndsWithFast("SHOWDOWN ***")) 
                 {
-                    i++;
-                    while (i < handLines.Length && !handLines[i].StartsWith("*"))
-                    {
-                        // expect to look like this:
-                        // 125b4606 collected $2.5 from pot
-                        string curLine = handLines[i++];
-                        multipleRuns[2].Winners.Add(ParseWinnings(curLine));
-                    } 
+                    currentBoard++;
+                }
+
+                // *** SUMMARY ***
+                if (line.StartsWithFast("*** SUMMARY"))
+                {
+                    // we need reset currentBoard for BOARD runout parsing.
+                    currentBoard = 0;
                 }
             }
 
@@ -626,6 +612,13 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                 handActions.Add(ParseUncalledBetLine(line, currentStreet));
                 currentStreet = Street.Showdown;
                 return true;
+            }
+
+            if (line.Contains(" shows ")) 
+            {
+                handActions.Add(ParseMiscShowdownLine(line, line.LastIndexOf(':')));
+                currentStreet = Street.Showdown;
+                return false;
             }
 
             if (line.StartsWithFast("Dealt to"))
@@ -783,6 +776,10 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
 
         private static bool ParseCurrentStreet(string line, ref Street currentStreet)
         {
+            // *** SHOWDOWN
+            // *** FLOP
+            // *** TURN
+            // *** RIVER
             char typeOfEventChar = line[7];
 
             // this way we implement the collected lines in the regular showdown for the hand
@@ -791,17 +788,23 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
 
             // *** FIRST FLOP
             // *** FIRST TURN
+            // *** FIRST RIVER 
+            // *** FIRST SHOWNDOWN 
             if (typeOfEventChar == 'S')
                 typeOfEventChar = line[13];
 
             // *** SECOND FLOP
             // *** SECOND TURN
+            // *** SECOND RIVER
+            // *** SECOND SHOWDOWN
             if (typeOfEventChar == 'O')
                 typeOfEventChar = line[14];
 
 
             // *** THIRD FLOP
             // *** THIRD TURN
+            // *** THIRD RIVER
+            // *** THIRD SHOWDOWN
             if (typeOfEventChar == 'R')
                 typeOfEventChar = line[13];
 
@@ -819,6 +822,7 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                 case 'W':
                     currentStreet = Street.Showdown;
                     return true;
+                // *** SUMMARY
                 case 'M':
                     return true;
                 default:

@@ -392,6 +392,12 @@
     <None Update="SampleHandHistories\GGPoker\CashGame\GeneralHands\Regular.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="SampleHandHistories\GGPoker\CashGame\GeneralHands\RunThreeTimes.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleHandHistories\GGPoker\CashGame\GeneralHands\RunTwice.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="SampleHandHistories\GGPoker\CashGame\GeneralHands\RushAndCash.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

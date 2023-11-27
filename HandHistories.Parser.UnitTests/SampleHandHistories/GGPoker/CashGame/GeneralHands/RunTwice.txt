@@ -1,0 +1,40 @@
+Poker Hand #HD1587634: Hold'em No Limit  ($0.5/$1) - 2018/11/11 22:08:11
+Table 'NLHGold15' 6-max Seat #1 is the button
+Seat 1: 8acec3m6 ($306.88 in chips)
+Seat 3: 52jj36aa ($97.18 in chips)
+Seat 4: Hero ($117.09 in chips)
+Seat 6: mn19dde5 ($63.41 in chips)
+52jj36aa: posts small blind $0.5
+Hero: posts big blind $1
+*** HOLE CARDS ***
+Dealt to 8acec3m6
+Dealt to 52jj36aa
+Dealt to Hero [Ac Ad]
+Dealt to mn19dde5
+mn19dde5: folds
+8acec3m6: folds
+52jj36aa: raises $2 to $3
+Hero: raises $6 to $9
+52jj36aa: raises $88.18 to $97.18 and is all-in
+Hero: calls $88.18
+52jj36aa: shows [Kc As]
+Hero: shows [Ac Ad]
+*** FIRST FLOP *** [2d 3c 8s]
+*** FIRST TURN *** [2d 3c 8s] [Jh]
+*** FIRST RIVER *** [2d 3c 8s Jh] [3d]
+*** SECOND FLOP *** [6d 4s 4h]
+*** SECOND TURN *** [6d 4s 4h] [3h]
+*** SECOND RIVER *** [6d 4s 4h 3h] [Ts]
+*** FIRST SHOWDOWN ***
+Hero collected $94.18 from pot
+*** SECOND SHOWDOWN ***
+Hero collected $94.18 from pot
+*** SUMMARY ***
+Total pot $194.36 | Rake $5 | Jackpot $1 | Bingo $0
+Hand was run two times
+FIRST Board [2d 3c 8s Jh 3d]
+SECOND Board [6d 4s 4h 3h Ts]
+Seat 1: 8acec3m6 (button) folded before Flop (didn't bet)
+Seat 3: 52jj36aa (small blind) showed [Kc As] and lost with Pair of Sixes, and lost with Pair of Treys
+Seat 4: Hero (big blind) showed [Ac Ad] and won ($94.18) with Pair of Aces and Pair of Sixes, and won ($94.18) with Pair of Aces and Pair of Treys
+Seat 6: mn19dde5 folded before Flop (didn't bet)

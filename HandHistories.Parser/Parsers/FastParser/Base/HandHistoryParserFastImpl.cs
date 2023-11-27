@@ -182,7 +182,7 @@ namespace HandHistories.Parser.Parsers.FastParser.Base
                 {
                     if (SiteName.Equals(SiteName.GGPoker))
                     {
-                        handHistory.RunItMultipleTimes = ParseMultiplerRuns(handLines);
+                        handHistory.RunItMultipleTimes = ParseMultipleRuns(handLines);
                     }
                     else 
                     {
@@ -608,7 +608,7 @@ namespace HandHistories.Parser.Parsers.FastParser.Base
             throw new NotImplementedException();
         }
 
-        public virtual RunItTwice[] ParseMultiplerRuns(string[] handLines)
+        public virtual RunItTwice[] ParseMultipleRuns(string[] handLines)
         {
             throw new NotImplementedException();
         }
