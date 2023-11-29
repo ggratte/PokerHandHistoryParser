@@ -19,7 +19,7 @@ namespace HandHistories.Objects.UnitTests.Cards
 
 
         [Test]
-        public void BoardCardsTest_EqualityTest_withDefaultComparison_CompareWithSelf_ReturnTrue()
+        public void BoardCardsTest_EqualityTest_WithDefaultComparison_CompareWithSelf_ReturnTrue()
         {
             BoardCards emptyBoard = BoardCards.FromCards(String.Empty);
             BoardCards boardWithFlop = BoardCards.FromCards("AcQsTh");
@@ -33,7 +33,7 @@ namespace HandHistories.Objects.UnitTests.Cards
         }
 
         [Test]
-        public void BoardCardsTest_EqualityTest_withDefaultComparison_DifferentOrder_ReturnTrue()
+        public void BoardCardsTest_EqualityTest_WithDefaultComparison_DifferentOrder_ReturnTrue()
         {
             BoardCards b1 = BoardCards.ForFlop(C1, C2, C3);
             BoardCards b2 = BoardCards.ForFlop(C1, C3, C2);
