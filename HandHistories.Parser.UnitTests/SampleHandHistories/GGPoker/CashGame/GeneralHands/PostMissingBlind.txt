@@ -1,0 +1,42 @@
+Poker Hand #HD54233001: Hold'em No Limit  ($0.5/$1) - 2018/12/28 11:00:52
+Table 'NLHSGold19' 6-max Seat #5 is the button
+Seat 1: 343kk954 ($60 in chips)
+Seat 2: Hero ($100.23 in chips)
+Seat 3: b4mnx231 ($175.41 in chips)
+Seat 4: 15yfdsaa ($20 in chips)
+Seat 5: mkacefi1a ($22.84 in chips)
+Seat 6: 142dsaca ($98.5 in chips)
+142dsaca: posts small blind $0.5
+343kk954: posts big blind $1
+15yfdsaa: posts missed blind $0.5
+15yfdsaa: posts big blind $1
+*** HOLE CARDS ***
+Dealt to 343kk954
+Dealt to Hero [ks 2d]
+Dealt to b4mnx231
+Dealt to 15yfdsaa
+Dealt to mkacefi1a
+Dealt to 142dsaca
+Hero: folds
+b4mnx231: calls $1
+15yfdsaa: raises $4 to $5
+mkacefi1a: folds
+142dsaca: folds
+343kk954: folds
+b4mnx231: calls $4
+*** FLOP *** [Kc 4c 2h]
+b4mnx231: checks
+15yfdsaa: bets $12
+b4mnx231: folds
+Uncalled bet ($12) returned to 15yfdsaa
+*** SHOWDOWN ***
+15yfdsaa collected $11.4 from pot
+*** SUMMARY ***
+Total pot $12 | Rake $0.6 | Jackpot $0 | Bingo $0
+Board [Kc 4c 2h]
+Seat 1: 343kk954 (big blind) folded before Flop
+Seat 2: Hero folded before Flop (didn't bet)
+Seat 3: b4mnx231 folded on the Flop
+Seat 4: 15yfdsaa won ($11.4)
+Seat 5: mkacefi1a (button) folded before Flop (didn't bet)
+Seat 6: 142dsaca (small blind) folded before Flop
