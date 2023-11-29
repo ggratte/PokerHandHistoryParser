@@ -103,6 +103,17 @@ namespace HandHistories.Objects.UnitTests.Cards
             Assert.IsFalse(b2.Equals(b3));
         }
 
+
+        [Test]
+        public void BoardCardsTest_TurnEqualityTestWithDefaultComparision_SameCardsWithDifferentOrder_ReturnsTrue()
+        {
+            BoardCards b1 = BoardCards.ForTurn(C1, C2, C3, C4);
+            BoardCards b2 = BoardCards.ForTurn(C4, C2, C3, C1);
+
+            Assert.IsTrue(b1.Equals(b2));
+        }
+
+
         [Test]
         public void BoardCardsTest_EqualityTestWithHoldemOmahaRule_CompareWithSelf_ReturnTrue()
         {
