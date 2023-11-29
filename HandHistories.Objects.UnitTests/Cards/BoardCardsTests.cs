@@ -17,6 +17,69 @@ namespace HandHistories.Objects.UnitTests.Cards
         private static Card C5 = new Card("9", "s");
         private static Card C6 = new Card("7", "s");
 
+
+        [Test]
+        public void BoardCardsTest_EqualityTest_withDefaultComparison_CompareWithSelf_ReturnTrue()
+        {
+            BoardCards emptyBoard = BoardCards.FromCards(String.Empty);
+            BoardCards boardWithFlop = BoardCards.FromCards("AcQsTh");
+            BoardCards boardWithTurn = BoardCards.FromCards("AcQsTh2h");
+            BoardCards boardWithRiver = BoardCards.FromCards("AcQsTh2h3d");
+
+            Assert.IsTrue(emptyBoard.Equals(emptyBoard));
+            Assert.IsTrue(boardWithFlop.Equals(boardWithFlop));
+            Assert.IsTrue(boardWithTurn.Equals(boardWithTurn));
+            Assert.IsTrue(boardWithRiver.Equals(boardWithRiver));
+        }
+
+        [Test]
+        public void BoardCardsTest_EqualityTest_withDefaultComparison_DifferentOrder_ReturnTrue()
+        {
+            BoardCards b1 = BoardCards.ForFlop(C1, C2, C3);
+            BoardCards b2 = BoardCards.ForFlop(C1, C3, C2);
+            BoardCards b3 = BoardCards.ForFlop(C2, C1, C3);
+            BoardCards b4 = BoardCards.ForFlop(C2, C3, C1);
+            BoardCards b5 = BoardCards.ForFlop(C3, C1, C2);
+            BoardCards b6 = BoardCards.ForFlop(C3, C2, C1);
+
+            Assert.IsTrue(b1.Equals(b2));
+            Assert.IsTrue(b1.Equals(b3));
+            Assert.IsTrue(b1.Equals(b4));
+            Assert.IsTrue(b1.Equals(b5));
+            Assert.IsTrue(b1.Equals(b6));
+            
+            Assert.IsTrue(b2.Equals(b3));
+            Assert.IsTrue(b2.Equals(b4));
+            Assert.IsTrue(b2.Equals(b5));
+            Assert.IsTrue(b2.Equals(b6));
+
+            Assert.IsTrue(b3.Equals(b4));
+            Assert.IsTrue(b3.Equals(b5));
+            Assert.IsTrue(b3.Equals(b6));
+
+            Assert.IsTrue(b4.Equals(b5));
+            Assert.IsTrue(b4.Equals(b6));
+
+            Assert.IsTrue(b5.Equals(b6));
+        }
+
+        [Test]
+        public void BoardCardsTest_FlopEqualityTestWithDefaultComparision_DifferentCards_ReturnsFalse()
+        {
+            BoardCards b1 = BoardCards.ForFlop(C1, C2, C3);
+            BoardCards b2 = BoardCards.ForFlop(C1, C2, C4);
+            BoardCards b3 = BoardCards.ForFlop(C1, C3, C4);
+            BoardCards b4 = BoardCards.ForFlop(C2, C3, C4);
+
+            Assert.IsFalse(b1.Equals(b2));
+            Assert.IsFalse(b1.Equals(b3));
+            Assert.IsFalse(b1.Equals(b4));
+            Assert.IsFalse(b2.Equals(b3));
+            Assert.IsFalse(b2.Equals(b4));
+            Assert.IsFalse(b3.Equals(b4));
+        }
+
+
         [Test]
         public void BoardCardsTest_EqualityTestWithHoldemOmahaRule_CompareWithSelf_ReturnTrue()
         {
