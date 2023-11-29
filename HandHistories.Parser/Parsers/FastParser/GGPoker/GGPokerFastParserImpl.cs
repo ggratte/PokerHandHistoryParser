@@ -190,6 +190,12 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                     handActionType = HandActionType.STRADDLE;
                     break;
 
+                // xyz: posts missed blind $0.5
+                case 'm':
+                    firstDigitIndex = colonIndex + 21;
+                    handActionType = HandActionType.POSTS;
+                    break;
+
                 default:
                     throw new HandActionException(actionLine, "ParsePostingActionLine: Unregonized line " + actionLine);
             }
