@@ -113,6 +113,14 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
         }
 
         [Test]
+        public void ParsePostingActionLine_MissedBlind_Works()
+        {
+            HandAction handAction = Parser.ParsePostingActionLine(@"af3acs39: posts missed blind $0.5", 8, false);
+
+            Assert.AreEqual(new HandAction("af3acs39", HandActionType.POSTS, 0.5m, Street.Preflop), handAction);
+        }
+
+        [Test]
         public void ParseRegularActionLine_Folds_Works()
         {
             HandAction handAction =
