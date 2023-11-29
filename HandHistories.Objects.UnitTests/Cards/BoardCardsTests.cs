@@ -113,6 +113,34 @@ namespace HandHistories.Objects.UnitTests.Cards
             Assert.IsTrue(b1.Equals(b2));
         }
 
+        [Test]
+        public void BoardCardsTest_RiverEqualityTestWithDefaultComparision_DifferentCards_ReturnsFalse()
+        {
+            BoardCards b1 = BoardCards.ForRiver(C1, C2, C3, C4, C5);
+            BoardCards b2 = BoardCards.ForRiver(C1, C2, C3, C4, C6);
+            BoardCards b3 = BoardCards.ForRiver(C1, C2, C3, C6, C5);
+
+            Assert.IsFalse(b1.Equals(b2));
+            Assert.IsFalse(b1.Equals(b3));
+            Assert.IsFalse(b2.Equals(b3));
+        }
+
+        [Test]
+        public void BoardCardsTest_RiverEqualityTestWith_SameCardsWithDifferentOrder_ReturnsTrue()
+        {
+            BoardCards b1 = BoardCards.ForRiver(C1, C2, C3, C4, C5);
+            BoardCards b2 = BoardCards.ForRiver(C4, C2, C3, C1, C5);
+            BoardCards b3 = BoardCards.ForRiver(C1, C2, C3, C5, C4);
+            BoardCards b4 = BoardCards.ForRiver(C1, C2, C5, C3, C4);
+
+            Assert.IsTrue(b1.Equals(b2));
+            Assert.IsTrue(b1.Equals(b3));
+            Assert.IsTrue(b1.Equals(b4));
+            Assert.IsFalse(b2.EqualsViaHoldemOmahaRule(b3));
+            Assert.IsFalse(b2.EqualsViaHoldemOmahaRule(b4));
+            Assert.IsFalse(b3.EqualsViaHoldemOmahaRule(b4));
+        }
+
 
         [Test]
         public void BoardCardsTest_EqualityTestWithHoldemOmahaRule_CompareWithSelf_ReturnTrue()
