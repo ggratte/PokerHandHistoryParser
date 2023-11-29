@@ -91,7 +91,8 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
         [Test]
         public void ParsePostingActionLine_SmallBlind_Works()
         {
-            HandAction handAction = Parser.ParsePostingActionLine(@"1236460a: posts small blind $0.5", 8, false);
+            bool bigBlindPosted = false;
+            HandAction handAction = Parser.ParsePostingActionLine(@"1236460a: posts small blind $0.5", 8, ref bigBlindPosted);
 
             Assert.AreEqual(new HandAction("1236460a", HandActionType.SMALL_BLIND, 0.5m, Street.Preflop), handAction);
         }
@@ -99,15 +100,26 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
         [Test]
         public void ParsePostingActionLine_BigBlind_Works()
         {
-            HandAction handAction = Parser.ParsePostingActionLine(@"gaydaddy: posts big blind $1.23", 8, false);
+            bool bigBlindPosted = false;
+            HandAction handAction = Parser.ParsePostingActionLine(@"gaydaddy: posts big blind $1.23", 8, ref bigBlindPosted);
 
             Assert.AreEqual(new HandAction("gaydaddy", HandActionType.BIG_BLIND, 1.23m, Street.Preflop), handAction);
         }
 
         [Test]
+        public void ParsePostingActionLine_PostsBigBlind_WithExistingBigBlind_Works()
+        {
+            bool bigBlindPosted = true;
+            HandAction handAction = Parser.ParsePostingActionLine(@"test1234: posts big blind $3", 8, ref bigBlindPosted);
+
+            Assert.AreEqual(new HandAction("test1234", HandActionType.POSTS, 3, Street.Preflop), handAction);
+        }
+
+        [Test]
         public void ParsePostingActionLine_Straddle_Works()
         {
-            HandAction handAction = Parser.ParsePostingActionLine(@"12365032: straddle $2", 8, false);
+            bool bigBlindPosted = false;
+            HandAction handAction = Parser.ParsePostingActionLine(@"12365032: straddle $2", 8, ref bigBlindPosted);
 
             Assert.AreEqual(new HandAction("12365032", HandActionType.STRADDLE, 2.0m, Street.Preflop), handAction);
         }
@@ -115,9 +127,10 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
         [Test]
         public void ParsePostingActionLine_MissedBlind_Works()
         {
-            HandAction handAction = Parser.ParsePostingActionLine(@"af3acs39: posts missed blind $0.5", 8, false);
+            bool bigBlindPosted = false;
+            HandAction handAction = Parser.ParsePostingActionLine(@"af3acs39: posts missed blind $0.5", 8, ref bigBlindPosted);
 
-            Assert.AreEqual(new HandAction("af3acs39", HandActionType.POSTS, 0.5m, Street.Preflop), handAction);
+            Assert.AreEqual(new HandAction("af3acs39", HandActionType.POSTS_DEAD, 0.5m, Street.Preflop), handAction);
         }
 
         [Test]

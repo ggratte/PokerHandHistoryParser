@@ -141,15 +141,14 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
 
                 if (colonIndex != -1)
                 {
-                    var action = ParsePostingActionLine(line, colonIndex, bigBlind);
-                    bigBlind = action.HandActionType == HandActionType.BIG_BLIND;
+                    var action = ParsePostingActionLine(line, colonIndex, ref bigBlind);
                     handActions.Add(action);
                 }
             }
             throw new HandActionException(string.Join(Environment.NewLine, handLines), "No end of posting actions");
         }
 
-        public static HandAction ParsePostingActionLine(string actionLine, int colonIndex, bool bigBlindPosted)
+        public static HandAction ParsePostingActionLine(string actionLine, int colonIndex, ref bool bigBlindPosted)
         {
             string playerName = actionLine.Substring(0, colonIndex);
             bool isAllIn = false;
@@ -182,6 +181,7 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                 case 'b':
                     firstDigitIndex = colonIndex + 18;
                     handActionType = bigBlindPosted ? HandActionType.POSTS : HandActionType.BIG_BLIND;
+                    bigBlindPosted = true;
                     break;
 
                 // xyz: straddle $2
@@ -193,7 +193,7 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                 // xyz: posts missed blind $0.5
                 case 'm':
                     firstDigitIndex = colonIndex + 21;
-                    handActionType = HandActionType.POSTS;
+                    handActionType = HandActionType.POSTS_DEAD;
                     break;
 
                 default:
