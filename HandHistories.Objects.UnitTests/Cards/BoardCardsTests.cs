@@ -64,7 +64,7 @@ namespace HandHistories.Objects.UnitTests.Cards
         }
 
         [Test]
-        public void BoardCardsTest_FlopEqualityTestWithDefaultComparision_DifferentCards_ReturnsFalse()
+        public void BoardCardsTest_FlopEqualityTest_WithDefaultComparision_DifferentCards_ReturnsFalse()
         {
             BoardCards b1 = BoardCards.ForFlop(C1, C2, C3);
             BoardCards b2 = BoardCards.ForFlop(C1, C2, C4);
@@ -80,7 +80,7 @@ namespace HandHistories.Objects.UnitTests.Cards
         }
 
         [Test]
-        public void BoardCardsTest_TurnEqualityTestWithDefaultComparision_ReturnsTrue()
+        public void BoardCardsTest_TurnEqualityTest_WithDefaultComparision_ReturnsTrue()
         {
             BoardCards b1 = BoardCards.ForTurn(C1, C2, C3, C4);
             BoardCards b2 = BoardCards.ForTurn(C1, C3, C2, C4);
@@ -92,7 +92,7 @@ namespace HandHistories.Objects.UnitTests.Cards
         }
 
         [Test]
-        public void BoardCardsTest_TurnEqualityTestWithDefaultComparision_DifferentCards_ReturnsFalse()
+        public void BoardCardsTest_TurnEqualityTest_WithDefaultComparision_DifferentCards_ReturnsFalse()
         {
             BoardCards b1 = BoardCards.ForTurn(C1, C2, C3, C4);
             BoardCards b2 = BoardCards.ForTurn(C1, C2, C3, C5);
@@ -105,7 +105,7 @@ namespace HandHistories.Objects.UnitTests.Cards
 
 
         [Test]
-        public void BoardCardsTest_TurnEqualityTestWithDefaultComparision_SameCardsWithDifferentOrder_ReturnsTrue()
+        public void BoardCardsTest_TurnEqualityTest_WithDefaultComparision_SameCardsWithDifferentOrder_ReturnsTrue()
         {
             BoardCards b1 = BoardCards.ForTurn(C1, C2, C3, C4);
             BoardCards b2 = BoardCards.ForTurn(C4, C2, C3, C1);
@@ -114,7 +114,7 @@ namespace HandHistories.Objects.UnitTests.Cards
         }
 
         [Test]
-        public void BoardCardsTest_RiverEqualityTestWithDefaultComparision_DifferentCards_ReturnsFalse()
+        public void BoardCardsTest_RiverEqualityTest_WithDefaultComparision_DifferentCards_ReturnsFalse()
         {
             BoardCards b1 = BoardCards.ForRiver(C1, C2, C3, C4, C5);
             BoardCards b2 = BoardCards.ForRiver(C1, C2, C3, C4, C6);
