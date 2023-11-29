@@ -79,6 +79,29 @@ namespace HandHistories.Objects.UnitTests.Cards
             Assert.IsFalse(b3.Equals(b4));
         }
 
+        [Test]
+        public void BoardCardsTest_TurnEqualityTestWithDefaultComparision_ReturnsTrue()
+        {
+            BoardCards b1 = BoardCards.ForTurn(C1, C2, C3, C4);
+            BoardCards b2 = BoardCards.ForTurn(C1, C3, C2, C4);
+            BoardCards b3 = BoardCards.ForTurn(C3, C2, C1, C4);
+
+            Assert.IsTrue(b1.Equals(b2)); 
+            Assert.IsTrue(b2.Equals(b3)); 
+            Assert.IsTrue(b1.Equals(b3));
+        }
+
+        [Test]
+        public void BoardCardsTest_TurnEqualityTestWithDefaultComparision_DifferentCards_ReturnsFalse()
+        {
+            BoardCards b1 = BoardCards.ForTurn(C1, C2, C3, C4);
+            BoardCards b2 = BoardCards.ForTurn(C1, C2, C3, C5);
+            BoardCards b3 = BoardCards.ForTurn(C1, C2, C5, C4);
+
+            Assert.IsFalse(b1.Equals(b2));
+            Assert.IsFalse(b1.Equals(b3));
+            Assert.IsFalse(b2.Equals(b3));
+        }
 
         [Test]
         public void BoardCardsTest_EqualityTestWithHoldemOmahaRule_CompareWithSelf_ReturnTrue()
