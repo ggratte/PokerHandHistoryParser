@@ -1,5 +1,5 @@
 Poker Hand #HD54233001: Hold'em No Limit  ($0.5/$1) - 2018/12/28 11:00:52
-Table 'NLHSGold19' 6-max Seat #5 is the button
+Table 'NLHGold19' 6-max Seat #5 is the button
 Seat 1: 343kk954 ($60 in chips)
 Seat 2: Hero ($100.23 in chips)
 Seat 3: b4mnx231 ($175.41 in chips)
