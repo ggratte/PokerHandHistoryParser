@@ -602,13 +602,18 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
                         Actions = new List<HandAction> { },
                         Winners = new List<WinningsAction>
                         {
-                            new WinningsAction("fdfa4dax", WinningsActionType.WINS, 14.8m, 0)
+                            new WinningsAction("88989dfa", WinningsActionType.CASHOUT, 9.98m, 0),
+                            new WinningsAction("fdfa4dax", WinningsActionType.WINS, 14.8m, 0),
                         }
                     },
                     new RunItTwice {},
                     new RunItTwice {}
                 },
-                Winners = new List<WinningsAction>() { new WinningsAction("fdfa4dax", WinningsActionType.WINS, 14.8m, 0)},
+                Winners = new List<WinningsAction>() 
+                { 
+                    new WinningsAction("88989dfa", WinningsActionType.CASHOUT, 9.98m, 0),
+                    new WinningsAction("fdfa4dax", WinningsActionType.WINS, 14.8m, 0)
+                },
                 HandActions = new List<HandAction>() { 
                     new HandAction("1xfd8bbx", HandActionType.SMALL_BLIND, -0.25m, Street.Preflop),
                     new HandAction("88989dfa", HandActionType.BIG_BLIND, -0.5m, Street.Preflop),
@@ -622,7 +627,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
                     new HandAction("fdac21ts", HandActionType.FOLD, 0, Street.Preflop),
                     new HandAction("88989dfa", HandActionType.CALL, 5.18m, Street.Preflop),
                     new HandAction("fdfa4dax", HandActionType.SHOW, Street.Showdown), 
-                    new HandAction("88989dfa", HandActionType.SHOW, Street.Showdown) 
+                    new HandAction("88989dfa", HandActionType.SHOW, Street.Showdown),
                 }
             };
         
