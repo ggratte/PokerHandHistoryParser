@@ -586,6 +586,17 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                     multipleRuns[currentBoard].Winners.Add(ParseWinnings(line));
                 }
 
+                // expect to look like this:
+                // xyz: Receives Cashout ($9.98)
+                //
+                // Player who chooses to cashout will not have multiple runs.
+                // Store the info on the first board.
+                if (line.Contains("Receives Cashout"))
+                {
+                    line = handLines[i];
+                    multipleRuns[0].Winners.Add(ParseWinnings(line));
+                }
+
                 // *** SHOWDOWN ***
                 // *** FIRST SHOWDOWN ***
                 // *** SECOND SHOWDOWN ***
@@ -671,7 +682,15 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                 case 's':
                     if (line.EndsWithFast(" folds") || line.EndsWithFast(" checks")) { break; }
                     goto default;
-                    
+
+                // xyz: Receives Cashout ($9.98)
+                case ')':
+                    if (line.Contains("Receives Cashout"))
+                    {
+                        break;
+                    }
+                    goto default;
+
                 default:
                     return false;
             }
@@ -685,7 +704,7 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                     throw new HandActionException("", "Invalid State: Street");
 
                 default:
-                    if (colonIndex > -1 && line[line.Length - 1] != 't')
+                    if (colonIndex > -1 && !line.Contains("Receives Cashout"))
                     {
                         handActions.Add(ParseRegularActionLine(line, colonIndex, currentStreet));
                     }
@@ -865,16 +884,34 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
 
         public WinningsAction ParseWinnings(string line)
         {
-            // 12b64606 collected $2.5 from pot
-            int firstSpaceIndex = line.IndexOf(" collected");
-            int dollarSignIndex = line.LastIndexOf('$');
-            int amountEndingIndex = line.Length - 8;
+            if (line.Contains("collected"))
+            {
+                // 12b64606 collected $2.5 from pot
+                int firstSpaceIndex = line.IndexOf(" collected");
+                int dollarSignIndex = line.LastIndexOf('$');
+                int amountEndingIndex = line.Length - 8;
 
-            string playerName = line.Substring(0, firstSpaceIndex);
-            string amount = line.Substring(dollarSignIndex, amountEndingIndex - dollarSignIndex - 1);
+                string playerName = line.Substring(0, firstSpaceIndex);
+                string amount = line.Substring(dollarSignIndex, amountEndingIndex - dollarSignIndex - 1);
 
-            // 0 for main pot. In gg hand history, it does not show side pot information.
-            return new WinningsAction(playerName, WinningsActionType.WINS, amount.ParseAmount(), 0);
+                // 0 for main pot. In gg hand history, it does not show side pot information.
+                return new WinningsAction(playerName, WinningsActionType.WINS, amount.ParseAmount(), 0);
+            }
+            else if (line.Contains("Receives Cashout"))
+            {
+                // xyz: Receives Cashout ($9.98)
+                int lastOpenBracketIndex = line.LastIndexOf('(');
+                int colonIndex = line.LastIndexOf(":");
+
+                string playerName = line.Substring(0, colonIndex);
+                string amount = line.Substring(lastOpenBracketIndex + 1, line.Length - lastOpenBracketIndex - 2);
+
+                return new WinningsAction(playerName, WinningsActionType.INSURANCE, amount.ParseAmount(), 0);
+            }
+            else
+            {
+                throw new Exception("Unknown winning line: " + line);
+            }
         }
 
         private Currency ParseCurrency(string handLine, char currencySymbol)

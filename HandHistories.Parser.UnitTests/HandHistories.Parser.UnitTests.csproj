@@ -392,6 +392,9 @@
     <None Update="SampleHandHistories\GGPoker\CashGame\GeneralHands\PostMissingBlind.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="SampleHandHistories\GGPoker\CashGame\GeneralHands\ReceivesCashout.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="SampleHandHistories\GGPoker\CashGame\GeneralHands\Regular.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

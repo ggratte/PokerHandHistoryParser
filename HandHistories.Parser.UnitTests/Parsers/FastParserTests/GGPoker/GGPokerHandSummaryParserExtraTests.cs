@@ -556,7 +556,6 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
             TestFullHandHistorySummary(expectedSummary, "RunThreeTimes");
             TestHandHistory(expectedHandHistory, "RunThreeTimes");
         }
-
         [Test]
         public void PostingMissingBlind()
         {
@@ -629,6 +628,84 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
             };
             TestFullHandHistorySummary(expectedSummary, "PostMissingBlind");
             TestHandHistory(expectedHandHistory, "PostMissingBlind");
+        }
+        
+        [Test]
+        public void ReceivesCashout()
+        {
+            HandHistorySummary expectedSummary = new HandHistorySummary()
+            {
+                GameDescription = new GameDescriptor()
+                {
+                    PokerFormat = PokerFormat.CashGame,
+                    GameType = GameType.NoLimitHoldem,
+                    Limit = Limit.FromSmallBlindBigBlind(0.25m, 0.5m, Currency.USD),
+                    SeatType = SeatType.FromMaxPlayers(6),
+                    Site = SiteName.GGPoker,
+                    TableType = TableType.FromTableTypeDescriptions(TableTypeDescription.Regular)
+                },
+                DateOfHandUtc = new DateTime(2019, 1, 11, 9, 15, 6),
+                DealerButtonPosition = 1,
+                HandId = HandID.From(2281523),
+                NumPlayersSeated = 6,
+                TableName = "NLHBronze21",
+                TotalPot = 16.07m,
+                Rake = 0.77m,
+                Jackpot = 0.5m,
+                Bingo = 0
+            };
+            HandHistory expectedHandHistory = new HandHistory()
+            {
+                CommunityCards = BoardCards.FromCards("TsQc4d9hAc"),
+                Players = new PlayerList(new List<Player>
+                {
+                    new Player("c12290be", 22, 1),
+                    new Player("1xfd8bbx", 123.61m, 2),
+                    new Player("88989dfa", 116.2m, 3, HoleCards.FromCards("6s6d")),
+                    new Player("fdfa4dax", 7, 4, HoleCards.FromCards("Ah5h")),
+                    new Player("fdac21ts", 52.5m, 5),
+                    new Player("Hero", 95.82m, 6, HoleCards.FromCards("2h8h")),
+                }),
+                Hero = new Player("Hero",95.82m, 6, HoleCards.FromCards("2h8h")), 
+                RunItMultipleTimes = new RunItTwice[]
+                {
+                    new RunItTwice
+                    {
+                        Board = BoardCards.FromCards("TsQc4d9hAc"),
+                        Actions = new List<HandAction> { },
+                        Winners = new List<WinningsAction>
+                        {
+                            new WinningsAction("88989dfa", WinningsActionType.INSURANCE, 9.98m, 0),
+                            new WinningsAction("fdfa4dax", WinningsActionType.WINS, 14.8m, 0),
+                        }
+                    },
+                    new RunItTwice {},
+                    new RunItTwice {}
+                },
+                Winners = new List<WinningsAction>() 
+                { 
+                    new WinningsAction("88989dfa", WinningsActionType.INSURANCE, 9.98m, 0),
+                    new WinningsAction("fdfa4dax", WinningsActionType.WINS, 14.8m, 0)
+                },
+                HandActions = new List<HandAction>() { 
+                    new HandAction("1xfd8bbx", HandActionType.SMALL_BLIND, -0.25m, Street.Preflop),
+                    new HandAction("88989dfa", HandActionType.BIG_BLIND, -0.5m, Street.Preflop),
+                    new HandAction("fdfa4dax", HandActionType.CALL, 0.5m, Street.Preflop),
+                    new HandAction("fdac21ts", HandActionType.RAISE, 1.82m, Street.Preflop),
+                    new HandAction("Hero", HandActionType.FOLD, 0, Street.Preflop),
+                    new HandAction("c12290be", HandActionType.FOLD, 0, Street.Preflop),
+                    new HandAction("1xfd8bbx", HandActionType.FOLD, 0, Street.Preflop),
+                    new HandAction("88989dfa", HandActionType.CALL, 1.32m, Street.Preflop),
+                    new HandAction("fdfa4dax", HandActionType.RAISE, 6.5m, Street.Preflop, true),
+                    new HandAction("fdac21ts", HandActionType.FOLD, 0, Street.Preflop),
+                    new HandAction("88989dfa", HandActionType.CALL, 5.18m, Street.Preflop),
+                    new HandAction("fdfa4dax", HandActionType.SHOW, Street.Showdown), 
+                    new HandAction("88989dfa", HandActionType.SHOW, Street.Showdown),
+                }
+            };
+        
+            TestFullHandHistorySummary(expectedSummary, "ReceivesCashout");
+            TestHandHistory(expectedHandHistory, "ReceivesCashout");
         }
     }
 }

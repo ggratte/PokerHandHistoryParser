@@ -1,0 +1,43 @@
+Poker Hand #HD2281523: Hold'em No Limit  ($0.25/$0.5) - 2019/01/11 09:15:06
+Table 'NLHBronze21' 6-max Seat #1 is the button
+Seat 1: c12290be ($22 in chips)
+Seat 2: 1xfd8bbx ($123.61 in chips)
+Seat 3: 88989dfa ($116.2 in chips)
+Seat 4: fdfa4dax ($7 in chips)
+Seat 5: fdac21ts ($52.5 in chips)
+Seat 6: Hero ($95.82 in chips)
+1xfd8bbx: posts small blind $0.25
+88989dfa: posts big blind $0.5
+*** HOLE CARDS ***
+Dealt to c12290be 
+Dealt to 1xfd8bbx 
+Dealt to 88989dfa 
+Dealt to fdfa4dax 
+Dealt to fdac21ts 
+Dealt to Hero [2h 8h]
+fdfa4dax: calls $0.5
+fdac21ts: raises $1.32 to $1.82
+Hero: folds
+c12290be: folds
+1xfd8bbx: folds
+88989dfa: calls $1.32
+fdfa4dax: raises $5.18 to $7 and is all-in
+fdac21ts: folds
+88989dfa: calls $5.18
+fdfa4dax: shows [Ah 5h]
+88989dfa: shows [6s 6d]
+*** FLOP *** [Ts Qc 4d]
+*** TURN *** [Ts Qc 4d] [9h]
+*** RIVER *** [Ts Qc 4d 9h] [Ac]
+88989dfa: Receives Cashout ($9.98)
+*** SHOWDOWN ***
+fdfa4dax collected $14.8 from pot
+*** SUMMARY ***
+Total pot $16.07 | Rake $0.77 | Jackpot $0.5 | Bingo $0
+Board [Ts Qc 4d 9h Ac]
+Seat 1: c12290be (button) folded before Flop (didn't bet)
+Seat 2: 1xfd8bbx (small blind) folded before Flop
+Seat 3: 88989dfa (big blind) showed [6s 6d] and lost with Pair of Sixes, EV Cashout ($9.98)
+Seat 4: fdfa4dax showed [Ah 5h] and won ($14.8) with Pair of Aces
+Seat 5: fdac21ts folded before Flop
+Seat 6: Hero folded before Flop (didn't bet)
