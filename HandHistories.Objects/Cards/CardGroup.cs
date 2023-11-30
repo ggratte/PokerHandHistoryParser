@@ -91,16 +91,10 @@ namespace HandHistories.Objects.Cards
 
         public override bool Equals(object obj)
         {
-            bool stringEquality = obj.ToString().Equals(ToString());
-            if (stringEquality) return true;
-
             CardGroup cardGroup = obj as CardGroup;
-
             if (cardGroup == null) return false;
 
-            if (cardGroup.Cards.Count != Cards.Count) return false;
-
-            return (cardGroup.Cards.All(c => Cards.Contains(c)));
+            return Cards.Count == cardGroup.Cards.Count && GetBitMask() == cardGroup.GetBitMask();
         }
 
         
@@ -134,6 +128,11 @@ namespace HandHistories.Objects.Cards
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
+        }
+
+        private ulong GetBitMask() 
+        {
+            return Cards.Aggregate(0ul, (mask, card) => mask | 1ul << card.CardIntValue);
         }
     }
 }
