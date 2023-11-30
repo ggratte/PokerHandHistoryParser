@@ -12,5 +12,6 @@ namespace HandHistories.Objects.Actions
         WINS_SIDE_POT,
         TIES,
         TIES_SIDE_POT,
+        CASHOUT,
     }
 }
