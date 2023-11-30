@@ -906,7 +906,7 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                 string playerName = line.Substring(0, colonIndex);
                 string amount = line.Substring(lastOpenBracketIndex + 1, line.Length - lastOpenBracketIndex - 2);
 
-                return new WinningsAction(playerName, WinningsActionType.CASHOUT, amount.ParseAmount(), 0);
+                return new WinningsAction(playerName, WinningsActionType.INSURANCE, amount.ParseAmount(), 0);
             }
             else
             {

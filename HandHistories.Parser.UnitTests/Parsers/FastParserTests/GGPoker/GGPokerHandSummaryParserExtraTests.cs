@@ -675,7 +675,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
                         Actions = new List<HandAction> { },
                         Winners = new List<WinningsAction>
                         {
-                            new WinningsAction("88989dfa", WinningsActionType.CASHOUT, 9.98m, 0),
+                            new WinningsAction("88989dfa", WinningsActionType.INSURANCE, 9.98m, 0),
                             new WinningsAction("fdfa4dax", WinningsActionType.WINS, 14.8m, 0),
                         }
                     },
@@ -684,7 +684,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
                 },
                 Winners = new List<WinningsAction>() 
                 { 
-                    new WinningsAction("88989dfa", WinningsActionType.CASHOUT, 9.98m, 0),
+                    new WinningsAction("88989dfa", WinningsActionType.INSURANCE, 9.98m, 0),
                     new WinningsAction("fdfa4dax", WinningsActionType.WINS, 14.8m, 0)
                 },
                 HandActions = new List<HandAction>() { 

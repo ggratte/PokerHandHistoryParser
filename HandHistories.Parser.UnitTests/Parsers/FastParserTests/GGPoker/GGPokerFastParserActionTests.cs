@@ -175,7 +175,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
             WinningsAction handAction =
                 GetGGPokerFastParser().ParseWinnings(@"wo_olly:D: Receives Cashout ($9.98)");
 
-            Assert.AreEqual(new WinningsAction("wo_olly:D", WinningsActionType.CASHOUT, 9.98m, 0), handAction);
+            Assert.AreEqual(new WinningsAction("wo_olly:D", WinningsActionType.INSURANCE, 9.98m, 0), handAction);
         }
 
         [Test]
