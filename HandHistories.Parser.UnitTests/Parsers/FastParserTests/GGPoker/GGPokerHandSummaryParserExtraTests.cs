@@ -556,7 +556,80 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
             TestFullHandHistorySummary(expectedSummary, "RunThreeTimes");
             TestHandHistory(expectedHandHistory, "RunThreeTimes");
         }
-
+        [Test]
+        public void PostingMissingBlind()
+        {
+            HandHistorySummary expectedSummary = new HandHistorySummary()
+            {
+                GameDescription = new GameDescriptor()
+                {
+                    PokerFormat = PokerFormat.CashGame,
+                    GameType = GameType.NoLimitHoldem,
+                    Limit = Limit.FromSmallBlindBigBlind(0.5m, 1m, Currency.USD),
+                    SeatType = SeatType.FromMaxPlayers(6),
+                    Site = SiteName.GGPoker,
+                    TableType = TableType.FromTableTypeDescriptions(TableTypeDescription.Regular)
+                },
+                DateOfHandUtc = new DateTime(2018, 12, 28, 11, 00, 52),
+                DealerButtonPosition = 5,
+                HandId = HandID.From(54233001),
+                NumPlayersSeated = 6,
+                TableName = "NLHGold19",
+                TotalPot = 12,
+                Rake = 0.6m,
+                Jackpot = 0,
+                Bingo = 0
+            };
+            HandHistory expectedHandHistory = new HandHistory()
+            {
+                CommunityCards = BoardCards.FromCards("Kc4c2h"),
+                Players = new PlayerList(new List<Player>
+                {
+                    new Player("343kk954", 60, 1),
+                    new Player("Hero", 100.23m, 2, HoleCards.FromCards("ks2d")),
+                    new Player("b4mnx231", 175.41m, 3),
+                    new Player("15yfdsaa", 20, 4),
+                    new Player("mkacefi1a", 22.84m, 5),
+                    new Player("142dsaca", 98.5m, 6),
+                }),
+                Hero = new Player("Hero", 100.23m, 2, HoleCards.FromCards("ks2d")),
+                RunItMultipleTimes = new RunItTwice[]
+                {
+                    new RunItTwice
+                    {
+                        Board = BoardCards.FromCards("Kc4c2h"),
+                        Actions = new List<HandAction> { },
+                        Winners = new List<WinningsAction>
+                        {
+                            new WinningsAction("15yfdsaa", WinningsActionType.WINS, 11.4m, 0)
+                        }
+                    },
+                    new RunItTwice {},
+                    new RunItTwice {}
+                },
+                Winners = new List<WinningsAction>() { new WinningsAction("15yfdsaa", WinningsActionType.WINS, 11.4m, 0) }, 
+                HandActions = new List<HandAction>() {
+                    new HandAction("142dsaca", HandActionType.SMALL_BLIND, -0.5m, Street.Preflop),
+                    new HandAction("343kk954", HandActionType.BIG_BLIND, -1, Street.Preflop),
+                    new HandAction("15yfdsaa", HandActionType.POSTS_DEAD, -0.5m, Street.Preflop),
+                    new HandAction("15yfdsaa", HandActionType.POSTS, -1, Street.Preflop),
+                    new HandAction("Hero", HandActionType.FOLD, 0, Street.Preflop),
+                    new HandAction("b4mnx231", HandActionType.CALL, 1, Street.Preflop),
+                    new HandAction("15yfdsaa", HandActionType.RAISE, 4m, Street.Preflop),
+                    new HandAction("mkacefi1a", HandActionType.FOLD, 0, Street.Preflop),
+                    new HandAction("142dsaca", HandActionType.FOLD, 0, Street.Preflop),
+                    new HandAction("343kk954", HandActionType.FOLD, 0, Street.Preflop),
+                    new HandAction("b4mnx231", HandActionType.CALL, 4, Street.Preflop),
+                    new HandAction("b4mnx231", HandActionType.CHECK, 0, Street.Flop),
+                    new HandAction("15yfdsaa", HandActionType.BET, 12, Street.Flop),
+                    new HandAction("b4mnx231", HandActionType.FOLD, 0, Street.Flop),
+                    new HandAction("15yfdsaa", HandActionType.UNCALLED_BET, 12, Street.Flop),
+                }
+            };
+            TestFullHandHistorySummary(expectedSummary, "PostMissingBlind");
+            TestHandHistory(expectedHandHistory, "PostMissingBlind");
+        }
+        
         [Test]
         public void ReceivesCashout()
         {
