@@ -268,7 +268,12 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                             throw new ArgumentException("Unhandled line: " + line);
                         }
                     // 1234abcd: shows[4d 3d] (Pair of Fours)
+                    // 88989dfa: Receives Cashout ($9.98)
                     case ')':
+                        if (line.Contains("Receives Cashout"))
+                        {
+                            winners.Add(ParseWinnings(line));
+                        }
                         break;
 
 
@@ -859,16 +864,34 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
 
         public WinningsAction ParseWinnings(string line)
         {
-            // 12b64606 collected $2.5 from pot
-            int firstSpaceIndex = line.IndexOf(" collected");
-            int dollarSignIndex = line.LastIndexOf('$');
-            int amountEndingIndex = line.Length - 8;
+            if (line.Contains("collected"))
+            {
+                // 12b64606 collected $2.5 from pot
+                int firstSpaceIndex = line.IndexOf(" collected");
+                int dollarSignIndex = line.LastIndexOf('$');
+                int amountEndingIndex = line.Length - 8;
 
-            string playerName = line.Substring(0, firstSpaceIndex);
-            string amount = line.Substring(dollarSignIndex, amountEndingIndex - dollarSignIndex - 1);
+                string playerName = line.Substring(0, firstSpaceIndex);
+                string amount = line.Substring(dollarSignIndex, amountEndingIndex - dollarSignIndex - 1);
 
-            // 0 for main pot. In gg hand history, it does not show side pot information.
-            return new WinningsAction(playerName, WinningsActionType.WINS, amount.ParseAmount(), 0);
+                // 0 for main pot. In gg hand history, it does not show side pot information.
+                return new WinningsAction(playerName, WinningsActionType.WINS, amount.ParseAmount(), 0);
+            }
+            else if (line.Contains("Receives Cashout"))
+            {
+                // xyz: Receives Cashout ($9.98)
+                int lastOpenBracketIndex = line.LastIndexOf('(');
+                int colonIndex = line.LastIndexOf(":");
+
+                string playerName = line.Substring(0, colonIndex);
+                string amount = line.Substring(lastOpenBracketIndex + 1, line.Length - lastOpenBracketIndex - 3);
+
+                return new WinningsAction(playerName, WinningsActionType.CASHOUT, amount.ParseAmount(), 0);
+            }
+            else
+            {
+                throw new Exception("Unknown winning line: " + line);
+            }
         }
 
         private Currency ParseCurrency(string handLine, char currencySymbol)
