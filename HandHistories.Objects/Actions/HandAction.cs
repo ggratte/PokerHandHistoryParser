@@ -153,6 +153,8 @@ namespace HandHistories.Objects.Actions
                     return 0.0M; // overwrite any $ talk in the chat
                 case HandActionType.JACKPOTCONTRIBUTION:
                     return 0.0M; // does not affect pot, as it goes to a jackpot
+                case HandActionType.PAYS_INSURANCE_FEE:
+                    return amount * -1; 
             }
 
             throw new ArgumentException("GetAdjustedAmount: Uknown action " + type + " to have amount " + amount);

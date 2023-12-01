@@ -53,6 +53,7 @@
         FEELING_CHANGE,
         GAME_CANCELLED,
         RABBIT,
+        PAYS_INSURANCE_FEE,
         /// <summary>
         /// this is primarily used by the parsers internally, Use HandAction.IsAllIn instead
         /// </summary>
