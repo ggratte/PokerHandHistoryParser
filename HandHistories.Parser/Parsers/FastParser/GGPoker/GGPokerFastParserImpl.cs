@@ -706,7 +706,6 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                 default:
                     if (colonIndex > -1 && !line.Contains("Receives Cashout"))
                     {
-                        Console.WriteLine(line);
                         handActions.Add(ParseRegularActionLine(line, colonIndex, currentStreet));
                     }
                     else
