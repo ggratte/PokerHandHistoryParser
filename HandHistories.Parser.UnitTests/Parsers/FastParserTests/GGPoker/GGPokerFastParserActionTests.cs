@@ -88,6 +88,17 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
             Assert.AreEqual(new HandAction("MS13ZEN", HandActionType.BET, 1.76m, Street.River), handAction);
         }
 
+
+        [Test]
+        public void ParseRegularActionLine_PaysCashoutFee_Works()
+        {
+            HandAction handAction =
+               GetGGPokerFastParser().ParseRegularActionLine(@"MS13ZEN: Pays Cashout Risk ($22.68)", 7, Street.River);
+
+            Assert.AreEqual(new HandAction("MS13ZEN", HandActionType.PAYS_INSURANCE_FEE, 22.68m, Street.Showdown), handAction);
+        }
+
+
         [Test]
         public void ParsePostingActionLine_SmallBlind_Works()
         {
