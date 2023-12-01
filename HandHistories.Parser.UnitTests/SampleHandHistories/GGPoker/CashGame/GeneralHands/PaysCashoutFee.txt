@@ -1,0 +1,43 @@
+Poker Hand #HD149101: Hold'em No Limit  ($1/$2) - 2019/01/22 19:56:03
+Table 'NLHGold14' 6-max Seat #4 is the button
+Seat 1: vda35fd1 ($512.43 in chips)
+Seat 2: fma3fca1 ($52.19 in chips)
+Seat 3: oiesfcv1 ($146.39 in chips)
+Seat 4: Hero ($103 in chips)
+Seat 5: tyx36123 ($122.73 in chips)
+Seat 6: b6887901 ($100.81 in chips)
+tyx36123: posts small blind $1
+b6887901: posts big blind $2
+*** HOLE CARDS ***
+Dealt to vda35fd1 
+Dealt to fma3fca1 
+Dealt to oiesfcv1 
+Dealt to Hero [Qs 6h]
+Dealt to tyx36123 
+Dealt to b6887901 
+vda35fd1: folds
+fma3fca1: raises $2.4 to $4.4
+oiesfcv1: calls $4.4
+Hero: folds
+tyx36123: raises $118.33 to $122.73 and is all-in
+b6887901: folds
+fma3fca1: folds
+oiesfcv1: calls $118.33
+tyx36123: shows [3d 3h]
+oiesfcv1: shows [Kd Kc]
+*** FLOP *** [8d 9h 2c]
+oiesfcv1: Chooses to EV Cashout 
+*** TURN *** [8d 9h 2c] [Ts]
+*** RIVER *** [8d 9h 2c Ts] [Qh]
+oiesfcv1: Pays Cashout Risk ($22.68)
+*** SHOWDOWN ***
+oiesfcv1 collected $243.86 from pot
+*** SUMMARY ***
+Total pot $251.86 | Rake $6 | Jackpot $2 | Bingo $0
+Board [8d 9h 2c Ts Qh]
+Seat 1: vda35fd1 folded before Flop (didn't bet)
+Seat 2: fma3fca1 folded before Flop
+Seat 3: oiesfcv1 showed [Kd Kc] and won ($243.86) with Pair of Kings, Cashout Risk ($22.68)
+Seat 4: Hero (button) folded before Flop (didn't bet)
+Seat 5: tyx36123 (small blind) showed [3d 3h] and lost with Pair of Treys
+Seat 6: b6887901 (big blind) folded before Flop
