@@ -685,7 +685,7 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
 
                 // xyz: Receives Cashout ($9.98)
                 case ')':
-                    if (line.Contains("Receives Cashout"))
+                    if (line.Contains("Cashout"))
                     {
                         break;
                     }
@@ -706,6 +706,7 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                 default:
                     if (colonIndex > -1 && !line.Contains("Receives Cashout"))
                     {
+                        Console.WriteLine(line);
                         handActions.Add(ParseRegularActionLine(line, colonIndex, currentStreet));
                     }
                     else
@@ -775,6 +776,15 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                     amount = actionLine.Substring(firstDigitIndex, actionLine.Length - firstDigitIndex).ParseAmount();
                     actionType = HandActionType.RAISE;
                     break;
+                
+                //xyz: Pays Cashout Risk ($22.68)
+                case 'P':
+                    firstDigitIndex = actionLine.LastIndexOf(' ') + 2;
+                    amount = actionLine.Substring(firstDigitIndex, actionLine.Length - firstDigitIndex-1).ParseAmount();
+                    actionType = HandActionType.PAYS_INSURANCE_FEE;
+                    currentStreet = Street.Showdown;
+                    break;
+
                 default:
                     throw new HandActionException(actionLine, "ParseRegularActionLine: Unrecognized line:" + actionLine);
             }
