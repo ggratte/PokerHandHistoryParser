@@ -319,9 +319,7 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
             // Poker Hand #HD138495: Hold'em No Limit  ($0.5/$1) - 2019/10/12 01:43:27
             string line = handLines[0];
             string id = line.Split(':')[0].Split(' ')[2].Substring(3);
-            long[] result = new long[1];
-            result[0] = (long)Convert.ToInt64(id);
-            return result;
+            return HandID.Parse(id);
         }
 
         protected override long ParseTournamentId(string[] handLines)
@@ -359,8 +357,19 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
 
         protected override GameType ParseGameType(string[] handLines)
         {
+            var line = handLines[0];
+            var colonIndex = line.IndexOf(':', 12);
+
+            // can be either 1 or 2 spaces after the colon
+            var startIndex = colonIndex + 1;
+            var endIndex = line.IndexOf('(', colonIndex) - 2;
+
+            switch (line.SubstringBetween(startIndex, endIndex).Trim())
+            {
+                case "Hold'em No Limit": return GameType.NoLimitHoldem;
+            }
             // Only Holdem is supported for now.
-            return GameType.NoLimitHoldem;
+            return GameType.Unknown;
         }
 
         protected override TableType ParseTableType(string[] handLines)
@@ -442,7 +451,6 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
             ParseShowDown(handLines, handActions, winners, actionIndex, gameType);
 
             return handActions;
-
         }
 
         protected override PlayerList ParsePlayers(string[] handLines)
