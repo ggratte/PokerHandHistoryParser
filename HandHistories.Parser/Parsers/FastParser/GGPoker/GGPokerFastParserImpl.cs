@@ -769,6 +769,22 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                     actionType = HandActionType.BET;
                     break;
 
+                // 42c6a201: Bet & Muck $0.5
+                // 42c6a201: Bet & Muck folds
+                case 'B':
+                    firstDigitIndex = actionLine.LastIndexOf(' ') + 1;
+                    if (actionLine[firstDigitIndex] == 'f')
+                    {
+                        amount = 0;
+                        actionType = HandActionType.BET_AND_MUCK_FOLDS;
+                    } 
+                    else
+                    {
+                        amount = actionLine.Substring(firstDigitIndex, actionLine.Length - firstDigitIndex).ParseAmount();
+                        actionType = HandActionType.BET_AND_MUCK;
+                    }
+                    break;
+
                 //Zypherin: raises $6400 to $8300              
                 case 'r':
                     firstDigitIndex = actionLine.LastIndexOf(' ') + 1;
