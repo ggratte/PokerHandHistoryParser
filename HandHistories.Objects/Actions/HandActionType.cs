@@ -24,6 +24,7 @@
         CHECK,
         RAISE,
         BET,
+        BET_AND_MUCK,
         UNCALLED_BET,
         #endregion
 

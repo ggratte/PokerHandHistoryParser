@@ -133,6 +133,8 @@ namespace HandHistories.Objects.Actions
                     return amount * -1;
                 case HandActionType.BET:
                     return amount * -1;
+                case HandActionType.BET_AND_MUCK:
+                    return amount * -1;
                 case HandActionType.SMALL_BLIND:
                     return amount * -1;
                 case HandActionType.BIG_BLIND:
