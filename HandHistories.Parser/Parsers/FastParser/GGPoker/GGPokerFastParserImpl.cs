@@ -36,7 +36,7 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
 
         private readonly NumberFormatInfo _numberFormatInfo;
 
-        private readonly Regex _handSplitRegex;
+        private static readonly Regex _handSplitRegex = new Regex("Poker Hand #", RegexOptions.Compiled);
 
         public GGPokerFastParserImpl()
         {
@@ -47,7 +47,6 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                 CurrencyGroupSeparator = ",",
                 CurrencySymbol = "$"
             };
-            _handSplitRegex = new Regex("Poker Hand #", RegexOptions.Compiled);
         }
 
         public override IEnumerable<string> SplitUpMultipleHands(string rawHandHistories)
