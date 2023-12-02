@@ -110,6 +110,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.HandActionTests
                 case SiteName.Winamax:
                 case SiteName.Pacific:
                 case SiteName.WinningPoker:
+                case SiteName.GGPoker:
                     Assert.Ignore("No example for omaha hi-lo hands for site " + Site);
                     break;
             }
