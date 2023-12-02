@@ -785,5 +785,80 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
             TestFullHandHistorySummary(expectedSummary, "PaysCashoutFee");
             TestHandHistory(expectedHandHistory, "PaysCashoutFee");
         }
+
+        [Test]
+        public void BetAndMuck()
+        {
+            HandHistorySummary expectedSummary = new HandHistorySummary()
+            {
+                GameDescription = new GameDescriptor()
+                {
+                    PokerFormat = PokerFormat.CashGame,
+                    GameType = GameType.NoLimitHoldem,
+                    Limit = Limit.FromSmallBlindBigBlind(0.02m, 0.05m, Currency.USD),
+                    SeatType = SeatType.FromMaxPlayers(6),
+                    Site = SiteName.GGPoker,
+                    TableType = TableType.FromTableTypeDescriptions(TableTypeDescription.Regular)
+                },
+                DateOfHandUtc = new DateTime(2019, 3, 18, 4, 12, 52),
+                DealerButtonPosition = 2,
+                HandId = HandID.From(52198761),
+                NumPlayersSeated = 3,
+                TableName = "NLHGold2",
+                TotalPot = 0.22m,
+                Rake = 0.01m,
+                Jackpot = 0,
+                Bingo = 0
+            };
+
+            HandHistory expectedHandHistory = new HandHistory()
+            {
+                CommunityCards = BoardCards.FromCards("2d3ckdks7h"),
+                Players = new PlayerList(new List<Player>
+                {
+                    new Player("42c6a201", 6.41m, 2),
+                    new Player("Hero", 2.31m, 4, HoleCards.FromCards("2s5c")),
+                    new Player("afv2fads3", 8.96m, 5, HoleCards.FromCards("Ah8d")),
+                }),
+                Hero = new Player("Hero", 2.31m, 4, HoleCards.FromCards("2s5c")),
+                RunItMultipleTimes = new RunItTwice[]
+                {
+                    new RunItTwice
+                    {
+                        Board = BoardCards.FromCards("2d3ckdks7h"),
+                        Actions = new List<HandAction> { },
+                        Winners = new List<WinningsAction>
+                        {
+                            new WinningsAction("afv2fads3", WinningsActionType.WINS, 0.21m, 0),
+                        }
+                    },
+                    new RunItTwice {},
+                    new RunItTwice {}
+                },
+                Winners = new List<WinningsAction>() 
+                { 
+                    new WinningsAction("afv2fads3", WinningsActionType.WINS, 0.21m, 0),
+                },
+                HandActions = new List<HandAction>() {
+                    new HandAction("Hero", HandActionType.SMALL_BLIND, -0.02m, Street.Preflop),
+                    new HandAction("afv2fads3", HandActionType.BIG_BLIND, -0.05m, Street.Preflop),
+                    new HandAction("42c6a201", HandActionType.CALL, 0.05m, Street.Preflop),
+                    new HandAction("Hero", HandActionType.FOLD, 0, Street.Preflop),
+                    new HandAction("afv2fads3", HandActionType.CHECK, 0, Street.Preflop), 
+                    new HandAction("afv2fads3", HandActionType.CHECK, 0, Street.Flop), 
+                    new HandAction("42c6a201", HandActionType.CHECK, 0, Street.Flop), 
+                    new HandAction("afv2fads3", HandActionType.CHECK, 0, Street.Turn), 
+                    new HandAction("42c6a201", HandActionType.CHECK, 0, Street.Turn), 
+                    new HandAction("afv2fads3", HandActionType.CHECK, 0, Street.River), 
+                    new HandAction("42c6a201", HandActionType.BET_AND_MUCK, 0.05m, Street.River), 
+                    new HandAction("afv2fads3", HandActionType.CALL, 0.05m, Street.River), 
+                    new HandAction("42c6a201", HandActionType.BET_AND_MUCK_FOLDS, 0m, Street.River), 
+                    new HandAction("afv2fads3", HandActionType.SHOW, 0, Street.Showdown), 
+                },
+            };
+        
+            TestFullHandHistorySummary(expectedSummary, "BetAndMuck");
+            TestHandHistory(expectedHandHistory, "BetAndMuck");
+        }
     }
 }
