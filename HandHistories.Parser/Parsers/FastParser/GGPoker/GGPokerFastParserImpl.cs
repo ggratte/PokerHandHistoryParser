@@ -330,8 +330,10 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
         protected override string ParseTableName(string[] handLines)
         {
             // Table 'NLHSilver5' 6-max Seat #2 is the button
-            string tableNameWithQuote = handLines[1].Split(' ')[1];
-            return tableNameWithQuote.Substring(1, tableNameWithQuote.Length - 2);
+            var line = handLines[1];
+            var startIndex = line.IndexOf('\'') + 1;
+            var endIndex = line.IndexOf('\'', startIndex);
+            return line.SubstringBetween(startIndex, endIndex);
         }
 
         protected override PokerFormat ParsePokerFormat(string[] handLines)
