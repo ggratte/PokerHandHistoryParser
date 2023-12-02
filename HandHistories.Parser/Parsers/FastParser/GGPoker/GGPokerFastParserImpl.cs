@@ -26,8 +26,6 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
 
     public partial class GGPokerFastParserImpl : HandHistoryParserFastImpl, IThreeStateParser
     {
-        static readonly TimeZoneInfo PokerStarsTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-
         public override bool RequiresAdjustedRaiseSizes => true;
 
         public override bool SupportRunItTwice => true;
@@ -39,8 +37,6 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
         private readonly NumberFormatInfo _numberFormatInfo;
 
         private readonly Regex _handSplitRegex;
-
-        private readonly String _summarySeperator = " | ";
 
         public GGPokerFastParserImpl()
         {
@@ -100,7 +96,7 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                 // Total pot $1 | Rake $0.05 | Jackpot $0 | Bingo $0
                 if (line.StartsWithFast("Total pot"))
                 {
-                    string[] breakdown = line.Split(_summarySeperator);
+                    string[] breakdown = line.Split(" | ");
                     handHistorySummary.TotalPot = breakdown[0].Substring(10).ParseAmountWS();
                     handHistorySummary.Rake = breakdown[1].Substring(5).ParseAmountWS();
                     handHistorySummary.Jackpot = breakdown[2].Substring(8).ParseAmountWS();
