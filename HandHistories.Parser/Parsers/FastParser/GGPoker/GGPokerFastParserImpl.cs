@@ -405,9 +405,11 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
             // or
 
             // Poker Hand #HD138495: Hold'em No Limit  ($0.5/$1) - 2019/10/12 01:43:27
-            string stake = handLines[0].Split(' ')[7];
-            stake = stake.Substring(1, stake.Length - 2);
-            Currency currency = ParseCurrency(handLines[0], stake[0]);
+            var line = handLines[0];
+            var stakeStart = line.IndexOf('(', 12) + 1;
+            var stakeEnd = line.IndexOf(')', stakeStart);
+            string stake = line.SubstringBetween(stakeStart, stakeEnd);
+            Currency currency = ParseCurrency(line, stake[0]);
 
             int slashIndex = stake.IndexOf('/');
             string smallBlind = stake.Substring(0, slashIndex);
