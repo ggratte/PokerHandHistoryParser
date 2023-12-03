@@ -128,7 +128,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.HandActionTests
 
             var expectedWinners = new List<WinningsAction>()
             {
-                 new WinningsAction("15yfdsaa", WinningsActionType.WINS, 11.4m, 0)
+                 new WinningsAction("afv2fads3", WinningsActionType.WINS, 0.21m, 0)
             };
 
             TestParseActions("BetAndMuck", expectedActions, expectedWinners);
