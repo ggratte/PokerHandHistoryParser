@@ -359,13 +359,14 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
 
             // can be either 1 or 2 spaces after the colon
             var startIndex = colonIndex + 1;
-            var endIndex = line.IndexOf('(', colonIndex) - 2;
+            var endIndex = line.IndexOf('(', colonIndex) - 1;
 
             switch (line.SubstringBetween(startIndex, endIndex).Trim())
             {
                 case "Hold'em No Limit": return GameType.NoLimitHoldem;
+                case "PLO":              return GameType.PotLimitOmaha;
             }
-            // Only Holdem is supported for now.
+
             return GameType.Unknown;
         }
 
