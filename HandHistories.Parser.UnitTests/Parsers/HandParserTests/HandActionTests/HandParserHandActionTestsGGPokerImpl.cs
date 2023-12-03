@@ -105,6 +105,36 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.HandActionTests
             TestParseActions("PostingDead", expectedActions, expectedWinners);
         }
 
+        [Test]
+        public void BetAndMuck_Works()
+        {
+            List<HandAction> expectedActions = new List<HandAction>()
+            {
+                new HandAction("Hero", HandActionType.SMALL_BLIND, -0.02m, Street.Preflop),
+                new HandAction("afv2fads3", HandActionType.BIG_BLIND, -0.05m, Street.Preflop),
+                new HandAction("42c6a201", HandActionType.CALL, 0.05m, Street.Preflop),
+                new HandAction("Hero", HandActionType.FOLD, 0, Street.Preflop),
+                new HandAction("afv2fads3", HandActionType.CHECK, 0, Street.Preflop),
+                new HandAction("afv2fads3", HandActionType.CHECK, 0, Street.Flop),
+                new HandAction("42c6a201", HandActionType.CHECK, 0, Street.Flop),
+                new HandAction("afv2fads3", HandActionType.CHECK, 0, Street.Turn),
+                new HandAction("42c6a201", HandActionType.CHECK, 0, Street.Turn),
+                new HandAction("afv2fads3", HandActionType.CHECK, 0, Street.River),
+                new HandAction("42c6a201", HandActionType.BET, 0.05m, Street.River),
+                new HandAction("afv2fads3", HandActionType.CALL, 0.05m, Street.River),
+                new HandAction("42c6a201", HandActionType.MUCKS, 0m, Street.River),
+                new HandAction("afv2fads3", HandActionType.SHOW, 0, Street.Showdown),
+            };
+
+            var expectedWinners = new List<WinningsAction>()
+            {
+                 new WinningsAction("15yfdsaa", WinningsActionType.WINS, 11.4m, 0)
+            };
+
+            TestParseActions("BetAndMuck", expectedActions, expectedWinners);
+        }
+
+
         protected override List<HandAction> ExpectedHandActionsBasicHand
          {
              get

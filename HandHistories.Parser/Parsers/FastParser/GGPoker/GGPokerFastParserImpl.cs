@@ -776,12 +776,12 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                     if (actionLine[firstDigitIndex] == 'f')
                     {
                         amount = 0;
-                        actionType = HandActionType.BET_AND_MUCK_FOLDS;
-                    } 
+                        actionType = HandActionType.BET;
+                    }
                     else
                     {
                         amount = actionLine.Substring(firstDigitIndex, actionLine.Length - firstDigitIndex).ParseAmount();
-                        actionType = HandActionType.BET_AND_MUCK;
+                        actionType = HandActionType.MUCKS;
                     }
                     break;
 

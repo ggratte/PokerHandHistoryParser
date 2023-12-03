@@ -94,7 +94,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
             HandAction handAction =
                GetGGPokerFastParser().ParseRegularActionLine(@"42c6a201: Bet & Muck $0.05", 8, Street.River);
 
-            Assert.AreEqual(new HandAction("42c6a201", HandActionType.BET_AND_MUCK, 0.05m, Street.River), handAction);
+            Assert.AreEqual(new HandAction("42c6a201", HandActionType.BET, 0.05m, Street.River), handAction);
         }
 
         [Test]
@@ -103,7 +103,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
             HandAction handAction =
                GetGGPokerFastParser().ParseRegularActionLine(@"42c6a201: Bet & Muck folds", 8, Street.River);
 
-            Assert.AreEqual(new HandAction("42c6a201", HandActionType.BET_AND_MUCK_FOLDS, 0, Street.River), handAction);
+            Assert.AreEqual(new HandAction("42c6a201", HandActionType.MUCKS, 0, Street.River), handAction);
         }
 
 
