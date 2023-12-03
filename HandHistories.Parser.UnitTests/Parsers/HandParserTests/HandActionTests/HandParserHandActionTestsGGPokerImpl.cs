@@ -75,6 +75,38 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.HandActionTests
         }
 
         [Test]
+        public void UncalledBet_PaysCashoutFee_Works()
+        {
+            List<HandAction> expectedActions = new List<HandAction>()
+            {
+                new HandAction("1bc2d84c", HandActionType.SMALL_BLIND, -0.5m, Street.Preflop),
+                new HandAction("52d14g62", HandActionType.BIG_BLIND, -1m, Street.Preflop),
+                new HandAction("Hero", HandActionType.RAISE, 2.5m, Street.Preflop),
+                new HandAction("8dc10ffk", HandActionType.CALL, 2.5m, Street.Preflop),
+                new HandAction("d1bba42", HandActionType.CALL, 2.5m, Street.Preflop),
+                new HandAction("16254bdk", HandActionType.CALL, 2.5m, Street.Preflop),
+                new HandAction("1bc2d84c", HandActionType.RAISE, 103.28m, Street.Preflop, true),
+                new HandAction("52d14g62", HandActionType.FOLD, 0m, Street.Preflop),
+                new HandAction("Hero", HandActionType.FOLD, 0m, Street.Preflop),
+                new HandAction("8dc10ffk", HandActionType.RAISE, 137.97m, Street.Preflop, true),
+                new HandAction("d1bba42", HandActionType.FOLD, 0m, Street.Preflop),
+                new HandAction("16254bdk", HandActionType.FOLD, 0m, Street.Preflop),
+                new HandAction("8dc10ffk", HandActionType.UNCALLED_BET, 36.69m, Street.Preflop),
+
+                new HandAction("8dc10ffk", HandActionType.SHOW, 0, Street.Showdown),
+                new HandAction("1bc2d84c", HandActionType.SHOW, 0, Street.Showdown),
+                new HandAction("8dc10ffk", HandActionType.PAYS_INSURANCE_FEE, 35.19m, Street.Showdown),
+            };
+
+            var expectedWinners = new List<WinningsAction>()
+            {
+                new WinningsAction("8dc10ffk", WinningsActionType.WINS, 210.06m, 0)
+            };
+
+            TestParseActions("UncalledBetAndPaysCashoutFee", expectedActions, expectedWinners);
+        }
+
+        [Test]
         public void PostingDead_Works()
         {
             List<HandAction> expectedActions = new List<HandAction>()
