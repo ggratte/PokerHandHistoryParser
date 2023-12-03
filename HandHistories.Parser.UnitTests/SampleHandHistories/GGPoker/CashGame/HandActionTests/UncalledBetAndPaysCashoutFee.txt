@@ -1,0 +1,46 @@
+Poker Hand #HD434130: Hold'em No Limit  ($0.5/$1) - 2020/07/13 11:16:01
+Table 'NLHSilver1' 6-max Seat #6 is the button
+Seat 1: 1bc2d84c ($103.78 in chips)
+Seat 2: 52d14g62 ($100 in chips)
+Seat 3: Hero ($98.13 in chips)
+Seat 4: 8dc10ffk ($140.47 in chips)
+Seat 5: d1bba42 ($72.73 in chips)
+Seat 6: 16254bdk ($115.14 in chips)
+1bc2d84c: posts small blind $0.5
+52d14g62: posts big blind $1
+*** HOLE CARDS ***
+Dealt to 1bc2d84c 
+Dealt to 52d14g62 
+Dealt to Hero [Jh Ac]
+Dealt to 8dc10ffk 
+Dealt to d1bba42 
+Dealt to 16254bdk 
+Hero: raises $1.5 to $2.5
+8dc10ffk: calls $2.5
+d1bba42: calls $2.5
+16254bdk: calls $2.5
+1bc2d84c: raises $101.28 to $103.78 and is all-in
+52d14g62: folds
+Hero: folds
+8dc10ffk: raises $36.69 to $140.47 and is all-in
+d1bba42: folds
+16254bdk: folds
+Uncalled bet ($36.69) returned to 8dc10ffk
+8dc10ffk: shows [Ks Kd]
+1bc2d84c: shows [Ah Kc]
+*** FLOP *** [4d Ts 5h]
+*** TURN *** [4d Ts 5h] [6s]
+8dc10ffk: Chooses to EV Cashout 
+*** RIVER *** [4d Ts 5h 6s] [Th]
+8dc10ffk: Pays Cashout Risk ($35.19)
+*** SHOWDOWN ***
+8dc10ffk collected $210.06 from pot
+*** SUMMARY ***
+Total pot $216.06 | Rake $5 | Jackpot $1 | Bingo $0
+Board [4d Ts 5h 6s Th]
+Seat 1: 1bc2d84c (small blind) showed [Ah Kc] and lost with Pair of Tens
+Seat 2: 52d14g62 (big blind) folded before Flop
+Seat 3: Hero folded before Flop
+Seat 4: 8dc10ffk showed [Ks Kd] and won ($210.06) with Pair of Kings and Pair of Tens, Cashout Risk ($35.19)
+Seat 5: d1bba42 folded before Flop
+Seat 6: 16254bdk (button) folded before Flop
