@@ -628,7 +628,7 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
             {
                 handActions.Add(ParseUncalledBetLine(line, currentStreet));
                 currentStreet = Street.Showdown;
-                return true;
+                return false;
             }
 
             if (line.Contains(" shows ")) 
