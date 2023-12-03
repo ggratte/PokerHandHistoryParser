@@ -413,6 +413,9 @@
     <None Update="SampleHandHistories\GGPoker\CashGame\GeneralHands\Straddle.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="SampleHandHistories\GGPoker\CashGame\Limits\Limit1.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="SampleHandHistories\IGT\CashGame\ExtraHands\IGT2019Hand.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
