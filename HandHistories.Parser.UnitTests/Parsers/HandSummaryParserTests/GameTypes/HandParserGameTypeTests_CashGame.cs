@@ -55,6 +55,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.GameType
             switch (Site)
             {
                 case SiteName.FullTilt:
+                case SiteName.GGPoker:
                     Assert.Ignore(Site + " currently doesn't have Pot Limit Omaha example.");
                     return;
             }
@@ -174,7 +175,6 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.GameType
                 case SiteName.Winamax:
                 case SiteName.WinningPokerV2:
                 case SiteName.GGPoker:
-
                     Assert.Ignore(Site + " currently doesn't have Pot Limit Omaha HiLo example.");
                     break;
                 case SiteName.WinningPoker:
