@@ -388,21 +388,29 @@
     </None>
     <None Update="SampleHandHistories\GGPoker\CashGame\GeneralHands\BetAndMuck.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="SampleHandHistories\GGPoker\CashGame\GameTypeTests\NoLimitHoldem.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleHandHistories\GGPoker\CashGame\GameTypeTests\PotLimitOmaha.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="SampleHandHistories\GGPoker\CashGame\GeneralHands\MultiplePosts.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="SampleHandHistories\GGPoker\CashGame\GeneralHands\PaysCashoutFee.txt">
+    <None Update="SampleHandHistories\GGPoker\CashGame\HandActionTests\PaysCashoutFee.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="SampleHandHistories\GGPoker\CashGame\GeneralHands\PostMissingBlind.txt">
+    <None Update="SampleHandHistories\GGPoker\CashGame\HandActionTests\PostingDead.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="SampleHandHistories\GGPoker\CashGame\GeneralHands\ReceivesCashout.txt">
+    <None Update="SampleHandHistories\GGPoker\CashGame\HandActionTests\ReceivesCashout.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleHandHistories\GGPoker\CashGame\GeneralHands\GeneralHand.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="SampleHandHistories\GGPoker\CashGame\GeneralHands\Regular.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="SampleHandHistories\GGPoker\CashGame\GeneralHands\RunThreeTimes.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -412,6 +420,9 @@
     </None>
     <None Update="SampleHandHistories\GGPoker\CashGame\GeneralHands\RushAndCash.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="SampleHandHistories\GGPoker\CashGame\HandActionTests\BasicHand.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="SampleHandHistories\GGPoker\CashGame\GeneralHands\Straddle.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1799,6 +1810,10 @@
     <None Update="SampleHandHistories\WinningPoker\CashGame\ValidHandTests\ValidHand_2.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="SampleHandHistories\GGPoker\CashGame\Limits\" />
   </ItemGroup>
 
 </Project>

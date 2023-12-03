@@ -10,6 +10,7 @@ using HandHistories.Parser.UnitTests.Parsers.Base;
 namespace HandHistories.Parser.UnitTests.FileIdentifiers
 {
     [TestFixture("PokerStars")]
+    [TestFixture("GGPoker")]
     [TestFixture("OnGame")]
     [TestFixture("IPoker")]
     [TestFixture("Pacific")]

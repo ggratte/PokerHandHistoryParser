@@ -40,6 +40,7 @@ namespace HandHistories.Parser.WPFTestApp
 
             model.AvailableSites.Add(SiteName.AsianPokerClubs);
             model.AvailableSites.Add(SiteName.BossMedia);
+            model.AvailableSites.Add(SiteName.GGPoker);
             model.AvailableSites.Add(SiteName.PokerStars);
             model.AvailableSites.Add(SiteName.PokerStarsFr);
             model.AvailableSites.Add(SiteName.PokerStarsIt);
