@@ -1,0 +1,30 @@
+﻿Poker Hand #HD23847510: Hold'em No Limit  ($0.5/$1) - 2017/11/12 11:43:27
+Table 'NLHGold11' 6-max Seat #2 is the button
+Seat 1: 79adcegg ($173.04 in chips)
+Seat 2: 853aak6d ($100 in chips)
+Seat 4: ac12334d ($190.65 in chips)
+Seat 5: 1234gsaa ($85.59 in chips)
+Seat 6: Hero ($300.5 in chips)
+ac12334d: posts small blind $0.5
+1234gsaa: posts big blind $1
+*** HOLE CARDS ***
+Dealt to 79adcegg 
+Dealt to 853aak6d 
+Dealt to ac12334d 
+Dealt to 1234gsaa 
+Dealt to Hero [5h 2c]
+Hero: folds
+79adcegg: folds
+853aak6d: folds
+ac12334d: raises $2.5 to $3.5
+1234gsaa: folds
+Uncalled bet ($2.5) returned to ac12334d
+*** SHOWDOWN ***
+ac12334d collected $2 from pot
+*** SUMMARY ***
+Total pot $2 | Rake $0 | Jackpot $0 | Bingo $0
+Seat 1: 79adcegg folded before Flop (didn't bet)
+Seat 2: 853aak6d (button) folded before Flop (didn't bet)
+Seat 4: ac12334d (small blind) collected ($2)
+Seat 5: 1234gsaa (big blind) folded before Flop
+Seat 6: Hero folded before Flop (didn't bet)

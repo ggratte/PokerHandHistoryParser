@@ -23,6 +23,7 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandSummaryParserTests.GeneralH
     [TestFixture("WinningPokerV2", "55280000", "4/25/2019 16:00:00", 2, 2, 0.5, 80.0, "GeneralHand")]
     [TestFixture("BossMedia", "2076693331", "2/18/2014 0:15:38", 5, 5, 15.0, 10125.0, "GeneralHand")]
     [TestFixture("IGT", "54500000.202", "3/2/2017 15:53:20", 5, 5, 1.09, 40.5, "GeneralHand")]
+    [TestFixture("GGPoker", "23847510", "11/12/2017 11:43:27", 2, 5, 0.0, 2.0, "GeneralHand")]
     class HandParserGeneralHandTests_CashGame : HandParserGeneralHandTests 
     {
         public HandParserGeneralHandTests_CashGame(string site, 
