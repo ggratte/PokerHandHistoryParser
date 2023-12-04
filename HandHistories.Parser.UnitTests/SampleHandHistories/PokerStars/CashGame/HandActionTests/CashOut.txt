@@ -1,0 +1,32 @@
+PokerStars Hand #159212572783:  Hold'em No Limit ($1/$2 USD) - 2021/03/21 11:21:25 ET
+Table 'Abetti I' 6-max Seat #2 is the button
+Seat 1: l31kas ($161.21 in chips)
+Seat 2: m788 ($133.5 in chips)
+Seat 3: k12sat ($146.48 in chips)
+Seat 4: ontaba23 ($20 in chips)
+Seat 5: Greg1ry ($156.15 in chips)
+k12sat: posts small blind $1
+ontaba23: posts big blind $2
+kebab: sits out
+*** HOLE CARDS ***
+Greg1ry: folds
+l31kas: folds
+m788: raises $4 to $6
+k12sat: folds
+ontaba23: raises $14 to $20 and is all-in
+m788: calls $14
+*** FLOP *** [Jd 3s 7h]
+*** TURN *** [Jd 3s 7h] [4h]
+*** RIVER *** [Jd 3s 7h 4h] [Kd]
+*** SHOW DOWN ***
+ontaba23: shows [7d As] (a pair of Sevens)
+m788: shows [Th Ts] (a pair of Tens)
+m788 cashed out the hand for $26.10 | Cash Out Fee $0.26
+*** SUMMARY ***
+Total pot $41 | Rake $2.05
+Board [Jd 3s 7h 4h Kd]
+Seat 1: l31kas folded before Flop (didn't bet)
+Seat 2: m788 (button) showed [Th Ts] and won ($38.95) with a pair of Tens (pot not awarded as player cashed out)
+Seat 3: k12sat (small blind) folded before Flop
+Seat 4: ontaba23 (big blind) showed [7d As] and lost with a pair of Sevens
+Seat 5: Greg1ry folded before Flop (didn't bet)
