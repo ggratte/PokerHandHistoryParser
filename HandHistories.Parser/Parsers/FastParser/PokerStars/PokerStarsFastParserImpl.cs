@@ -671,9 +671,7 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
             {
                 var line = handLines[i];
 
-                var lastChar = line[line.Length - 1];
-
-                switch (lastChar)
+                switch (line.Last())
                 {
                     // woezelenpip collected $7.50 from pot
                     // kiljka: sits out 
@@ -684,6 +682,7 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
                         }
                         continue;
                     // templargio collected €6.08 from side pot-2
+                    // m788 cashed out the hand for $26.10 | Cash Out Fee $0.26
                     case '0':
                     case '1':
                     case '2':
@@ -699,10 +698,17 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
                         // Hudison747 was removed from the table for failing to post
                         if (line[line.Length - 1] == 't' && line[line.Length - 2] == 's')
                             continue;
-                        
+
                         if (line[line.Length - 2] == '-')
                         {
                             winners.Add(ParseCollectedLine(line, Street.Showdown));
+                        }
+
+                        int barIndex = line.IndexOf('|');
+                        // m788 cashed out the hand for $26.10 | Cash Out Fee $0.26
+                        if (barIndex >= 0 && line[barIndex+2] == 'C')
+                        {
+                            winners.Add(ParseCashoutLine(line, barIndex));
                         }
                         continue;
 
@@ -1125,6 +1131,19 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
 
 
             return new WinningsAction(playerName, handActionType, amount.ParseAmount(), potNumber);
+        }
+
+        public WinningsAction ParseCashoutLine(string actionLine, int barIndex)
+        {
+            // m788 cashed out the hand for $26.10 | Cash Out Fee $0.26
+            int letterRIndex = actionLine.LastIndexOf('r', barIndex);
+            int amountStartIndex = letterRIndex + 3;
+            int playerNameEndIndex = letterRIndex - 23;
+
+            string playerName = actionLine.SubstringBetween(0, playerNameEndIndex);
+            decimal amount = actionLine.SubstringBetween(amountStartIndex, barIndex-2).ParseAmount();
+
+            return new WinningsAction(playerName, WinningsActionType.INSURANCE, amount, 0);
         }
 
         public HandAction ParseUncalledBetLine(string actionLine, Street currentStreet)
