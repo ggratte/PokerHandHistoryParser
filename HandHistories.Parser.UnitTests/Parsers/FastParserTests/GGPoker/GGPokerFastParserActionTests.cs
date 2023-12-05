@@ -88,6 +88,24 @@ namespace HandHistories.Parser.UnitTests.Parsers.FastParserTests.GGPoker
             Assert.AreEqual(new HandAction("MS13ZEN", HandActionType.BET, 1.76m, Street.River), handAction);
         }
 
+        [Test]
+        public void ParseRegularActionLine_BetAndMuck_Works()
+        {
+            HandAction handAction =
+               GetGGPokerFastParser().ParseRegularActionLine(@"42c6a201: Bet & Muck $0.05", 8, Street.River);
+
+            Assert.AreEqual(new HandAction("42c6a201", HandActionType.BET, 0.05m, Street.River), handAction);
+        }
+
+        [Test]
+        public void ParseRegularActionLine_BetAndMuckFolds_Works()
+        {
+            HandAction handAction =
+               GetGGPokerFastParser().ParseRegularActionLine(@"42c6a201: Bet & Muck folds", 8, Street.River);
+
+            Assert.AreEqual(new HandAction("42c6a201", HandActionType.MUCKS, 0, Street.River), handAction);
+        }
+
 
         [Test]
         public void ParseRegularActionLine_PaysCashoutFee_Works()

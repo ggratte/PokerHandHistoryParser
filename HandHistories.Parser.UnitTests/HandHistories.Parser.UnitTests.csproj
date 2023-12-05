@@ -392,6 +392,9 @@
     <None Update="SampleHandHistories\GGPoker\CashGame\GameTypeTests\PotLimitOmaha.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="SampleHandHistories\GGPoker\CashGame\HandActionTests\BetAndMuck.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="SampleHandHistories\GGPoker\CashGame\GeneralHands\MultiplePosts.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

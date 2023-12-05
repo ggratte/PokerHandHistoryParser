@@ -1,0 +1,34 @@
+﻿Poker Hand #HD52198761: Hold'em No Limit  ($0.02/$0.05) - 2019/03/18 04:12:52
+Table 'NLHGold2' 6-max Seat #2 is the button
+Seat 2: 42c6a201 ($6.41 in chips)
+Seat 4: Hero ($2.31 in chips)
+Seat 5: afv2fads3 ($8.96 in chips)
+Hero: posts small blind $0.02
+afv2fads3: posts big blind $0.05
+*** HOLE CARDS ***
+Dealt to 42c6a201 
+Dealt to Hero [2s 5c]
+Dealt to afv2fads3 
+42c6a201: calls $0.05
+Hero: folds
+afv2fads3: checks
+*** FLOP *** [2d 3c Kd]
+afv2fads3: checks
+42c6a201: checks
+*** TURN *** [2d 3c Kd] [Ks]
+afv2fads3: checks
+42c6a201: checks
+*** RIVER *** [2d 3c Kd Ks] [7h]
+afv2fads3: checks
+42c6a201: Bet & Muck $0.05
+afv2fads3: calls $0.05
+42c6a201: Bet & Muck folds
+afv2fads3: shows [Ah 8d] (Pair of Kings)
+*** SHOWDOWN ***
+afv2fads3 collected $0.21 from pot
+*** SUMMARY ***
+Total pot $0.22 | Rake $0.01 | Jackpot $0 | Bingo $0
+Board [2d 3c Kd Ks 7h]
+Seat 2: 42c6a201 (button) folded on the River
+Seat 4: Hero (small blind) folded before Flop
+Seat 5: afv2fads3 (big blind) showed [Ah 8d] and won ($0.21) with Pair of Kings
