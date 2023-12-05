@@ -26,8 +26,6 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
 
     public partial class GGPokerFastParserImpl : HandHistoryParserFastImpl, IThreeStateParser
     {
-        static readonly TimeZoneInfo PokerStarsTimeZone = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
-
         public override bool RequiresAdjustedRaiseSizes => true;
 
         public override bool SupportRunItTwice => true;
@@ -38,9 +36,7 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
 
         private readonly NumberFormatInfo _numberFormatInfo;
 
-        private readonly Regex _handSplitRegex;
-
-        private readonly String _summarySeperator = " | ";
+        private static readonly Regex _handSplitRegex = new Regex("Poker Hand #", RegexOptions.Compiled);
 
         public GGPokerFastParserImpl()
         {
@@ -51,7 +47,6 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                 CurrencyGroupSeparator = ",",
                 CurrencySymbol = "$"
             };
-            _handSplitRegex = new Regex("Poker Hand #", RegexOptions.Compiled);
         }
 
         public override IEnumerable<string> SplitUpMultipleHands(string rawHandHistories)
@@ -100,7 +95,7 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
                 // Total pot $1 | Rake $0.05 | Jackpot $0 | Bingo $0
                 if (line.StartsWithFast("Total pot"))
                 {
-                    string[] breakdown = line.Split(_summarySeperator);
+                    string[] breakdown = line.Split(" | ");
                     handHistorySummary.TotalPot = breakdown[0].Substring(10).ParseAmountWS();
                     handHistorySummary.Rake = breakdown[1].Substring(5).ParseAmountWS();
                     handHistorySummary.Jackpot = breakdown[2].Substring(8).ParseAmountWS();
@@ -319,9 +314,7 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
             // Poker Hand #HD138495: Hold'em No Limit  ($0.5/$1) - 2019/10/12 01:43:27
             string line = handLines[0];
             string id = line.Split(':')[0].Split(' ')[2].Substring(3);
-            long[] result = new long[1];
-            result[0] = (long)Convert.ToInt64(id);
-            return result;
+            return HandID.Parse(id);
         }
 
         protected override long ParseTournamentId(string[] handLines)
@@ -332,8 +325,10 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
         protected override string ParseTableName(string[] handLines)
         {
             // Table 'NLHSilver5' 6-max Seat #2 is the button
-            string tableNameWithQuote = handLines[1].Split(' ')[1];
-            return tableNameWithQuote.Substring(1, tableNameWithQuote.Length - 2);
+            var line = handLines[1];
+            var startIndex = line.IndexOf('\'') + 1;
+            var endIndex = line.IndexOf('\'', startIndex);
+            return line.SubstringBetween(startIndex, endIndex);
         }
 
         protected override PokerFormat ParsePokerFormat(string[] handLines)
@@ -359,8 +354,20 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
 
         protected override GameType ParseGameType(string[] handLines)
         {
-            // Only Holdem is supported for now.
-            return GameType.NoLimitHoldem;
+            var line = handLines[0];
+            var colonIndex = line.IndexOf(':', 12);
+
+            // can be either 1 or 2 spaces after the colon
+            var startIndex = colonIndex + 1;
+            var endIndex = line.IndexOf('(', colonIndex) - 1;
+
+            switch (line.SubstringBetween(startIndex, endIndex).Trim())
+            {
+                case "Hold'em No Limit": return GameType.NoLimitHoldem;
+                case "PLO":              return GameType.PotLimitOmaha;
+            }
+
+            return GameType.Unknown;
         }
 
         protected override TableType ParseTableType(string[] handLines)
@@ -394,9 +401,11 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
             // or
 
             // Poker Hand #HD138495: Hold'em No Limit  ($0.5/$1) - 2019/10/12 01:43:27
-            string stake = handLines[0].Split(' ')[7];
-            stake = stake.Substring(1, stake.Length - 2);
-            Currency currency = ParseCurrency(handLines[0], stake[0]);
+            var line = handLines[0];
+            var stakeStart = line.IndexOf('(', 12) + 1;
+            var stakeEnd = line.IndexOf(')', stakeStart);
+            string stake = line.SubstringBetween(stakeStart, stakeEnd);
+            Currency currency = ParseCurrency(line, stake[0]);
 
             int slashIndex = stake.IndexOf('/');
             string smallBlind = stake.Substring(0, slashIndex);
@@ -442,7 +451,6 @@ namespace HandHistories.Parser.Parsers.FastParser.GGPoker
             ParseShowDown(handLines, handActions, winners, actionIndex, gameType);
 
             return handActions;
-
         }
 
         protected override PlayerList ParsePlayers(string[] handLines)
