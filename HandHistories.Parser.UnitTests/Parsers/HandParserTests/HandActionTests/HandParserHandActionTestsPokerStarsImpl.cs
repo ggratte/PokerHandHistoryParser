@@ -120,6 +120,30 @@ namespace HandHistories.Parser.UnitTests.Parsers.HandParserTests.HandActionTests
         }
 
         [Test]
+        public void CashOut_Works()
+        {
+            List<HandAction> expectedActions = new List<HandAction>()
+            {
+                new HandAction("k12sat", HandActionType.SMALL_BLIND, -1m, Street.Preflop),
+                new HandAction("ontaba23", HandActionType.BIG_BLIND, -2m, Street.Preflop),
+                new HandAction("Greg1ry", HandActionType.FOLD, 0m, Street.Preflop),
+                new HandAction("l31kas", HandActionType.FOLD, 0m, Street.Preflop),
+                new HandAction("m788", HandActionType.RAISE, 6m, Street.Preflop),
+                new HandAction("k12sat", HandActionType.FOLD, 0, Street.Preflop),
+                new HandAction("ontaba23", HandActionType.RAISE, 18, Street.Preflop, true),
+                new HandAction("m788", HandActionType.CALL, 14m, Street.Preflop),
+                new HandAction("ontaba23", HandActionType.SHOW, 0, Street.Showdown),
+                new HandAction("m788", HandActionType.SHOW, 0, Street.Showdown),
+            };
+            List<WinningsAction> expectedWinners = new List<WinningsAction>()
+            {
+                new WinningsAction("m788", WinningsActionType.INSURANCE, 26.1m, 0),
+            };
+
+            TestParseActions("CashOut", expectedActions, expectedWinners);
+        }
+
+        [Test]
         public void AllInHand_NeedsRaiseAdjusting_BigBlindOptionRaisesOption_Works()
         {
             List<HandAction> expectedActions = new List<HandAction>()
