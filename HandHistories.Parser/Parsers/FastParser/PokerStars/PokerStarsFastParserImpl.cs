@@ -32,7 +32,7 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
 
         private readonly Regex _handSplitRegex;
 
-        const int GameIdStartIndex = 17;
+        private const int GameIdStartIndex = 17;
 
         // So the same parser can be used for It and Fr variations
         public PokerStarsFastParserImpl(SiteName siteName = SiteName.PokerStars)
