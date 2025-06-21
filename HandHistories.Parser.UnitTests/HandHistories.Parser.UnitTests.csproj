@@ -1823,6 +1823,9 @@
     <None Update="SampleHandHistories\PokerStars\CashGame\ExtraHands\UtcTimestampFormat.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="SampleHandHistories\PokerStars\CashGame\PPPoker\PPPokerHand.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
   <ItemGroup>

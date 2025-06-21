@@ -38,7 +38,7 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
         private const int DAY_START_INDEX = 8;
         private const int HOUR_START_INDEX = 11;
 
-        // So the same parser can be used for It and Fr variations
+        // So the same parser can be used for It and Fr variations. Also for PPPoker which uses the pokerstars format.
         public PokerStarsFastParserImpl(SiteName siteName = SiteName.PokerStars)
         {
             _siteName = siteName;
@@ -49,7 +49,7 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
                 CurrencyGroupSeparator = ",",
                 CurrencySymbol = "$"
             };
-            _handSplitRegex = new Regex("(PokerStars Game #)|(PokerStars Hand #)|(PokerStars Zoom Hand #)", RegexOptions.Compiled);
+            _handSplitRegex = new Regex("(PokerStars Game #)|(PokerStars Hand #)|(PokerStars Zoom Hand #)|(PPPoker Hand #)", RegexOptions.Compiled);
         }
 
         // So the same parser can be used for It and Fr variations
