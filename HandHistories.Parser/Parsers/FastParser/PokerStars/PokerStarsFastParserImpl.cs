@@ -1275,7 +1275,7 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
                     openParenIndex = line.LastIndexOf('(');
                 }
                 
-                int spaceAfterOpenParen = line.IndexOf(' ', openParenIndex);                
+                int spaceAfterOpenParen = line.IndexOf(' ', openParenIndex);       
 
                 string playerName = line.Substring(colonIndex + 2, (openParenIndex - 1) - (colonIndex + 2));
 
@@ -1437,7 +1437,8 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
                 }
             }
 
-            //Look for mucks in summary
+            //Look for mucks in summary, and showdowns for PPPoker
+            var isPPPokerHand = handLines[0].StartsWithFast("PPPoker Hand #");
             for (int i = summaryIndex; i < handLines.Length; i++)
             {
                 string line = handLines[i];
@@ -1456,6 +1457,19 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
                     string cards = line.Substring(cardsStartIndex, cardsEndIndex - cardsStartIndex);
 
                     playerList[playerName].HoleCards = HoleCards.FromCards(cards);
+                }
+                // Handle PPPoker format: "Seat 1: 11234982 showed [Qc 7c Tc Jh 6s]"
+                else if (isPPPokerHand && line.StartsWithFast("Seat ") && line.Contains("showed ["))
+                {
+                    int nameStart = line.IndexOfFast(": ") + 2;
+                    int spaceAfterName = line.IndexOfFast(" ", nameStart);
+                    string name = line.Substring(nameStart, spaceAfterName - nameStart);
+
+                    int cardStart = line.IndexOfFast("showed [") + 8;
+                    int cardEnd = line.IndexOf(']', cardStart);
+                    string cards = line.Substring(cardStart, cardEnd - cardStart);
+
+                    playerList[name].HoleCards = HoleCards.FromCards(cards);
                 }
             }
 
