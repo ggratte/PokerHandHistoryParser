@@ -877,8 +877,10 @@ namespace HandHistories.Parser.Parsers.FastParser.PokerStars
                 //*** SHOW DOWN ***
                 case '*':
                 //*** FLOP *** [Qs Js 3h]
+                //*** FLOP *** [6c 9d 5c] {Rake: $0}
                 //Dealt to PS_Hero [4s 7h]
                 case ']':
+                case '}':
                     char firstChar = line[0];
 
                     if (firstChar == '*')
